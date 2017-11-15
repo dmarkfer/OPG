@@ -1,0 +1,134 @@
+Data Access Objects = DAO, to su objekti koji idu u bazu.
+
+
+
+
+RESTController
+
+User
+	id
+	firstname
+	lastname
+	email
+	phone
+Product
+	id
+	name
+	description
+	quantity
+	location
+	category
+	vendorid
+ProductOffer
+	id
+	name
+	quantit
+	vendorname
+	vendorid
+ShipmentOffer
+	id
+	offerid
+	pickup
+	destadd
+	description
+	quantity
+ProductCategory
+	id
+	name
+Comment
+	id
+	comentator
+	text
+	rating
+Vehicle
+	id
+	name
+	pictid
+	plate
+	type
+Conversation
+	id
+	messages
+	interlocutor
+Message
+	id
+	timestmap
+	text
+Administrator
+	id
+	name
+Report
+	id
+	type
+	subjectid
+	description
+
+
+UserDAO
+	id
+	firstname
+	lastname
+	passwordhash
+	email
+	phone
+	role
+	blocked
+	vendorflag
+	customerflag
+	distributerflag
+ProductDAO	
+	id
+	vendorid
+	productCatID
+	name
+	picture
+	description
+	quantity
+	timestamp
+ShipmentOfferDAO
+	id
+	ProdID
+	customerID
+	location1
+	location2
+	timestamp
+ProductCategoryDAO
+	id
+	name
+CommentDao
+	id
+	conversationID
+	timestamp
+	text
+	comentatorID
+VehicleDAO
+---	id
+---	name
+ConversationDAO
+	id
+	idOglasPrijevoz
+	distributerID
+	conversationActive	
+	quantity
+MessageDAO
+	id
+	conversationID
+	text
+	timestamp
+	interlocutor
+adminDAO
+	id
+	name
+ReportDAO
+	id
+	userID
+	subjectID
+	description
+	type
+	
+
+
+
+
+
+
