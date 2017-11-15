@@ -22,7 +22,7 @@ Product
 ProductOffer
 	id
 	name
-	quantit
+	quantity
 	vendorname
 	vendorid
 ShipmentOffer
@@ -37,7 +37,7 @@ ProductCategory
 	name
 Comment
 	id
-	comentator
+	commentator
 	text
 	rating
 Vehicle
