@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.util.HashMap;
 
 import serverCommands.Help;
+import serverCommands.RegisterUser;
 import serverCommands.Terminate;
 
 public class Server {
@@ -17,6 +18,7 @@ private static HashMap<String, ShellCommand> commands;
 		ShellCommand[] cc= {
 						new Help(),
 						new Terminate(),
+						new RegisterUser()
 		
 		};
 		
