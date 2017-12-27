@@ -12,11 +12,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
-
-import database.DatabaseConnection;
 
 public class EnvironmentImpl implements Environment {
 	private static final String FAIL="fail";
@@ -27,14 +27,28 @@ public class EnvironmentImpl implements Environment {
 	private DataInputStream readFromByte=null;
 	private StringBuilder buffer=new StringBuilder();
 	private HashMap<String, ShellCommand> commands;
-	private DatabaseConnection connection=null;
+	private Connection connection=null;
 	
 	public EnvironmentImpl(Socket socket, HashMap<String, ShellCommand> commands) {
 		accessPoint=socket;
 		this.commands=commands;
 		initializeStreams();
+		createDatabaseConnection();
 	}
 	
+	private void createDatabaseConnection() {
+		try {
+			Class.forName("org.postgresql.Driver");
+			connection = DriverManager
+					.getConnection("jdbc:postgresql://165.227.175.217:5432/fangladb",
+									"development", "vladimirPutin");
+
+		} catch (Exception e) {
+			System.out.println("Database can't open");
+			System.exit(0);
+		}
+	}
+
 	@Override
 	public void sendText(String text) {
 		writeTo.println(text);
@@ -138,18 +152,9 @@ public class EnvironmentImpl implements Environment {
 		}
 		return null;
 	}
-
+	
 	@Override
-	public void setDatabase(DatabaseConnection connection) {
-		if (connection==null) {
-			throw new IllegalArgumentException("Database connection in null");
-		}
-		
-		this.connection=connection;
-	}
-
-	@Override
-	public DatabaseConnection getDatabase() {
+	public Connection getDatabase() {
 		return connection;
 	}
 }
