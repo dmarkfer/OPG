@@ -1,6 +1,7 @@
 package serverCommands;
 
 import java.sql.Connection;
+import java.util.HashMap;
 
 import serverShell.AbstractCommand;
 import serverShell.CommandStatus;
@@ -13,7 +14,7 @@ public class RegisterUser extends AbstractCommand {
 	}
 
 	@Override
-	public CommandStatus execute(Environment environment, String arguments) {
+	public CommandStatus execute(Environment environment, HashMap<String, String> arguments) {
 		Connection connection = environment.getDatabase();		
 		
 		return CommandStatus.CONTINUE;

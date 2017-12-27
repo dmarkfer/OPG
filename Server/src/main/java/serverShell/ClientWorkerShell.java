@@ -1,5 +1,7 @@
 package serverShell;
 
+import java.util.HashMap;
+
 public class ClientWorkerShell implements Runnable {
 	private EnvironmentImpl environment;
 	private static final String EMPTYARGUMENT="";
@@ -17,6 +19,7 @@ public class ClientWorkerShell implements Runnable {
 		
 		while(true) {
 			String inputCommand=environment.getText().toUpperCase().trim();
+			HashMap<String, String> lol=new HashMap<>();
 			if (inputCommand==null) {
 				environment.close();
 				return;
@@ -29,7 +32,7 @@ public class ClientWorkerShell implements Runnable {
 				continue;
 			}
 			
-			if (!command.execute(environment,arguments[1]).toString().equalsIgnoreCase("Continue")) {
+			if (!command.execute(environment,lol).toString().equalsIgnoreCase("Continue")) {
 				break;
 			}
 		}

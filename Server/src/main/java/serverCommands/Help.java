@@ -13,7 +13,7 @@ public class Help extends AbstractCommand{
 		super("HELP", "Prints all commands");
 	}
 	@Override
-	public CommandStatus execute(Environment environment, String arguments) {
+	public CommandStatus execute(Environment environment, HashMap<String, String> arguments) {
 		// dodaj if else da ako je kao argument predano ime naredbe da pokaže opis samo za tu naredbu
 		HashMap<String, ShellCommand> commands=environment.getCommands();
 		StringBuffer output=new StringBuffer();
