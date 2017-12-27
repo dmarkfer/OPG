@@ -3,12 +3,15 @@ package serverShell;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.HashMap;
+
+import database.DatabaseConnection;
 import serverCommands.Help;
 import serverCommands.Terminate;
 
 public class Server {
 private static final int PORT=8080;
 private static HashMap<String, ShellCommand> commands;
+
 
 	static {
 		commands=new HashMap<>();

@@ -16,6 +16,8 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import database.DatabaseConnection;
+
 public class EnvironmentImpl implements Environment {
 	private static final String FAIL="fail";
 	private Socket accessPoint=null;
@@ -25,6 +27,7 @@ public class EnvironmentImpl implements Environment {
 	private DataInputStream readFromByte=null;
 	private StringBuilder buffer=new StringBuilder();
 	private HashMap<String, ShellCommand> commands;
+	private DatabaseConnection connection=null;
 	
 	public EnvironmentImpl(Socket socket, HashMap<String, ShellCommand> commands) {
 		accessPoint=socket;
@@ -134,5 +137,19 @@ public class EnvironmentImpl implements Environment {
 			return commands.get(command.toUpperCase());
 		}
 		return null;
+	}
+
+	@Override
+	public void setDatabase(DatabaseConnection connection) {
+		if (connection==null) {
+			throw new IllegalArgumentException("Database connection in null");
+		}
+		
+		this.connection=connection;
+	}
+
+	@Override
+	public DatabaseConnection getDatabase() {
+		return connection;
 	}
 }

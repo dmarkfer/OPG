@@ -11,7 +11,7 @@ public class Terminate extends AbstractCommand {
 	}
 
 	@Override
-	public CommandStatus execute(Environment environment) {
+	public CommandStatus execute(Environment environment, String arguments) {
 		environment.close();
 		return CommandStatus.EXIT;
 	}

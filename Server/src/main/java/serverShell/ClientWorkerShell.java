@@ -2,6 +2,7 @@ package serverShell;
 
 public class ClientWorkerShell implements Runnable {
 	private EnvironmentImpl environment;
+	private static final String BRAKECHARACTER="$$";
 	public ClientWorkerShell(EnvironmentImpl environment) {
 		this.environment=environment;
 	}
@@ -11,8 +12,11 @@ public class ClientWorkerShell implements Runnable {
 	public void run() {
 		environment.sendText("Hi. Write help for list of commands.");
 		ShellCommand command;
+		String arguments[]; // funkcija za parsanje argumenta -> najbolje napraviti da ima neki brake carracter, poslani string 
+		
 		while(true) {
 			String inputCommand=environment.getText().toUpperCase().trim();
+			
 			if (inputCommand==null) {
 				environment.close();
 				return;
@@ -24,7 +28,7 @@ public class ClientWorkerShell implements Runnable {
 				continue;
 			}
 			
-			if (!command.execute(environment).toString().equalsIgnoreCase("Continue")) {
+			if (!command.execute(environment,"").toString().equalsIgnoreCase("Continue")) {
 				break;
 			}
 		}
