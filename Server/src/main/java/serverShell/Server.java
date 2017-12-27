@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.HashMap;
 
-import database.DatabaseConnection;
 import serverCommands.Help;
 import serverCommands.Terminate;
 
@@ -17,7 +16,8 @@ private static HashMap<String, ShellCommand> commands;
 		commands=new HashMap<>();
 		ShellCommand[] cc= {
 						new Help(),
-						new Terminate()
+						new Terminate(),
+		
 		};
 		
 		for (ShellCommand shellCommand : cc) {

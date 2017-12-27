@@ -2,6 +2,7 @@ package serverShell;
 
 public class ClientWorkerShell implements Runnable {
 	private EnvironmentImpl environment;
+	private static final String EMPTYARGUMENT="";
 	private static final String BRAKECHARACTER="$$";
 	public ClientWorkerShell(EnvironmentImpl environment) {
 		this.environment=environment;
@@ -12,25 +13,38 @@ public class ClientWorkerShell implements Runnable {
 	public void run() {
 		environment.sendText("Hi. Write help for list of commands.");
 		ShellCommand command;
-		String arguments[]; // funkcija za parsanje argumenta -> najbolje napraviti da ima neki brake carracter, poslani string 
+		String arguments[];
 		
 		while(true) {
 			String inputCommand=environment.getText().toUpperCase().trim();
-			
 			if (inputCommand==null) {
 				environment.close();
 				return;
 			}
-			command=environment.getCommand(inputCommand);
+			arguments=parseInput(inputCommand);
+			command=environment.getCommand(arguments[0]);
 			
 			if (command==null) {
 				environment.sendText("Unsupported command.");
 				continue;
 			}
 			
-			if (!command.execute(environment,"").toString().equalsIgnoreCase("Continue")) {
+			if (!command.execute(environment,arguments[1]).toString().equalsIgnoreCase("Continue")) {
 				break;
 			}
 		}
+	}
+
+
+	private String[] parseInput(String inputCommand) {
+		String args[]=new String[2];
+		
+		if (inputCommand.contains(BRAKECHARACTER)) {
+			args=inputCommand.split(BRAKECHARACTER);
+			return args;
+		}
+		args[0]=inputCommand;
+		args[1]=EMPTYARGUMENT;
+		return args;
 	}
 }
