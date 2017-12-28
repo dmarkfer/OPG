@@ -40,7 +40,7 @@ public class EnvironmentImpl implements Environment {
 		try {
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager
-					.getConnection("jdbc:postgresql://165.227.175.217:5432/fangladb",
+					.getConnection("jdbc:postgresql://165.227.175.217:5432/fangladb", //magic numbers, sifra
 									"development", "vladimirPutin");
 
 		} catch (Exception e) {

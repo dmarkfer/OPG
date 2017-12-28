@@ -4,8 +4,7 @@ import java.util.HashMap;
 
 public class ClientWorkerShell implements Runnable {
 	private EnvironmentImpl environment;
-	private static final String EMPTYARGUMENT="";
-	private static final String BRAKECHARACTER="$$";
+	
 	public ClientWorkerShell(EnvironmentImpl environment) {
 		this.environment=environment;
 	}
@@ -15,39 +14,37 @@ public class ClientWorkerShell implements Runnable {
 	public void run() {
 		environment.sendText("Hi. Write help for list of commands.");
 		ShellCommand command;
-		String arguments[];
 		
 		while(true) {
-			String inputCommand=environment.getText().toUpperCase().trim();
-			HashMap<String, String> lol=new HashMap<>();
-			if (inputCommand==null) {
+			String inputLine=environment.getText().toUpperCase().trim();
+			String inputCommand=getCommand(inputLine);
+			HashMap<String, String> arguments=Parser.parse(inputLine);
+			
+			if (inputLine==null||inputLine.equals("NULL")) {
 				environment.close();
 				return;
 			}
-			arguments=parseInput(inputCommand);
-			command=environment.getCommand(arguments[0]);
+			for (String string : arguments.keySet()) {
+				System.out.println(string + " " + arguments.get(string));
+			}
+			command=environment.getCommand(inputCommand);
 			
 			if (command==null) {
 				environment.sendText("Unsupported command.");
 				continue;
 			}
 			
-			if (!command.execute(environment,lol).toString().equalsIgnoreCase("Continue")) {
+			if (!command.execute(environment,arguments).toString().equalsIgnoreCase("Continue")) {
 				break;
 			}
 		}
 	}
 
 
-	private String[] parseInput(String inputCommand) {
-		String args[]=new String[2];
-		
-		if (inputCommand.contains(BRAKECHARACTER)) {
-			args=inputCommand.split(BRAKECHARACTER);
-			return args;
+	private String getCommand(String inputLine) {
+		if (inputLine.contains("#")) {
+			return inputLine.substring(0, inputLine.indexOf("#"));
 		}
-		args[0]=inputCommand;
-		args[1]=EMPTYARGUMENT;
-		return args;
+		return inputLine;
 	}
 }
