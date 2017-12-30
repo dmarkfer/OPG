@@ -8,6 +8,7 @@ import serverCommands.DeleteUser;
 import serverCommands.Help;
 import serverCommands.LoginUser;
 import serverCommands.RegisterUser;
+import serverCommands.RetrieveUserProfile;
 import serverCommands.Terminate;
 
 public class Server {
@@ -22,7 +23,8 @@ private static HashMap<String, ShellCommand> commands;
 						new Terminate(),
 						new RegisterUser(),
 						new LoginUser(),
-						new DeleteUser()
+						new DeleteUser(),
+						new RetrieveUserProfile()
 		};
 		
 		for (ShellCommand shellCommand : cc) {
