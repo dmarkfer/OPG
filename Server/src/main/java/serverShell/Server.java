@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.HashMap;
 
+import serverCommands.CreateComment;
+import serverCommands.CreateConversation;
+import serverCommands.CreateFarmer;
+import serverCommands.CreateProduct;
+import serverCommands.CreateProductCategory;
 import serverCommands.DeleteUser;
 import serverCommands.Help;
 import serverCommands.LoginUser;
@@ -24,7 +29,12 @@ private static HashMap<String, ShellCommand> commands;
 						new RegisterUser(),
 						new LoginUser(),
 						new DeleteUser(),
-						new RetrieveUserProfile()
+						new RetrieveUserProfile(),
+						new CreateComment(),
+						new CreateConversation(),
+						new CreateProduct(),
+						new CreateFarmer(),
+						new CreateProductCategory()
 		};
 		
 		for (ShellCommand shellCommand : cc) {
