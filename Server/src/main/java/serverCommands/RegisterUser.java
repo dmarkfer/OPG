@@ -34,9 +34,9 @@ public class RegisterUser extends AbstractCommand {
 			sql.append(");");
 			
 			statement.executeUpdate(sql.toString());
-			connection.close();
+			environment.sendText("true");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			environment.sendText("false");
 		}
 		
 		return CommandStatus.CONTINUE;
