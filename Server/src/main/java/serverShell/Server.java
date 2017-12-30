@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.HashMap;
 
+import serverCommands.DeleteUser;
 import serverCommands.Help;
 import serverCommands.LoginUser;
 import serverCommands.RegisterUser;
@@ -20,8 +21,8 @@ private static HashMap<String, ShellCommand> commands;
 						new Help(),
 						new Terminate(),
 						new RegisterUser(),
-						new LoginUser()
-		
+						new LoginUser(),
+						new DeleteUser()
 		};
 		
 		for (ShellCommand shellCommand : cc) {
