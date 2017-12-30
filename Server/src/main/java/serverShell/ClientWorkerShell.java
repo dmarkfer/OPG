@@ -16,7 +16,7 @@ public class ClientWorkerShell implements Runnable {
 		ShellCommand command;
 		
 		while(true) {
-			String inputLine=environment.getText().toUpperCase().trim();
+			String inputLine=environment.getText().trim();
 			String inputCommand=getCommand(inputLine);
 			HashMap<String, String> arguments=Parser.parse(inputLine);
 			
