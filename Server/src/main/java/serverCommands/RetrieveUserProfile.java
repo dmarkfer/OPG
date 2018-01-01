@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 
+import org.json.JSONObject;
+
 import serverShell.AbstractCommand;
 import serverShell.CommandStatus;
 import serverShell.Environment;
@@ -20,7 +22,7 @@ public class RetrieveUserProfile extends AbstractCommand {
 	}
 
 	@Override
-	public CommandStatus execute(Environment environment, HashMap<String, String> arguments) {
+	public CommandStatus execute(Environment environment, JSONObject arguments) {
 		Connection connection = environment.getDatabase();
 		try {						
 			Statement statement = connection.createStatement();

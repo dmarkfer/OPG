@@ -9,6 +9,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -17,6 +18,8 @@ import java.sql.DriverManager;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
+
+import org.json.JSONObject;
 
 public class EnvironmentImpl implements Environment {
 	private static final String FAIL="fail";

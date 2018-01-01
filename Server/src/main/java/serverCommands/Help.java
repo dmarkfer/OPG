@@ -2,6 +2,8 @@ package serverCommands;
 
 import java.util.HashMap;
 
+import org.json.JSONObject;
+
 import serverShell.AbstractCommand;
 import serverShell.CommandStatus;
 import serverShell.Environment;
@@ -13,14 +15,20 @@ public class Help extends AbstractCommand{
 		super("HELP", "Prints all commands");
 	}
 	@Override
-	public CommandStatus execute(Environment environment, HashMap<String, String> arguments) {
-		// dodaj if else da ako je kao argument predano ime naredbe da pokaže opis samo za tu naredbu
+	public CommandStatus execute(Environment environment, JSONObject arguments) {
 		HashMap<String, ShellCommand> commands=environment.getCommands();
-		StringBuffer output=new StringBuffer();
 		
+		if (arguments.length()!=1) {
+			String wantedCommand=arguments.getString("wantedCommand").toUpperCase();
+			String output=String.format("%-20s\t\t%s\n", wantedCommand, commands.get(wantedCommand).getCommandDescription());
+			environment.sendText(output);
+			return CommandStatus.CONTINUE;
+		}
+		
+		StringBuffer output=new StringBuffer();
 		for (String c : commands.keySet()) {
 			ShellCommand command=commands.get(c);
-			output.append(String.format("%-10s\t\t%s\n", command.getCommandName(),command.getCommandDescription()));
+			output.append(String.format("%-20s\t\t%s\n", command.getCommandName(),command.getCommandDescription()));
 		}
 		
 		environment.sendText(output.toString());
