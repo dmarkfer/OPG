@@ -9,7 +9,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -134,7 +133,7 @@ public class EnvironmentImpl implements Environment {
 	}
 	
 	private byte[] convertImageToByte(String path) throws IOException {
-		BufferedImage original=ImageIO.read(this.getClass().getResource("/resources/testPic.jpg"));
+		BufferedImage original=ImageIO.read(this.getClass().getResource(path));
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		ImageIO.write(original, "jpg", baos);

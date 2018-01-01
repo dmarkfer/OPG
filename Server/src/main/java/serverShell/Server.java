@@ -48,7 +48,7 @@ private static HashMap<String, ShellCommand> commands;
 		socket.setSoTimeout(1000);
 		
 		while(true) {
-			//System.out.println("Waiting");
+			System.out.println("Waiting");
 			ClientWorkerShell worker=null;
 			
 			try {
@@ -62,8 +62,8 @@ private static HashMap<String, ShellCommand> commands;
 			
 			catch (Exception e) {
 				timeout++;
-				//System.out.println("No Connection");
-				if (timeout==1000) {
+				System.out.println("No Connection");
+				if (timeout==10000) {
 					socket.close();
 					System.exit(0);
 				}

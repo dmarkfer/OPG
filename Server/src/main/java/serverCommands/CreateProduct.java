@@ -36,6 +36,7 @@ public class CreateProduct extends AbstractCommand {
 			
 			statement.executeUpdate(sql.toString());
 			environment.sendText("true");
+			
 		} catch (SQLException e) {
 			environment.sendText("false");
 		}
