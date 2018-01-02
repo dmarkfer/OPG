@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">tErznica</string>
+    <string name="action_settings">Postavke</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="search_products">Pretraži proizvode</string>
+    <string name="log_out">Odjavi se</string>
+    <string name="username">Korisničko ime</string>
+    <string name="password">Lozinka</string>
+    <string name="log_in">Prijava</string>
+    <string name="register">Registracija</string>
+    <string name="data_entry_description">Molimo Vas da ispunite polja svojim osobnim podacima</string>
+    <string name="name">Ime</string>
+    <string name="surname">Prezime</string>
+    <string name="mail_address">Mail adresa</string>
+    <string name="phone_number">Broj telefona</string>
+    <string name="confirm_password">Potvrdite lozinku</string>
+    <string name="back">Natrag</string>
+    <string name="next">Dalje</string>
+</resources>
