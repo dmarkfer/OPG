@@ -95,7 +95,8 @@
             android:layout_weight="1"
             android:text="@string/back"
             android:textColor="#FFF"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            android:id="@+id/f_register_general_back"/>
 
         <Button
             android:layout_width="match_parent"
@@ -103,7 +104,8 @@
             android:layout_weight="1"
             android:text="@string/next"
             android:textColor="@color/colorPrimary"
-            android:background="#FFF"/>
+            android:background="#FFF"
+            android:id="@+id/f_register_general_next"/>
 
     </LinearLayout>
 

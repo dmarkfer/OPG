@@ -7,46 +7,46 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextWatcher;
 import android.widget.Toast;
 
 import com.opp.fangla.terznica.net.LogIn;
 
-/**
- * Created by domagoj on 29.12.17..
- */
-
 public class LogInViewModel extends AndroidViewModel {
 
-    private MutableLiveData<String> username, password;
-    //private String username, password;
+    public final ObservableField<String> username = new ObservableField<>();
+    public final ObservableField<String> password = new ObservableField<>();
 
     public LogInViewModel(@NonNull Application application) {
         super(application);
-        username = new MutableLiveData<>();
-        password = new MutableLiveData<>();
-    }
-
-    public LiveData<String> getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username.setValue(username);
-    }
-
-    public LiveData<String> getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password.setValue(password);
     }
 
     public LiveData<String> logIn(){
         MutableLiveData<String> liveResult = new MutableLiveData<>();
-        new LogIn(liveResult).execute(username.getValue(), password.getValue());
+        new LogIn(liveResult).execute(username.get(), password.get());
         return liveResult;
     }
+
+    public TextWatcher usernameWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                username.set(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher passwordWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                password.set(charSequence.toString());
+            }
+        };
+    }
+
+
 }

@@ -1,41 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:gravity="center">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditText
-        android:layout_width="@dimen/log_in_width"
-        android:layout_height="wrap_content"
-        android:id="@+id/a_log_in_username"
-        android:theme="@style/WelcomeEditText"
-        android:hint="@string/username"/>
+    <data>
+        <variable
+            name= "model"
+            type= "com.opp.fangla.terznica.welcome.LogInViewModel"/>
 
-    <EditText
-        android:layout_width="@dimen/log_in_width"
-        android:layout_height="wrap_content"
-        android:id="@+id/a_log_in_password"
-        android:theme="@style/WelcomePassword"
-        android:hint="@string/password"/>
+    </data>
 
-    <Button
-        android:layout_width="@dimen/log_in_width"
-        android:layout_height="wrap_content"
-        android:id="@+id/a_log_in_log_in_button"
-        android:background="#FFF"
-        android:layout_margin="5dp"
-        android:textColor="@color/colorPrimary"
-        android:text="@string/log_in"/>
-
-    <Button
-        android:layout_width="@dimen/log_in_width"
-        android:layout_height="wrap_content"
-        android:id="@+id/a_log_in_register_button"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        android:layout_margin="5dp"
-        android:textColor="#FFF"
-        android:text="@string/register"/>
+        android:gravity="center">
 
-</LinearLayout>
+        <EditText
+            android:layout_width="@dimen/log_in_width"
+            android:layout_height="wrap_content"
+            android:id="@+id/a_log_in_username"
+            android:theme="@style/WelcomeEditText"
+            android:hint="@string/username"
+            android:text="@{model.username}"/>
+
+        <EditText
+            android:layout_width="@dimen/log_in_width"
+            android:layout_height="wrap_content"
+            android:id="@+id/a_log_in_password"
+            android:theme="@style/WelcomePassword"
+            android:hint="@string/password"
+            android:text="@{model.password}"
+            android:textColor="#FFF"/>
+
+        <Button
+            android:layout_width="@dimen/log_in_width"
+            android:layout_height="wrap_content"
+            android:id="@+id/a_log_in_log_in_button"
+            android:layout_margin="5dp"
+            style="@style/WhiteButton"
+            android:text="@string/log_in"/>
+
+        <Button
+            android:layout_width="@dimen/log_in_width"
+            android:layout_height="wrap_content"
+            android:id="@+id/a_log_in_register_button"
+            android:layout_margin="5dp"
+            style="@style/BlueButton"
+            android:text="@string/register"/>
+    </LinearLayout>
+</layout>

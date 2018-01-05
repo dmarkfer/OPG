@@ -39,7 +39,7 @@ public class LogInActivity extends AppCompatActivity{
         register = findViewById(R.id.a_log_in_register_button);
         viewModel = ViewModelProviders.of(this).get(LogInViewModel.class);
 
-        username.addTextChangedListener(new TextWatcher() {
+        /*username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
@@ -71,7 +71,7 @@ public class LogInActivity extends AppCompatActivity{
             public void onChanged(@Nullable String s) {
                 password.setText(s);
             }
-        });
+        });*/
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
