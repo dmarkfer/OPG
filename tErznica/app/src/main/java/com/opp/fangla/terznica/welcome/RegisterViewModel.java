@@ -143,6 +143,24 @@ public class RegisterViewModel extends AndroidViewModel {
         };
     }
 
+    public CompoundButton.OnCheckedChangeListener getVendorCheckedListener(){
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                vendor = b;
+            }
+        };
+    }
+
+    public CompoundButton.OnCheckedChangeListener getDriverCheckedListener(){
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                driver = b;
+            }
+        };
+    }
+
     private void comparePasswords(){
         boolean flag = password.equals(confirmPassword);
         if(passwordsMatch.getValue().booleanValue() != flag) {

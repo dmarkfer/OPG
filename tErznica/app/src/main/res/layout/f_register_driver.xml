@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:gravity="center">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:gravity="center">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="@string/buyer_registration_description"
+            android:text="@string/driver_registration_description"
             android:gravity="center"
             android:textSize="@dimen/font_large"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:paddingTop="180dp"/>
+            android:paddingTop="130dp"/>
 
         <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="@string/register_buyer_check"
-            android:id="@+id/f_register_buyer_check"
+            android:text="@string/register_driver_check"
+            android:id="@+id/f_register_driver_check"
             app:buttonTint="@color/white"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/f_register_driver_container"
+            android:layout_marginTop="30dp"/>
 
         <LinearLayout
             android:layout_width="@dimen/log_in_width"
@@ -45,7 +49,7 @@
                 android:layout_weight="1"
                 android:text="@string/back"
                 style="@style/BlueButton"
-                android:id="@+id/f_register_buyer_back"/>
+                android:id="@+id/f_register_driver_back"/>
 
             <Button
                 android:layout_width="match_parent"
@@ -53,7 +57,7 @@
                 android:layout_weight="1"
                 android:text="@string/next"
                 style="@style/WhiteButton"
-                android:id="@+id/f_register_buyer_next"/>
+                android:id="@+id/f_register_driver_next"/>
 
         </LinearLayout>
 

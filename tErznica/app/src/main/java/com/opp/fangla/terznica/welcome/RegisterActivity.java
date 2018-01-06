@@ -13,7 +13,10 @@ import android.widget.FrameLayout;
 import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.util.CustomViewPager;
 import com.opp.fangla.terznica.welcome.fragments.BuyerFragment;
+import com.opp.fangla.terznica.welcome.fragments.DriverFragment;
+import com.opp.fangla.terznica.welcome.fragments.FinishFragment;
 import com.opp.fangla.terznica.welcome.fragments.GeneralFragment;
+import com.opp.fangla.terznica.welcome.fragments.VendorFragment;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -45,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void onBackPressed() {
         switch (adapter.getCurrentPosition()){
             case 0:
-                super.onBackPressed();
+                //super.onBackPressed();
                 finish();
                 break;
             default:
@@ -70,6 +73,12 @@ public class RegisterActivity extends AppCompatActivity {
                     return new GeneralFragment();
                 case 1:
                     return new BuyerFragment();
+                case 2:
+                    return new VendorFragment();
+                case 3:
+                    return new DriverFragment();
+                case 4:
+                    return new FinishFragment();
                 default:
                     return null;
             }
@@ -77,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 5;
         }
 
         public int getCurrentPosition(){
