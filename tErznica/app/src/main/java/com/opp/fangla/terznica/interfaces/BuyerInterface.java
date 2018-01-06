@@ -26,17 +26,13 @@ import com.opp.fangla.terznica.data.entities.SimpleAdvert;
 
 import java.util.List;
 
-/**
- * Created by domagoj on 21.12.17..
- */
-
 public class BuyerInterface extends Fragment {
 
     private View root;
     private SearchView searchView;
     private ListView listView;
     private BuyerInterfaceViewModel viewModel;
-    public static final String[] matrixColumns = {"name"};
+    public static final String[] matrixColumns = {"_id", "name"};
 
     @Nullable
     @Override

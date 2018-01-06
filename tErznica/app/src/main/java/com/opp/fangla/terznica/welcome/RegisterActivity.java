@@ -3,18 +3,22 @@ package com.opp.fangla.terznica.welcome;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
 import com.opp.fangla.terznica.R;
-
-/**
- * Created by domagoj on 30.12.17..
- */
+import com.opp.fangla.terznica.util.CustomViewPager;
+import com.opp.fangla.terznica.welcome.fragments.BuyerFragment;
+import com.opp.fangla.terznica.welcome.fragments.GeneralFragment;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private FrameLayout frameLayout;
+    private CustomViewPager pager;
+    private RegisterPagerAdapter adapter;
     private RegisterViewModel viewModel;
 
     @Override
@@ -23,16 +27,61 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.a_register);
 
         viewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
-        frameLayout = findViewById(R.id.a_register_container);
-
-
-    }
-
-    void changeFragment(int position){
-
+        pager = findViewById(R.id.a_register_pager);
+        adapter = new RegisterPagerAdapter(getSupportFragmentManager());
+        pager.setAdapter(adapter);
+        pager.swipingEnabled(false);
     }
 
     public RegisterViewModel getViewModel(){
         return viewModel;
+    }
+
+    public void changeFragment(int position){
+        pager.setCurrentItem(position, true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        switch (adapter.getCurrentPosition()){
+            case 0:
+                super.onBackPressed();
+                finish();
+                break;
+            default:
+                changeFragment(adapter.getCurrentPosition()-1);
+                break;
+        }
+    }
+
+    private class RegisterPagerAdapter extends FragmentPagerAdapter{
+
+        private int currentPosition;
+
+        public RegisterPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            currentPosition = position;
+            switch (position){
+                case 0:
+                    return new GeneralFragment();
+                case 1:
+                    return new BuyerFragment();
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        public int getCurrentPosition(){
+            return currentPosition;
+        }
     }
 }

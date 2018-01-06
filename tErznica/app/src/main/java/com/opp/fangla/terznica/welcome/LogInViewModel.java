@@ -4,21 +4,14 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextWatcher;
-import android.widget.Toast;
-
 import com.opp.fangla.terznica.net.LogIn;
+import com.opp.fangla.terznica.util.SimpleTextWatcher;
 
 public class LogInViewModel extends AndroidViewModel {
 
-    public final ObservableField<String> username = new ObservableField<>();
-    public final ObservableField<String> password = new ObservableField<>();
+    private String username = new String(), password = new String();
 
     public LogInViewModel(@NonNull Application application) {
         super(application);
@@ -26,7 +19,7 @@ public class LogInViewModel extends AndroidViewModel {
 
     public LiveData<String> logIn(){
         MutableLiveData<String> liveResult = new MutableLiveData<>();
-        new LogIn(liveResult).execute(username.get(), password.get());
+        new LogIn(liveResult).execute(username, password);
         return liveResult;
     }
 
@@ -34,7 +27,7 @@ public class LogInViewModel extends AndroidViewModel {
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                username.set(charSequence.toString());
+                username = charSequence.toString();
             }
         };
     }
@@ -43,10 +36,24 @@ public class LogInViewModel extends AndroidViewModel {
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                password.set(charSequence.toString());
+                password = charSequence.toString();
             }
         };
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

@@ -1,51 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <variable
-            name= "model"
-            type= "com.opp.fangla.terznica.welcome.LogInViewModel"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:gravity="center">
 
-    </data>
+    <EditText
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/a_log_in_username"
+        android:theme="@style/WelcomeEditText"
+        android:hint="@string/username"
+        android:textColor="@color/white"/>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:gravity="center">
+    <EditText
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/a_log_in_password"
+        android:theme="@style/WelcomePassword"
+        android:hint="@string/password"
+        android:textColor="@color/white"/>
 
-        <EditText
-            android:layout_width="@dimen/log_in_width"
-            android:layout_height="wrap_content"
-            android:id="@+id/a_log_in_username"
-            android:theme="@style/WelcomeEditText"
-            android:hint="@string/username"
-            android:text="@{model.username}"/>
+    <Button
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/a_log_in_log_in_button"
+        android:layout_margin="5dp"
+        style="@style/WhiteButton"
+        android:text="@string/log_in"/>
 
-        <EditText
-            android:layout_width="@dimen/log_in_width"
-            android:layout_height="wrap_content"
-            android:id="@+id/a_log_in_password"
-            android:theme="@style/WelcomePassword"
-            android:hint="@string/password"
-            android:text="@{model.password}"
-            android:textColor="#FFF"/>
+    <Button
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/a_log_in_register_button"
+        android:layout_margin="5dp"
+        style="@style/BlueButton"
+        android:text="@string/register"/>
 
-        <Button
-            android:layout_width="@dimen/log_in_width"
-            android:layout_height="wrap_content"
-            android:id="@+id/a_log_in_log_in_button"
-            android:layout_margin="5dp"
-            style="@style/WhiteButton"
-            android:text="@string/log_in"/>
-
-        <Button
-            android:layout_width="@dimen/log_in_width"
-            android:layout_height="wrap_content"
-            android:id="@+id/a_log_in_register_button"
-            android:layout_margin="5dp"
-            style="@style/BlueButton"
-            android:text="@string/register"/>
-    </LinearLayout>
-</layout>
+</LinearLayout>

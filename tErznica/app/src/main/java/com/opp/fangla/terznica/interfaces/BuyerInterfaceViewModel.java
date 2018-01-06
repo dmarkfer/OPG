@@ -13,10 +13,6 @@ import com.opp.fangla.terznica.data.entities.SimpleAdvert;
 
 import java.util.List;
 
-/**
- * Created by domagoj on 29.12.17..
- */
-
 public class BuyerInterfaceViewModel extends AndroidViewModel {
 
     private DataRepository repository;

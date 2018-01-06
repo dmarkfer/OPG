@@ -20,9 +20,9 @@ android {
         }
     }
 
-    dataBinding{
+    /*dataBinding{
         enabled = true
-    }
+    }*/
 
     buildTypes {
         release {

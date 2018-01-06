@@ -23,6 +23,7 @@ import android.content.res.Resources.Theme;
 
 import android.widget.TextView;
 
+import com.opp.fangla.terznica.interfaces.BuyerInterface;
 import com.opp.fangla.terznica.welcome.LogInActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,10 +50,16 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // When the given dropdown item is selected, show its contents in the
-                // container view.
+                Fragment fragment;
+                switch(position){
+                    case 0:
+                        fragment = new BuyerInterface();
+                        break;
+                    default:
+                        fragment = PlaceholderFragment.newInstance(position + 1);
+                }
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .replace(R.id.container, fragment)
                         .commit();
             }
 
@@ -70,6 +77,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        super.onSaveInstanceState(outState);
     }
 
 

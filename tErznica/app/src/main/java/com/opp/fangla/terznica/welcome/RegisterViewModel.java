@@ -4,91 +4,164 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.text.TextWatcher;
+import android.widget.CompoundButton;
+
+import com.opp.fangla.terznica.util.SimpleTextWatcher;
 
 public class RegisterViewModel extends AndroidViewModel {
 
-    final public ObservableField<String> name = new ObservableField<>();
-    final public ObservableField<String> surname = new ObservableField<>();
-    final public ObservableField<String> mail = new ObservableField<>();
-    final public ObservableField<String> phone = new ObservableField<>();
-    final public ObservableField<String> password = new ObservableField<>();
-    final public ObservableField<String> confirmPassword = new ObservableField<>();
-    private MutableLiveData<Boolean> strongPassword, passwordsMatch, buyer, vendor, driver;
+    private String name, surname, mail, phone, password, confirmPassword;
+    private boolean buyer, vendor, driver;
+    private MutableLiveData<Boolean> strongPassword, passwordsMatch;
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
+        name = new String();
+        surname = new String();
+        mail = new String();
+        phone = new String();
+        password = new String();
+        confirmPassword = new String();
         strongPassword = new MutableLiveData<>();
         strongPassword.postValue(false);
         passwordsMatch = new MutableLiveData<>();
         passwordsMatch.postValue(false);
-        buyer = new MutableLiveData<>();
-        buyer.postValue(false);
-        vendor = new MutableLiveData<>();
-        vendor.postValue(false);
-        driver = new MutableLiveData<>();
-        driver.postValue(false);
     }
 
-    public LiveData<Boolean> getBuyer() {
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public boolean isBuyer() {
         return buyer;
     }
 
-    public void setBuyer(boolean buyer) {
-        this.buyer.postValue(buyer);
-    }
-
-    public LiveData<Boolean> getVendor() {
+    public boolean isVendor() {
         return vendor;
     }
 
-    public void setVendor(boolean vendor) {
-        this.vendor.postValue(vendor);
-    }
-
-    public LiveData<Boolean> getDriver() {
+    public boolean isDriver() {
         return driver;
     }
 
-    public void setDriver(boolean driver) {
-        this.driver.postValue(driver);
-    }
-
-    public LiveData<Boolean> getStrongPassword() {
+    public LiveData<Boolean> getStrongPasswordObs() {
         return strongPassword;
     }
 
-    public LiveData<Boolean> getPasswordsMatch() {
+    public LiveData<Boolean> getPasswordsMatchObs() {
         return passwordsMatch;
     }
 
-    public TextWatcher passwordWatcher(){
+    public TextWatcher getNameWatcher(){
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                password.set(charSequence.toString());
-                comparePasswords();
-                boolean flag = charSequence.length() > 3;
-                if(strongPassword.getValue().booleanValue() != flag)
-                    strongPassword.postValue(flag);
+                name = charSequence.toString();
             }
         };
     }
 
-    public TextWatcher confirmPasswordWatcher(){
+    public TextWatcher getSurnameWatcher(){
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                confirmPassword.set(charSequence.toString());
+                surname = charSequence.toString();
+            }
+        };
+    }
+
+    public TextWatcher getMailWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mail = charSequence.toString();
+            }
+        };
+    }
+
+    public TextWatcher getPhoneeWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                phone = charSequence.toString();
+            }
+        };
+    }
+
+    public TextWatcher getPasswordWatcher(){
+        return new SimpleTextWatcher(){
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                password = charSequence.toString();
+                comparePasswords();
+                boolean flag = charSequence.length() > 3;
+                if(strongPassword.getValue().booleanValue() != flag) {
+                    strongPassword.postValue(flag);
+                }
+            }
+        };
+    }
+
+    public TextWatcher getConfirmPasswordWatcher(){
+        return new SimpleTextWatcher(){
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                confirmPassword = charSequence.toString();
+                comparePasswords();
+            }
+        };
+    }
+
+    public CompoundButton.OnCheckedChangeListener getBuyerCheckedListener(){
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                buyer = b;
             }
         };
     }
 
     private void comparePasswords(){
-        boolean flag = password.get().equals(confirmPassword.get());
-        if(passwordsMatch.getValue().booleanValue() != flag)
-        passwordsMatch.postValue(flag);
+        boolean flag = password.equals(confirmPassword);
+        if(passwordsMatch.getValue().booleanValue() != flag) {
+            passwordsMatch.postValue(flag);
+        }
+    }
+
+    public boolean generalFieldsFilled(){
+        return name.length() > 0 &&
+                surname.length() > 0 &&
+                mail.length() > 0 &&
+                phone.length() > 0;
+    }
+
+    public boolean getStrongPassword(){
+        return strongPassword.getValue() != null && strongPassword.getValue();
+    }
+
+    public boolean getPasswordsMatch(){
+        return passwordsMatch.getValue() != null && passwordsMatch.getValue();
     }
 }

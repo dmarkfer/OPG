@@ -3,6 +3,7 @@
     package="com.opp.fangla.terznica">
 
     <application
+        android:name=".FanglaApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,8 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".welcome.LogInActivity"/>
-        <activity android:name=".welcome.RegisterActivity"/>
+        <activity
+            android:name=".welcome.LogInActivity"/>
+        <activity
+            android:name=".welcome.RegisterActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

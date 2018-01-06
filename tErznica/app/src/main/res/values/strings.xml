@@ -16,4 +16,6 @@
     <string name="confirm_password">Potvrdite lozinku</string>
     <string name="back">Natrag</string>
     <string name="next">Dalje</string>
+    <string name="buyer_registration_description">Korisnici s ulogom kupca mogu pretraživati proizvode OPG-ova, slati im upite za kupoprodaju i dogovarati prijevoz nabavljene robe. Želite li imati ulogu kupca?</string>
+    <string name="register_buyer_check">Registriraj me kao kupca</string>
 </resources>

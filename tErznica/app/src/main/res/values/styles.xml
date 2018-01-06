@@ -18,10 +18,10 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="WelcomeEditText" parent="Widget.AppCompat.EditText">
-        <item name="colorControlActivated">@color/white</item>
-        <item name="colorControlNormal">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textColor">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="WelcomePassword" parent="WelcomeEditText">
@@ -39,3 +39,6 @@
     </style>
 
 </resources>
+<!--
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>-->

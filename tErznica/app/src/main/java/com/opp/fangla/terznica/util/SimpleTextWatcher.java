@@ -1,4 +1,4 @@
-package com.opp.fangla.terznica.welcome;
+package com.opp.fangla.terznica.util;
 
 import android.text.Editable;
 import android.text.TextWatcher;
