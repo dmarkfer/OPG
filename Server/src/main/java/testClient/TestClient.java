@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Date;
 
 import org.json.JSONObject;
 
@@ -22,9 +23,17 @@ public class TestClient {
 		
 		JSONObject request = new JSONObject();
 		
-		/* DELETEUSER */
+		/* CREATECOMMENT */
+		request.put("command", "CREATECOMMENT");
+		request.put("idOcjenjenog", 18);
+		request.put("idOcjenjivaca", 17);
+		request.put("ocjena", 3);
+		request.put("komentar", "blA");
+		request.put("vrijeme", new Date());
+		
+		/* DELETEUSER 
 		request.put("command", "DELETEUSER");
-		request.put("idKorisnika", 19);
+		request.put("idKorisnika", 19); */
 		
 		/* LOGINUSER 
 		request.put("command", "LOGINUSER");

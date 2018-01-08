@@ -1,9 +1,9 @@
 package serverCommands;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 
 import org.json.JSONObject;
 
@@ -13,7 +13,7 @@ import serverShell.Environment;
 
 public class CreateComment extends AbstractCommand {
 	
-	String[] columns = new String[] {"id_razgovora","id_ocjenjenoga","ocjena","komentar","vrijeme"};
+	String[] columns = new String[] {"idOcjenjivaca", "idOcjenjenog", "ocjena", "komentar", "vrijeme"};
 
 	public CreateComment() {
 		super("CREATECOMMENT", "Creates a new comment.");
@@ -22,6 +22,7 @@ public class CreateComment extends AbstractCommand {
 	@Override
 	public CommandStatus execute(Environment environment, JSONObject arguments) {
 		Connection connection = environment.getDatabase();
+		JSONObject returnObject = new JSONObject();
 		try {						
 			Statement statement = connection.createStatement();
 			
@@ -33,11 +34,18 @@ public class CreateComment extends AbstractCommand {
 			sql.deleteCharAt(sql.length()-1);
 			sql.append(");");
 			
-			System.out.println(sql.toString());
 			statement.executeUpdate(sql.toString());
-			environment.sendText("true");
+			
+			sql = new StringBuilder();
+			sql.append("SELECT id FROM ocjena WHERE vrijeme='");
+			sql.append(arguments.get("vrijeme"));
+			sql.append("';");
+			
+			ResultSet id = statement.executeQuery(sql.toString());
+			id.next();
+			returnObject.put("idOcjene", id.getString("id"));
+			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
-			e.printStackTrace();
 			environment.sendText("false");
 		}
 		
