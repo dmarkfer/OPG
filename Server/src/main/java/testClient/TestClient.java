@@ -31,16 +31,20 @@ public class TestClient {
 		request.put("komentar", "blA");
 		request.put("vrijeme", new Date()); */
 		
+		/* DELETECOMMENT */
+		request.put("command", "DELETECOMMENT");
+		request.put("idOcjene", 4);
+		
 		/* DELETEUSER 
 		request.put("command", "DELETEUSER");
 		request.put("idKorisnika", 19); */
 		
-		/* EDITCOMMENT */
+		/* EDITCOMMENT 
 		request.put("command", "EDITCOMMENT");
 		request.put("idOcjene", 4);
 		request.put("ocjena", 5);
 		request.put("komentar", "novo");
-		request.put("vrijeme", new Date());
+		request.put("vrijeme", new Date()); */
 		
 		/* LOGINUSER 
 		request.put("command", "LOGINUSER");

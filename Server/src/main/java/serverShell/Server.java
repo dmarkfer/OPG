@@ -9,6 +9,7 @@ import serverCommands.CreateConversation;
 import serverCommands.CreateFarmer;
 import serverCommands.CreateProduct;
 import serverCommands.CreateProductCategory;
+import serverCommands.DeleteComment;
 import serverCommands.DeleteUser;
 import serverCommands.EditComment;
 import serverCommands.Help;
@@ -36,7 +37,8 @@ private static HashMap<String, ShellCommand> commands;
 						new CreateProduct(),
 						new CreateFarmer(),
 						new CreateProductCategory(),
-						new EditComment()
+						new EditComment(),
+						new DeleteComment()
 		};
 		
 		for (ShellCommand shellCommand : cc) {
