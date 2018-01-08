@@ -22,10 +22,14 @@ public class TestClient {
 		
 		JSONObject request = new JSONObject();
 		
-		/* LOGINUSER */
+		/* DELETEUSER */
+		request.put("command", "DELETEUSER");
+		request.put("idKorisnika", 19);
+		
+		/* LOGINUSER 
 		request.put("command", "LOGINUSER");
 		request.put("email", "vv");
-		request.put("lozinka", "bla");
+		request.put("lozinka", "bla"); */
 		
 		/* REGISTERUSER	
 		request.put("command", "REGISTERUSER");

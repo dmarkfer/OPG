@@ -3,7 +3,6 @@ package serverCommands;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 
 import org.json.JSONObject;
 
@@ -20,18 +19,22 @@ public class DeleteUser extends AbstractCommand {
 	@Override
 	public CommandStatus execute(Environment environment, JSONObject arguments) {
 		Connection connection = environment.getDatabase();
+		JSONObject returnObject = new JSONObject();
 		try {						
 			Statement statement = connection.createStatement();
 			
 			StringBuilder sql = new StringBuilder();
 			sql.append("DELETE FROM korisnik WHERE id=");
-			sql.append(arguments.get("id"));
+			sql.append(arguments.get("idKorisnika"));
 			sql.append(";");
 			
 			statement.executeUpdate(sql.toString());
-			environment.sendText("true");
+			
+			returnObject.put("success", true);
+			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
-			environment.sendText("false");
+			returnObject.put("success", false);
+			environment.sendText(returnObject.toString());
 		}
 		return CommandStatus.CONTINUE;
 	}
