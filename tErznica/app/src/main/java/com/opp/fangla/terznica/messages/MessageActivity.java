@@ -1,8 +1,9 @@
 package com.opp.fangla.terznica.messages;
 
-/**
- * Created by Ante on 1/8/2018.
- */
 
-public class MessageActivity {
+import android.support.v7.app.AppCompatActivity;
+
+public class MessageActivity extends AppCompatActivity {
+
+
 }

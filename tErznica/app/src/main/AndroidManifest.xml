@@ -25,6 +25,10 @@
         <activity
             android:name=".welcome.RegisterActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".messages.ConversationActivity" />
+        <activity
+            android:name=".messages.MessageActivity" />
     </application>
 
 </manifest>
