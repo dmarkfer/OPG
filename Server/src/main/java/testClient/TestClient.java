@@ -22,7 +22,12 @@ public class TestClient {
 		
 		JSONObject request = new JSONObject();
 		
-		/* REGISTERUSER	*/
+		/* LOGINUSER */
+		request.put("command", "LOGINUSER");
+		request.put("email", "vv");
+		request.put("lozinka", "bla");
+		
+		/* REGISTERUSER	
 		request.put("command", "REGISTERUSER");
 		request.put("ime", "Meho");
 		request.put("prezime", "Puzić");
@@ -42,7 +47,7 @@ public class TestClient {
 		request.put("idKategorijeVozila", 1);
 		request.put("opisVozila", "opisddfas");
 		request.put("slikaVozila", "slikica");
-		request.put("opisPrijevoza", "opisprijevza");	
+		request.put("opisPrijevoza", "opisprijevza"); */
 		
 		
 		/* RETRIEVEUSERPROFILE	
