@@ -1,9 +1,12 @@
 package com.opp.fangla.terznica.data;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.database.MatrixCursor;
 
+import com.opp.fangla.terznica.data.entities.Advert;
 import com.opp.fangla.terznica.data.entities.SimpleAdvert;
+import com.opp.fangla.terznica.net.AdvertsDownload;
 import com.opp.fangla.terznica.net.ProductSearchResults;
 import com.opp.fangla.terznica.net.ProductSearchSuggestions;
 
@@ -48,5 +51,11 @@ public class DataRepository {
 
     public MutableLiveData<MatrixCursor> getProductSearchSuggestions(){
         return productSearchSuggestions;
+    }
+
+    public LiveData<List<Advert>> getAdverts() {
+        MutableLiveData<List<Advert>> adverts = new MutableLiveData<>();
+        new AdvertsDownload(adverts).execute();
+        return adverts;
     }
 }

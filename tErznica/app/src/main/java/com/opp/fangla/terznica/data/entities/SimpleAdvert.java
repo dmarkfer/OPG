@@ -2,10 +2,6 @@ package com.opp.fangla.terznica.data.entities;
 
 import android.graphics.Bitmap;
 
-/**
- * Created by domagoj on 29.12.17..
- */
-
 public class SimpleAdvert {
 
     private long id;

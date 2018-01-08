@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.welcome.RegisterActivity;
@@ -22,7 +21,6 @@ public class VendorFragment extends Fragment{
     private Button next, back;
     private AppCompatCheckBox checkBox;
     private RegisterViewModel model;
-    private FragmentTransaction transaction;
     private VendorSubFragment vendorSubFragment;
 
     @Nullable
@@ -37,12 +35,12 @@ public class VendorFragment extends Fragment{
         next = root.findViewById(R.id.f_register_vendor_next);
         back = root.findViewById(R.id.f_register_vendor_back);
         vendorSubFragment = new VendorSubFragment();
-        transaction = getFragmentManager().beginTransaction();
 
         checkBox.setChecked(model.isVendor());
         model.getVendor().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 if(aBoolean) {
                     transaction.add(R.id.f_register_vendor_container, vendorSubFragment);
                     transaction.commit();
