@@ -10,6 +10,7 @@ import serverCommands.CreateFarmer;
 import serverCommands.CreateProduct;
 import serverCommands.CreateProductCategory;
 import serverCommands.DeleteUser;
+import serverCommands.EditComment;
 import serverCommands.Help;
 import serverCommands.LoginUser;
 import serverCommands.RegisterUser;
@@ -34,7 +35,8 @@ private static HashMap<String, ShellCommand> commands;
 						new CreateConversation(),
 						new CreateProduct(),
 						new CreateFarmer(),
-						new CreateProductCategory()
+						new CreateProductCategory(),
+						new EditComment()
 		};
 		
 		for (ShellCommand shellCommand : cc) {
@@ -48,7 +50,7 @@ private static HashMap<String, ShellCommand> commands;
 		socket.setSoTimeout(1000);
 		
 		while(true) {
-			System.out.println("Waiting");
+			//System.out.println("Waiting");
 			ClientWorkerShell worker=null;
 			
 			try {
@@ -62,7 +64,7 @@ private static HashMap<String, ShellCommand> commands;
 			
 			catch (Exception e) {
 				timeout++;
-				System.out.println("No Connection");
+				//System.out.println("No Connection");
 				if (timeout==10000) {
 					socket.close();
 					System.exit(0);

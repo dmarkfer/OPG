@@ -25,13 +25,15 @@ public class EditComment extends AbstractCommand {
 			Statement statement = connection.createStatement();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("UPDATE ocjena SET komenatar='");
+			sql.append("UPDATE ocjena SET komentar='");
 			sql.append(arguments.get("komentar"));
 			sql.append("', ocjena='");
 			sql.append(arguments.get("ocjena"));
 			sql.append("', vrijeme='");
 			sql.append(arguments.get("vrijeme"));
-			sql.append("';");
+			sql.append("' WHERE id=");
+			sql.append(arguments.get("idOcjene"));
+			sql.append(";");
 			
 			statement.executeUpdate(sql.toString());
 			returnObject.put("success", true);
