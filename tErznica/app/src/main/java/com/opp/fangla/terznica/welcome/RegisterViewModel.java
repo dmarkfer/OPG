@@ -14,8 +14,8 @@ import com.opp.fangla.terznica.util.SimpleTextWatcher;
 public class RegisterViewModel extends AndroidViewModel {
 
     private String name, surname, mail, phone, password, confirmPassword, vendorName, vendorNumber;
-    private boolean buyer, vendor, driver;
-    private MutableLiveData<Boolean> strongPassword, passwordsMatch;
+    private boolean buyer, driver;
+    private MutableLiveData<Boolean> strongPassword, passwordsMatch, vendor;
     private MutableLiveData<Place> address;
 
     public RegisterViewModel(@NonNull Application application) {
@@ -33,6 +33,12 @@ public class RegisterViewModel extends AndroidViewModel {
         passwordsMatch = new MutableLiveData<>();
         passwordsMatch.postValue(false);
         address = new MutableLiveData<>();
+        vendor = new MutableLiveData<>();
+        vendor.postValue(false);
+    }
+
+    public LiveData<Boolean> getVendor(){
+        return vendor;
     }
 
     public void setAddress(Place place){
@@ -80,7 +86,8 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public boolean isVendor() {
-        return vendor;
+        if(vendor.getValue() == null) return false;
+        else return vendor.getValue();
     }
 
     public boolean isDriver() {
@@ -186,7 +193,7 @@ public class RegisterViewModel extends AndroidViewModel {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                vendor = b;
+                vendor.postValue(b);
             }
         };
     }
