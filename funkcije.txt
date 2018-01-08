@@ -1,5 +1,5 @@
 registerUser(ime, prezime, lozinka, email, telefon, poljoprivrednik, kupac, prijevoznik, nazivOPG, OIBOPG, adresaOPG, slikaOPG, opisOPG, IBAN, registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila, opisPrijevoza) -> (idKorisnika, idVozila, success)
-loginUser(email, lozinka) -> (idKorisnika, kupac, prijevoznik, poljoprivrednik, success)
+loginUser(email, lozinka) -> (idKorisnika, uloga, kupac, prijevoznik, poljoprivrednik, success)
 deleteUser(idKorisnika) -> (success)
 retrieveUserProfile(idKorisnika) -> (ime, prezime, lozinka, email, telefon, poljoprivrednik, kupac, prijevoznik, nazivOPG, OIBOPG, adresaOPG, slikaOPG, opisOPG, IBAN, vozila[registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila], opisPrijevoza)
 createComment(idOcjenjenog, idOcjenjivaca, ocjena, komentar, vrijeme) -> (idOcjene)
