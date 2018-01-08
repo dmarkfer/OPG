@@ -1,19 +1,10 @@
 package testClient;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.nio.charset.Charset;
-import java.util.Scanner;
-
-import javax.imageio.ImageIO;
 
 import org.json.JSONObject;
 
@@ -21,7 +12,6 @@ public class TestClient {
 	private static final String HOSTNAME="localhost";
 	private static final int PORT=8080;
 	private static ClientServerCommunication clientServerCommunication=null;
-	private static final String path="/home/luka/pic.jpg";
 	public static void main(String[] args) throws UnknownHostException, IOException {
 
 		Socket socket =new Socket();
@@ -31,10 +21,36 @@ public class TestClient {
 		System.out.println(clientServerCommunication.getText());
 		
 		JSONObject request = new JSONObject();
-		request.put("command", "RETRIEVEUSERPROFILE");
-		request.put("idKorisnika", 5);
-		clientServerCommunication.sendText(request.toString());
 		
+		/* REGISTERUSER	*/
+		request.put("command", "REGISTERUSER");
+		request.put("ime", "Meho");
+		request.put("prezime", "Puzić");
+		request.put("lozinka", "Puzić");
+		request.put("email", "Puzsisć@bla.hr");
+		request.put("telefon", "654746");
+		request.put("poljoprivrednik", 1);
+		request.put("kupac", 1);
+		request.put("prijevoznik", 1);
+		request.put("nazivOPG", "opgg");
+		request.put("OIBOPG", "45452");
+		request.put("adresaOPG", "oddpgg");
+		request.put("slikaOPG", "slki");
+		request.put("opisOPG", "opsfad");
+		request.put("IBAN", "456565435");
+		request.put("registarskaOznaka", "zg454534DFD");
+		request.put("idKategorijeVozila", 1);
+		request.put("opisVozila", "opisddfas");
+		request.put("slikaVozila", "slikica");
+		request.put("opisPrijevoza", "opisprijevza");	
+		
+		
+		/* RETRIEVEUSERPROFILE	
+		request.put("command", "RETRIEVEUSERPROFILE");
+		request.put("idKorisnika", 5); */
+		
+		
+		clientServerCommunication.sendText(request.toString());
 		
 		String line =clientServerCommunication.getText();
 		System.out.println(line);
