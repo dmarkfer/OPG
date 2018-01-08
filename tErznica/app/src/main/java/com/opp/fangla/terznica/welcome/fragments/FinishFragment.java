@@ -30,7 +30,6 @@ public class FinishFragment extends Fragment{
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //((RegisterActivity) getActivity()).changeFragment(4);
                 Snackbar.make(root, "Nezz kaj da delam s tim gumbom", Snackbar.LENGTH_SHORT).show();
             }
         });

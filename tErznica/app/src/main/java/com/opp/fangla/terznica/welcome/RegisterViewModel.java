@@ -8,13 +8,15 @@ import android.support.annotation.NonNull;
 import android.text.TextWatcher;
 import android.widget.CompoundButton;
 
+import com.google.android.gms.location.places.Place;
 import com.opp.fangla.terznica.util.SimpleTextWatcher;
 
 public class RegisterViewModel extends AndroidViewModel {
 
-    private String name, surname, mail, phone, password, confirmPassword;
+    private String name, surname, mail, phone, password, confirmPassword, vendorName, vendorNumber;
     private boolean buyer, vendor, driver;
     private MutableLiveData<Boolean> strongPassword, passwordsMatch;
+    private MutableLiveData<Place> address;
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
@@ -24,10 +26,29 @@ public class RegisterViewModel extends AndroidViewModel {
         phone = new String();
         password = new String();
         confirmPassword = new String();
+        vendorName = new String();
+        vendorNumber = new String();
         strongPassword = new MutableLiveData<>();
         strongPassword.postValue(false);
         passwordsMatch = new MutableLiveData<>();
         passwordsMatch.postValue(false);
+        address = new MutableLiveData<>();
+    }
+
+    public void setAddress(Place place){
+        address.postValue(place);
+    }
+
+    public LiveData<Place> getAddress() {
+        return address;
+    }
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public String getVendorNumber() {
+        return vendorNumber;
     }
 
     public String getName() {
@@ -101,7 +122,7 @@ public class RegisterViewModel extends AndroidViewModel {
         };
     }
 
-    public TextWatcher getPhoneeWatcher(){
+    public TextWatcher getPhoneWatcher(){
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -130,6 +151,24 @@ public class RegisterViewModel extends AndroidViewModel {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 confirmPassword = charSequence.toString();
                 comparePasswords();
+            }
+        };
+    }
+
+    public TextWatcher getVendorNameWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                vendorName = charSequence.toString();
+            }
+        };
+    }
+
+    public TextWatcher getVendorNumberWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                vendorNumber = charSequence.toString();
             }
         };
     }

@@ -1,5 +1,6 @@
 package com.opp.fangla.terznica.welcome.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
@@ -41,12 +43,14 @@ public class VendorFragment extends Fragment{
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((RegisterActivity) getActivity()).hideKeyBoard();
                 ((RegisterActivity) getActivity()).changeFragment(3);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((RegisterActivity) getActivity()).hideKeyBoard();
                 ((RegisterActivity) getActivity()).changeFragment(1);
             }
         });

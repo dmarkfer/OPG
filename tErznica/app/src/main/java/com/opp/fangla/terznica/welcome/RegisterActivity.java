@@ -1,6 +1,8 @@
 package com.opp.fangla.terznica.welcome;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,8 +10,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.util.CustomViewPager;
 import com.opp.fangla.terznica.welcome.fragments.BuyerFragment;
@@ -17,6 +24,7 @@ import com.opp.fangla.terznica.welcome.fragments.DriverFragment;
 import com.opp.fangla.terznica.welcome.fragments.FinishFragment;
 import com.opp.fangla.terznica.welcome.fragments.GeneralFragment;
 import com.opp.fangla.terznica.welcome.fragments.VendorFragment;
+import com.opp.fangla.terznica.welcome.fragments.VendorSubFragment;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -42,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void changeFragment(int position){
         pager.setCurrentItem(position, true);
+        adapter.setCurrentPosition(position);
     }
 
     @Override
@@ -57,9 +66,37 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    public void hideKeyBoard(){
+        try {
+            ((InputMethodManager) this.getSystemService(
+                    Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+                    this.getCurrentFocus().getWindowToken(), 0);
+
+        } catch (NullPointerException e){
+            Log.d("RegisterActivity", "Hide keyboard unsuccessful");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == VendorSubFragment.PLACE_AUTOCOMPLETE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                viewModel.setAddress(place);
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                Log.i("RegisterActivity", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.i("RegisterActivity", "Autocomplete cancelled");
+            }
+        }
+
+    }
+
     private class RegisterPagerAdapter extends FragmentPagerAdapter{
 
-        private int currentPosition;
+        private int currentPosition = 0;
 
         public RegisterPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -67,7 +104,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            currentPosition = position;
             switch (position){
                 case 0:
                     return new GeneralFragment();
@@ -91,6 +127,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         public int getCurrentPosition(){
             return currentPosition;
+        }
+
+        public void setCurrentPosition(int position){
+            this.currentPosition = position;
         }
     }
 }

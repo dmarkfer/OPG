@@ -41,12 +41,14 @@ public class DriverFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((RegisterActivity) getActivity()).hideKeyBoard();
                 ((RegisterActivity) getActivity()).changeFragment(4);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((RegisterActivity) getActivity()).hideKeyBoard();
                 ((RegisterActivity) getActivity()).changeFragment(2);
             }
         });

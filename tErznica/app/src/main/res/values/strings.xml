@@ -24,4 +24,5 @@
     <string name="register_driver_check">Registriraj me kao prijevoznika</string>
     <string name="finish_registration_description">Odlično, registracija je gotova! Vaš zahtjev će se poslati administratorima na potvrdu</string>
     <string name="done">Gotovo</string>
+    <string name="add_address">Dodaj adresu</string>
 </resources>

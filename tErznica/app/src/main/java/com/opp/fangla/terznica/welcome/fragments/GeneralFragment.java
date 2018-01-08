@@ -1,5 +1,6 @@
 package com.opp.fangla.terznica.welcome.fragments;
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,7 +56,7 @@ public class GeneralFragment extends Fragment {
         name.addTextChangedListener(model.getNameWatcher());
         surname.addTextChangedListener(model.getSurnameWatcher());
         mail.addTextChangedListener(model.getMailWatcher());
-        phone.addTextChangedListener(model.getPhoneeWatcher());
+        phone.addTextChangedListener(model.getPhoneWatcher());
         password.addTextChangedListener(model.getPasswordWatcher());
         confirmPassword.addTextChangedListener(model.getConfirmPasswordWatcher());
 
@@ -90,6 +92,7 @@ public class GeneralFragment extends Fragment {
                 } else if(!model.getPasswordsMatch()){
                     Snackbar.make(root, "Lozinke se ne podudaraju", Snackbar.LENGTH_SHORT).show();
                 } else {
+                    ((RegisterActivity) getActivity()).hideKeyBoard();
                     ((RegisterActivity) getActivity()).changeFragment(1);
                 }
             }
