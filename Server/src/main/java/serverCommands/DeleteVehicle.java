@@ -10,25 +10,26 @@ import serverShell.AbstractCommand;
 import serverShell.CommandStatus;
 import serverShell.Environment;
 
-public class DeleteUser extends AbstractCommand {
-
-	public DeleteUser() {
-		super("DELETEUSER", "Deletes specified user.");
+public class DeleteVehicle extends AbstractCommand {
+	
+	public DeleteVehicle() {
+		super("DELETEVEHICLE", "Delete vehicle.");
 	}
-
+	
 	@Override
 	public CommandStatus execute(Environment environment, JSONObject arguments) {
 		Connection connection = environment.getDatabase();
 		JSONObject returnObject = new JSONObject();
-		try {						
+		
+		try {
 			Statement statement = connection.createStatement();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("DELETE FROM korisnik WHERE id=");
-			sql.append(arguments.get("idKorisnika"));
+			sql.append("DELETE FROM vehicle WHERE id=");
+			sql.append(arguments.get("idVozila"));
 			sql.append(";");
 			
-			statement.executeUpdate(sql.toString());
+			statement.execute(sql.toString());
 			
 			returnObject.put("success", true);
 			environment.sendText(returnObject.toString());
@@ -36,6 +37,7 @@ public class DeleteUser extends AbstractCommand {
 			returnObject.put("success", false);
 			environment.sendText(returnObject.toString());
 		}
+		
 		return CommandStatus.CONTINUE;
 	}
 

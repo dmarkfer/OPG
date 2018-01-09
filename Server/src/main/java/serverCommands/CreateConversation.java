@@ -1,9 +1,9 @@
 package serverCommands;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 
 import org.json.JSONObject;
 
@@ -13,7 +13,8 @@ import serverShell.Environment;
 
 public class CreateConversation extends AbstractCommand {
 	
-	String[] columns = new String[] {"id_oglasa","id_oglasa_prijevoz","id_prijevoznika","gotov_razgovor","kolicina","cijena"};
+	String[] columns = new String[] {"idOglasa", "idOglasaPrijevoza", "idPrijevoznika", 
+			"gotovRazgovor", "kolicina", "cijena", "idKupca" };
 
 	public CreateConversation() {
 		super("CREATECONVERSATION", "Creates a conversation.");
@@ -22,13 +23,20 @@ public class CreateConversation extends AbstractCommand {
 	@Override
 	public CommandStatus execute(Environment environment, JSONObject arguments) {
 		Connection connection = environment.getDatabase();
+		JSONObject returnObject = new JSONObject();
+		
+		arguments.put("gotovRazgovor", 0);
+		arguments.put("kolicina", 0);
+		arguments.put("cijena", 0);
+		
 		try {						
 			Statement statement = connection.createStatement();
 			
 			StringBuilder sql = new StringBuilder();
 			sql.append("INSERT INTO razgovor VALUES (default,");
+			
 			for(int i = 0; i < columns.length; ++i) {
-				if(arguments.get(columns[i]) == null) {
+				if(!arguments.has(columns[i])) {
 					sql.append("null,");
 				} else {
 					sql.append("'" + arguments.get(columns[i]) + "',");
@@ -37,9 +45,12 @@ public class CreateConversation extends AbstractCommand {
 			sql.deleteCharAt(sql.length()-1);
 			sql.append(");");
 			
-			System.out.println(sql.toString());
 			statement.executeUpdate(sql.toString());
-			environment.sendText("true");
+						
+			ResultSet id = statement.executeQuery("SELECT MAX(id) AS id FROM razgovor;");
+			id.next();
+			returnObject.put("idRazgovora", id.getString("id"));
+			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 			environment.sendText("false");
