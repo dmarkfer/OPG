@@ -58,9 +58,12 @@ public class CreateVehicle extends AbstractCommand {
 			ResultSet id = statement.executeQuery(sql.toString());
 			id.next();
 			returnObject.put("idVozila", id.getString("id"));
+			returnObject.put("success", true);
+			
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
-			environment.sendText("false");
+			returnObject.put("success", false);
+			environment.sendText(returnObject.toString());
 		}
 		
 		return CommandStatus.CONTINUE;

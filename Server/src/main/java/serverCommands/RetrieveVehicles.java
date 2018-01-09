@@ -61,10 +61,12 @@ public class RetrieveVehicles extends AbstractCommand {
 			}
 			
 			returnObject.put("vozila", vehs);
+			returnObject.put("success", true);
 			
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
-			environment.sendText("false");
+			returnObject.put("success", false);
+			environment.sendText(returnObject.toString());
 		}
 		
 		return CommandStatus.CONTINUE;
