@@ -27,8 +27,32 @@
     <string name="add_address">Dodaj adresu</string>
     <string name="vendor_name">Naziv OPG-a</string>
     <string name="vendor_id">OIB OPG-a</string>
-    <string name="google_api_key">AIzaSyBqbx_QEgvIifUyr50WswLjSvQW54AgQ6E</string>
+    <string name="google_api_key">AIzaSyDo-ci490dgXDV_hOQh8R3WSCFZVpsUWPw</string>
     <string name="vendor_short_description">Kratak opis OPG-a</string>
     <string name="iban">Broj računa u IBAN obliku</string>
     <string name="choose_image">Odaberite sliku</string>
+    <string name="add">Dodaj</string>
+    <string name="registration">Registarska oznaka</string>
+    <string name="vehicle_model">Model vozila</string>
+    <string name="description">Opis</string>
+    <string name="categories">Kategorije</string>
+    <string-array name="vehicle_categories">
+        <item>AM</item>
+        <item>A1</item>
+        <item>A2</item>
+        <item>A</item>
+        <item>B1</item>
+        <item>B</item>
+        <item>C1</item>
+        <item>C</item>
+        <item>D1</item>
+        <item>D</item>
+        <item>BE</item>
+        <item>C1E</item>
+        <item>CE</item>
+        <item>D1E</item>
+        <item>DE</item>
+        <item>F, G</item>
+        <item>H</item>
+    </string-array>
 </resources>

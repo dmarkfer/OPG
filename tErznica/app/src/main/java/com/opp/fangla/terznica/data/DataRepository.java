@@ -2,6 +2,7 @@ package com.opp.fangla.terznica.data;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.SharedPreferences;
 import android.database.MatrixCursor;
 
 import com.opp.fangla.terznica.data.entities.Advert;

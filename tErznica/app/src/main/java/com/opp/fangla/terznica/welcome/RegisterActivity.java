@@ -24,6 +24,7 @@ import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.util.CustomViewPager;
 import com.opp.fangla.terznica.welcome.fragments.BuyerFragment;
 import com.opp.fangla.terznica.welcome.fragments.DriverFragment;
+import com.opp.fangla.terznica.welcome.fragments.DriverSubFragment;
 import com.opp.fangla.terznica.welcome.fragments.FinishFragment;
 import com.opp.fangla.terznica.welcome.fragments.GeneralFragment;
 import com.opp.fangla.terznica.welcome.fragments.VendorFragment;
@@ -106,6 +107,20 @@ public class RegisterActivity extends AppCompatActivity {
                     final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                     final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                     viewModel.setVendorImage(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }else if(requestCode == DriverSubFragment.VEHICLE_IMAGE){
+            //Log.d("RegisterActivity", "AAAAAAAAAAAA picker finished");
+            if(resultCode == RESULT_OK){
+                //Log.d("RegisterActivity", "AAAAAAAAAAAA image changed");
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    viewModel.getNewVehicle().setImage(selectedImage);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

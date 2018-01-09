@@ -8,20 +8,25 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.CompoundButton;
 
 import com.google.android.gms.location.places.Place;
 import com.opp.fangla.terznica.R;
+import com.opp.fangla.terznica.data.entities.Vehicle;
 import com.opp.fangla.terznica.data.entities.Vendor;
 import com.opp.fangla.terznica.util.SimpleTextWatcher;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterViewModel extends AndroidViewModel {
 
     private String name, surname, mail, phone, password, confirmPassword;
     private Vendor vendorObj;
-    private boolean buyer, driver, validVendorImage, valid;
-    private MutableLiveData<Boolean> strongPassword, passwordsMatch, vendor;
+    private boolean buyer, validVendorImage, valid;
+    private MutableLiveData<Boolean> strongPassword, passwordsMatch, vendor, driver;
+    private Vehicle newVehicle;
+    private MutableLiveData<List<Vehicle>> vehicles;
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
@@ -38,6 +43,33 @@ public class RegisterViewModel extends AndroidViewModel {
         passwordsMatch.postValue(false);
         vendor = new MutableLiveData<>();
         vendor.postValue(false);
+        vehicles = new MutableLiveData<>();
+        vehicles.postValue(new ArrayList<Vehicle>());
+        driver = new MutableLiveData<>();
+        driver.postValue(false);
+
+    }
+
+    public LiveData<List<Vehicle>> getVehicles() {
+        return vehicles;
+    }
+
+    public LiveData<Boolean> getDriver() {
+        return driver;
+    }
+
+    public Vehicle getNewVehicle() {
+        if(newVehicle == null){
+            newVehicle = new Vehicle(BitmapFactory.decodeResource(getApplication().getResources(), R.mipmap.camera_white));
+        }
+        return newVehicle;
+    }
+
+    public void addNewVehicle(){
+        if(newVehicle != null){
+            vehicles.getValue().add(newVehicle);
+            newVehicle = null;
+        }
     }
 
     public LiveData<Bitmap> getVendorImage() {
@@ -45,7 +77,6 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public void setVendorImage(Bitmap vendorImage) {
-        //Log.d("RegisterViewModel", "AAAAAAAAAAAA image changed");
         vendorObj.setImage(vendorImage);
     }
 
@@ -54,7 +85,7 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public String getVendorIban() {
-        return vendorObj.getBank_account();
+        return vendorObj.getBankAccount();
     }
 
     public LiveData<Boolean> getVendor(){
@@ -74,7 +105,7 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public String getVendorNumber() {
-        return vendorObj.getId_num();
+        return vendorObj.getIdNum();
     }
 
     public String getName() {
@@ -111,7 +142,8 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public boolean isDriver() {
-        return driver;
+        if(driver.getValue() == null) return false;
+        else return driver.getValue();
     }
 
     public LiveData<Boolean> getStrongPasswordObs() {
@@ -195,7 +227,7 @@ public class RegisterViewModel extends AndroidViewModel {
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                vendorObj.setId_num(charSequence.toString());
+                vendorObj.setIdNum(charSequence.toString());
             }
         };
     }
@@ -213,7 +245,34 @@ public class RegisterViewModel extends AndroidViewModel {
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                vendorObj.setBank_account(charSequence.toString());
+                vendorObj.setBankAccount(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher getVehicleRegistrationWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                getNewVehicle().setRegistration(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher getVehicleModelWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                getNewVehicle().setModel(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher getVehicleDescriptionWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                getNewVehicle().setDescription(charSequence.toString());
             }
         };
     }
@@ -240,7 +299,7 @@ public class RegisterViewModel extends AndroidViewModel {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                driver = b;
+                driver.postValue(b);
             }
         };
     }
@@ -269,9 +328,9 @@ public class RegisterViewModel extends AndroidViewModel {
 
     public boolean vendorFieldsFilled(){
         return vendorObj.getName().length() > 0 &&
-                vendorObj.getBank_account().length() > 0 &&
+                vendorObj.getBankAccount().length() > 0 &&
                 vendorObj.getDescription().length() > 0 &&
-                vendorObj.getId_num().length() > 0;
+                vendorObj.getIdNum().length() > 0;
     }
 
     public boolean vendorAddressValid(){
@@ -280,5 +339,25 @@ public class RegisterViewModel extends AndroidViewModel {
 
     public boolean vendorImageValid(){
         return vendorObj.getImage().getValue() != null;
+    }
+
+    public boolean newVehicleValid(){
+        return getNewVehicle().getRegistration().length() > 0 &&
+                getNewVehicle().getModel().length() > 0 &&
+                getNewVehicle().getDescription().length() > 0 &&
+                getNewVehicle().getCategory().length() > 0 &&
+                getNewVehicle().getImage().getValue() != null;
+    }
+
+    public void cancelNewVehicle(){
+        newVehicle = null;
+    }
+
+    public boolean hasARole(){
+        return buyer || vendor.getValue() || driver.getValue();
+    }
+
+    public void register(){
+
     }
 }

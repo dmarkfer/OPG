@@ -56,15 +56,20 @@ public class VendorFragment extends Fragment{
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!model.vendorFieldsFilled()){
-                    Snackbar.make(root, "Molimo popunite sva polja", Snackbar.LENGTH_SHORT).show();
-                //} else if(!model.vendorAddressValid()){
-                //    Snackbar.make(root, "Odaberite adresu", Snackbar.LENGTH_SHORT).show();
-                } else if(!model.vendorImageValid()){
-                    Snackbar.make(root, "Odaberite sliku", Snackbar.LENGTH_SHORT).show();
+                if(model.getVendor().getValue()) {
+                    if (!model.vendorFieldsFilled()) {
+                        Snackbar.make(root, "Molimo popunite sva polja", Snackbar.LENGTH_SHORT).show();
+                    } else if (!model.vendorAddressValid()) {
+                        Snackbar.make(root, "Odaberite adresu", Snackbar.LENGTH_SHORT).show();
+                    } else if (!model.vendorImageValid()) {
+                        Snackbar.make(root, "Odaberite sliku", Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        ((RegisterActivity) getActivity()).hideKeyBoard();
+                        ((RegisterActivity) getActivity()).changeFragment(3);
+                    }
                 } else {
-                ((RegisterActivity) getActivity()).hideKeyBoard();
-                ((RegisterActivity) getActivity()).changeFragment(3);
+                    ((RegisterActivity) getActivity()).hideKeyBoard();
+                    ((RegisterActivity) getActivity()).changeFragment(3);
                 }
             }
         });
