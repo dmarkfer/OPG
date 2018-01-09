@@ -7,15 +7,14 @@ import android.database.MatrixCursor;
 
 import com.opp.fangla.terznica.data.entities.Advert;
 import com.opp.fangla.terznica.data.entities.SimpleAdvert;
+import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.net.AdvertsDownload;
 import com.opp.fangla.terznica.net.ProductSearchResults;
 import com.opp.fangla.terznica.net.ProductSearchSuggestions;
+import com.opp.fangla.terznica.net.RegisterUser;
+import com.opp.fangla.terznica.util.LogInCallback;
 
 import java.util.List;
-
-/**
- * Created byn domagoj on 21.12.17..
- */
 
 public class DataRepository {
 
@@ -58,5 +57,11 @@ public class DataRepository {
         MutableLiveData<List<Advert>> adverts = new MutableLiveData<>();
         new AdvertsDownload(adverts).execute();
         return adverts;
+    }
+
+    public LiveData<LogInCallback> registerUser(User user){
+        MutableLiveData<LogInCallback> result = new MutableLiveData<>();
+        new RegisterUser(result).execute(User.toJSON(user));
+        return result;
     }
 }

@@ -14,15 +14,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.List;
 
-/**
- * Created by domagoj on 30.12.17..
- */
-
 public class LogIn extends AsyncTask<String, Void, String> {
 
     private MutableLiveData<String> liveData;
-    private final String HOSTNAME = "165.227.175.217";
-    private final int PORT = 8080;
+    protected static final String HOSTNAME = "165.227.175.217";
+    protected static final int PORT = 8080;
 
     public LogIn(MutableLiveData<String> liveData) {
         this.liveData = liveData;
@@ -43,7 +39,7 @@ public class LogIn extends AsyncTask<String, Void, String> {
             c.sendText(json.toString());
 
             //c.getText();
-            Log.d("Login", "AAAAAAAAAAAAAAAAAAA " + c);
+            //Log.d("Login", "AAAAAAAAAAAAAAAAAAA " + c);
 
             c.close();
             c.disconnect();

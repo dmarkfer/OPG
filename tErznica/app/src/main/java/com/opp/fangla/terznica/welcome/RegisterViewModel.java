@@ -11,7 +11,9 @@ import android.text.TextWatcher;
 import android.widget.CompoundButton;
 
 import com.google.android.gms.location.places.Place;
+import com.opp.fangla.terznica.FanglaApp;
 import com.opp.fangla.terznica.R;
+import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.data.entities.Vehicle;
 import com.opp.fangla.terznica.data.entities.Vendor;
 import com.opp.fangla.terznica.util.SimpleTextWatcher;
@@ -345,7 +347,6 @@ public class RegisterViewModel extends AndroidViewModel {
         return getNewVehicle().getRegistration().length() > 0 &&
                 getNewVehicle().getModel().length() > 0 &&
                 getNewVehicle().getDescription().length() > 0 &&
-                getNewVehicle().getCategory().length() > 0 &&
                 getNewVehicle().getImage().getValue() != null;
     }
 
@@ -358,6 +359,21 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public void register(){
-
+        User user = new User();
+        if(driver.getValue()) {
+            user.setVehicles(vehicles.getValue());
+        }
+        if(vendor.getValue()) {
+            user.setVendorData(vendorObj);
+        }
+        user.setName(name);
+        user.setSurname(surname);
+        user.setPassword(password);
+        user.setMail(mail);
+        user.setPhone(phone);
+        user.setBuyer(buyer);
+        user.setVendor(vendor.getValue());
+        user.setDriver(driver.getValue());
+        ((FanglaApp) getApplication()).getRepository().registerUser(user);
     }
 }

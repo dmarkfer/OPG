@@ -3,13 +3,15 @@ package com.opp.fangla.terznica.data.entities;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.graphics.Bitmap;
+import android.util.Base64;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Vehicle {
 
-    private int id;
-    private String registration, model, description, category;
+    private Integer id, category;
+    private String registration, model, description;
     private MutableLiveData<Bitmap> image;
     private boolean validImage;
 
@@ -17,7 +19,6 @@ public class Vehicle {
         registration = new String();
         model = new String();
         description = new String();
-        category = new String();
         this.image = new MutableLiveData<>();
         this.image.postValue(image);
     }
@@ -54,11 +55,11 @@ public class Vehicle {
         this.description = description;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
@@ -77,7 +78,25 @@ public class Vehicle {
 
     public static JSONObject toJSON(Vehicle vehicle){
         JSONObject result = new JSONObject();
-        //TODO
+        try {
+            if(vehicle.registration != null){
+                result.put("registarskaOznaka", vehicle.registration);
+            }
+            if(vehicle.category != null){
+                result.put("idKategorijaVozila", vehicle.category);
+            }
+            if(vehicle.description != null){
+                result.put("opisVozila", vehicle.model);
+            }
+            if(vehicle.description != null){
+                result.put("opisPrijevoza", vehicle.description);
+            }
+            if(vehicle.image.getValue() != null){
+                result.put("slikaVozila", Base64.encodeToString(vehicle.image.getValue().getNinePatchChunk(), Base64.DEFAULT));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return result;
     }
 }

@@ -115,7 +115,14 @@ public class Vendor {
 
     public static JSONObject placeJSON(Place place){
         JSONObject result = new JSONObject();
-        //TODO
+        try{
+            result.put("adresa", place.getAddress().toString());
+            result.put("id", place.getId());
+            result.put("latitude", place.getLatLng().latitude);
+            result.put("longitude", place.getLatLng().longitude);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return result;
     }
 }

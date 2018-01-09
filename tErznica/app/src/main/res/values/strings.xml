@@ -55,4 +55,5 @@
         <item>F, G</item>
         <item>H</item>
     </string-array>
+    <string name="hostname">165.227.175.217</string>
 </resources>
