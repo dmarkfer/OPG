@@ -4,19 +4,24 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.CompoundButton;
 
 import com.google.android.gms.location.places.Place;
+import com.opp.fangla.terznica.R;
+import com.opp.fangla.terznica.data.entities.Vendor;
 import com.opp.fangla.terznica.util.SimpleTextWatcher;
 
 public class RegisterViewModel extends AndroidViewModel {
 
-    private String name, surname, mail, phone, password, confirmPassword, vendorName, vendorNumber;
-    private boolean buyer, driver;
+    private String name, surname, mail, phone, password, confirmPassword;
+    private Vendor vendorObj;
+    private boolean buyer, driver, validVendorImage, valid;
     private MutableLiveData<Boolean> strongPassword, passwordsMatch, vendor;
-    private MutableLiveData<Place> address;
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
@@ -26,15 +31,30 @@ public class RegisterViewModel extends AndroidViewModel {
         phone = new String();
         password = new String();
         confirmPassword = new String();
-        vendorName = new String();
-        vendorNumber = new String();
+        vendorObj = new Vendor(BitmapFactory.decodeResource(getApplication().getResources(), R.mipmap.camera_white));
         strongPassword = new MutableLiveData<>();
         strongPassword.postValue(false);
         passwordsMatch = new MutableLiveData<>();
         passwordsMatch.postValue(false);
-        address = new MutableLiveData<>();
         vendor = new MutableLiveData<>();
         vendor.postValue(false);
+    }
+
+    public LiveData<Bitmap> getVendorImage() {
+        return vendorObj.getImage();
+    }
+
+    public void setVendorImage(Bitmap vendorImage) {
+        //Log.d("RegisterViewModel", "AAAAAAAAAAAA image changed");
+        vendorObj.setImage(vendorImage);
+    }
+
+    public String getVendorDescription() {
+        return vendorObj.getDescription();
+    }
+
+    public String getVendorIban() {
+        return vendorObj.getBank_account();
     }
 
     public LiveData<Boolean> getVendor(){
@@ -42,19 +62,19 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public void setAddress(Place place){
-        address.postValue(place);
+        vendorObj.setAddress(place);
     }
 
     public LiveData<Place> getAddress() {
-        return address;
+        return vendorObj.getAddress();
     }
 
     public String getVendorName() {
-        return vendorName;
+        return vendorObj.getName();
     }
 
     public String getVendorNumber() {
-        return vendorNumber;
+        return vendorObj.getId_num();
     }
 
     public String getName() {
@@ -166,7 +186,7 @@ public class RegisterViewModel extends AndroidViewModel {
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                vendorName = charSequence.toString();
+                vendorObj.setName(charSequence.toString());
             }
         };
     }
@@ -175,7 +195,25 @@ public class RegisterViewModel extends AndroidViewModel {
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                vendorNumber = charSequence.toString();
+                vendorObj.setId_num(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher getVendorDescriptionWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                vendorObj.setDescription(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher getVendorIbanWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                vendorObj.setBank_account(charSequence.toString());
             }
         };
     }
@@ -227,5 +265,20 @@ public class RegisterViewModel extends AndroidViewModel {
 
     public boolean getPasswordsMatch(){
         return passwordsMatch.getValue() != null && passwordsMatch.getValue();
+    }
+
+    public boolean vendorFieldsFilled(){
+        return vendorObj.getName().length() > 0 &&
+                vendorObj.getBank_account().length() > 0 &&
+                vendorObj.getDescription().length() > 0 &&
+                vendorObj.getId_num().length() > 0;
+    }
+
+    public boolean vendorAddressValid(){
+        return vendorObj.getAddress().getValue() != null;
+    }
+
+    public boolean vendorImageValid(){
+        return vendorObj.getImage().getValue() != null;
     }
 }

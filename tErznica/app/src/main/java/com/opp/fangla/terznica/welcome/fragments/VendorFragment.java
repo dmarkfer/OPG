@@ -1,6 +1,7 @@
 package com.opp.fangla.terznica.welcome.fragments;
 
 import android.arch.lifecycle.Observer;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -55,8 +56,16 @@ public class VendorFragment extends Fragment{
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!model.vendorFieldsFilled()){
+                    Snackbar.make(root, "Molimo popunite sva polja", Snackbar.LENGTH_SHORT).show();
+                //} else if(!model.vendorAddressValid()){
+                //    Snackbar.make(root, "Odaberite adresu", Snackbar.LENGTH_SHORT).show();
+                } else if(!model.vendorImageValid()){
+                    Snackbar.make(root, "Odaberite sliku", Snackbar.LENGTH_SHORT).show();
+                } else {
                 ((RegisterActivity) getActivity()).hideKeyBoard();
                 ((RegisterActivity) getActivity()).changeFragment(3);
+                }
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
