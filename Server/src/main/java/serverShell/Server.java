@@ -3,6 +3,11 @@ package serverShell;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.HashMap;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import serverCommands.CreateComment;
 import serverCommands.CreateConversation;
@@ -54,6 +59,8 @@ private static HashMap<String, ShellCommand> commands;
 		int timeout=0;
 		ServerSocket socket=new ServerSocket(PORT);
 		socket.setSoTimeout(1000);
+		BlockingQueue<Runnable> workingThreadQueue = new ArrayBlockingQueue<Runnable>(20);
+		ExecutorService threadPool =new ThreadPoolExecutor(4, 8, 1000, TimeUnit.MILLISECONDS, workingThreadQueue);
 		
 		while(true) {
 			//System.out.println("Waiting");
@@ -63,8 +70,7 @@ private static HashMap<String, ShellCommand> commands;
 				EnvironmentImpl impl=new EnvironmentImpl(socket.accept(),commands);
 				worker= new ClientWorkerShell(impl);
 				System.out.println("conenction established");
-				Thread thread= new Thread(worker);
-				thread.start();
+				threadPool.execute(worker);
 				timeout=0;
 			}
 			
@@ -72,8 +78,10 @@ private static HashMap<String, ShellCommand> commands;
 				timeout++;
 				//System.out.println("No Connection");
 				if (timeout==10000) {
+					threadPool.shutdown();
+					while (threadPool.isShutdown()) {}
 					socket.close();
-					System.exit(0);
+					return;
 				}
 			}
 		}

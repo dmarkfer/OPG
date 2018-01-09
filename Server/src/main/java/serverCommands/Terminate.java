@@ -15,7 +15,6 @@ public class Terminate extends AbstractCommand {
 	@Override
 	public CommandStatus execute(Environment environment, JSONObject arguments) {
 		environment.close();
-		System.out.println("Uspjesno");
 		return CommandStatus.EXIT;
 	}
 }
