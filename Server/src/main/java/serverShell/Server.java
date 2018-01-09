@@ -15,6 +15,7 @@ import serverCommands.EditComment;
 import serverCommands.Help;
 import serverCommands.LoginUser;
 import serverCommands.RegisterUser;
+import serverCommands.RetrieveMessages;
 import serverCommands.RetrieveUserProfile;
 import serverCommands.SendMessage;
 import serverCommands.Terminate;
@@ -40,7 +41,8 @@ private static HashMap<String, ShellCommand> commands;
 						new CreateProductCategory(),
 						new EditComment(),
 						new DeleteComment(),
-						new SendMessage()
+						new SendMessage(),
+						new RetrieveMessages()
 		};
 		
 		for (ShellCommand shellCommand : cc) {

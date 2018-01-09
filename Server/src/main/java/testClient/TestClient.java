@@ -81,16 +81,21 @@ public class TestClient {
 		request.put("opisPrijevoza", "opisprijevza"); */
 		
 		
+		/* RETRIEVEMESSAGES */
+		request.put("command", "RETRIEVEMESSAGES");
+		request.put("idRazgovora", 12);
+		
+		
 		/* RETRIEVEUSERPROFILE	
 		request.put("command", "RETRIEVEUSERPROFILE");
 		request.put("idKorisnika", 5); */
 		
-		/* SENDMESSAGE */
+		/* SENDMESSAGE 
 		request.put("command", "SENDMESSAGE");
 		request.put("idRazgovora", 12);
 		request.put("idPosiljatelja", 5);
 		request.put("vrijeme", new Date());
-		request.put("poruka", "evo ti na!");
+		request.put("poruka", "evo ti na!"); */
 		
 		
 		clientServerCommunication.sendText(request.toString());
