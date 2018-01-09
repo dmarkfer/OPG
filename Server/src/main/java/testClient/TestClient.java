@@ -31,12 +31,12 @@ public class TestClient {
 		request.put("komentar", "blA");
 		request.put("vrijeme", new Date()); */
 		
-		/* CREATECONVERSATION */
+		/* CREATECONVERSATION 
 		request.put("command", "CREATECONVERSATION");
 		request.put("idPrijevoznika", 5);
 		request.put("idKupca", 10);
 		request.put("idOglasa", 4);
-		request.put("idOglasaPrijevoza", 1);
+		request.put("idOglasaPrijevoza", 1); */
  
 		/* DELETECOMMENT
 		request.put("command", "DELETECOMMENT");
@@ -84,6 +84,13 @@ public class TestClient {
 		/* RETRIEVEUSERPROFILE	
 		request.put("command", "RETRIEVEUSERPROFILE");
 		request.put("idKorisnika", 5); */
+		
+		/* SENDMESSAGE */
+		request.put("command", "SENDMESSAGE");
+		request.put("idRazgovora", 12);
+		request.put("idPosiljatelja", 5);
+		request.put("vrijeme", new Date());
+		request.put("poruka", "evo ti na!");
 		
 		
 		clientServerCommunication.sendText(request.toString());

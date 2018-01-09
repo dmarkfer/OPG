@@ -16,6 +16,7 @@ import serverCommands.Help;
 import serverCommands.LoginUser;
 import serverCommands.RegisterUser;
 import serverCommands.RetrieveUserProfile;
+import serverCommands.SendMessage;
 import serverCommands.Terminate;
 
 public class Server {
@@ -38,7 +39,8 @@ private static HashMap<String, ShellCommand> commands;
 						new CreateFarmer(),
 						new CreateProductCategory(),
 						new EditComment(),
-						new DeleteComment()
+						new DeleteComment(),
+						new SendMessage()
 		};
 		
 		for (ShellCommand shellCommand : cc) {
