@@ -31,9 +31,16 @@ public class TestClient {
 		request.put("komentar", "blA");
 		request.put("vrijeme", new Date()); */
 		
-		/* DELETECOMMENT */
+		/* CREATECONVERSATION */
+		request.put("command", "CREATECONVERSATION");
+		request.put("idPrijevoznika", 5);
+		request.put("idKupca", 10);
+		request.put("idOglasa", 4);
+		request.put("idOglasaPrijevoza", 1);
+ 
+		/* DELETECOMMENT
 		request.put("command", "DELETECOMMENT");
-		request.put("idOcjene", 4);
+		request.put("idOcjene", 4); */
 		
 		/* DELETEUSER 
 		request.put("command", "DELETEUSER");

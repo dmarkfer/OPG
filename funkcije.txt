@@ -5,7 +5,7 @@ retrieveUserProfile(idKorisnika) -> (ime, prezime, lozinka, email, telefon, polj
 createComment(idOcjenjenog, idOcjenjivaca, ocjena, komentar, vrijeme) -> (idOcjene)
 editComment(idOcjene, ocjena, komenatar, vrijeme) -> (success)
 deleteComment(idOcjene) -> (success)
-createConversation(idMoj, idDrugi, idOglasa, idOglasaPrijevoza) -> (idRazgovora)
+createConversation(idPrijevoznika, idKupca, idOglasa, idOglasaPrijevoza) -> (idRazgovora)
 sendMessage(idRazgovora, idMoj, vrijeme, poruka) -> (success)
 retrieveMessages(idRazgovora) -> (poruke[idPoruka, idRazgovora, vrijeme, poruka, idPosiljatelja])
 createReport(idKorisnika, tipPrijave, idPrijavljeneStavke, idVrstePrijave, komentar) -> (idPrijave)
