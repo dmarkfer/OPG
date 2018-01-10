@@ -53,9 +53,13 @@ public class TestClient {
 		request.put("command", "DELETECOMMENT");
 		request.put("idOcjene", 4); */
 		
-		/* DELETEPRODUCT */
+		/* DELETEPRODUCT 
 		request.put("command", "DELETEPRODUCT");
-		request.put("idOglasa", 6); 
+		request.put("idOglasa", 6); */
+		
+		/* DELETEPRODUCTCATEGORY */
+		request.put("command", "DELETEPRODUCTCATEGORY");
+		request.put("idKategorije", 3); 
 		
 		/* DELETEUSER 
 		request.put("command", "DELETEUSER");
@@ -80,10 +84,10 @@ public class TestClient {
 		
 		/* LOGINUSER 
 		request.put("command", "LOGINUSER");
-		request.put("email", "vv");
-		request.put("lozinka", "bla"); */
+		request.put("email", "domagoj.kralj@gmail.com");
+		request.put("lozinka", "0000"); */
 		
-		/* REGISTERUSER */	
+		/* REGISTERUSER	
 		request.put("command", "REGISTERUSER");
 		request.put("ime", "Meho");
 		request.put("prezime", "Puzić");
@@ -115,7 +119,7 @@ public class TestClient {
 		request3.put("slikaVozila", "sliketina");
 		array.put(request3);
 		request.put("vozila", array);
-		request.put("opisPrijevoza", "opisprijevza"); 
+		request.put("opisPrijevoza", "opisprijevza");  */
 		
 	
 		/* RETRIEVEMESSAGES 
