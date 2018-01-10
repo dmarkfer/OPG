@@ -57,9 +57,9 @@ public class TestClient {
 		request.put("command", "DELETEPRODUCT");
 		request.put("idOglasa", 6); */
 		
-		/* DELETEPRODUCTCATEGORY */
+		/* DELETEPRODUCTCATEGORY 
 		request.put("command", "DELETEPRODUCTCATEGORY");
-		request.put("idKategorije", 3); 
+		request.put("idKategorije", 3); */
 		
 		/* DELETEUSER 
 		request.put("command", "DELETEUSER");
@@ -125,6 +125,9 @@ public class TestClient {
 		/* RETRIEVEMESSAGES 
 		request.put("command", "RETRIEVEMESSAGES");
 		request.put("idRazgovora", 12); */
+		
+		/* RETRIEVEPRODUCTCATEGORIES */
+		request.put("command", "RETRIEVEPRODUCTCATEGORIES");
 		
 		/* RETRIEVEPRODUCTOFFERS 
 		request.put("command", "RETRIEVEPRODUCTOFFERS");
