@@ -130,14 +130,14 @@ public class User {
                 result.put("telefon", user.phone);
             }
             if(user.picture != null){
-                result.put("slika", Base64.encodeToString(user.picture.getNinePatchChunk(), Base64.DEFAULT));
+                result.put("slika", bitmapToString(user.picture));
             }
-            result.put("kupac", user.buyer);
-            result.put("poljoprivrednik", user.vendor);
+            result.put("kupac", user.buyer ? 1 : 0);
+            result.put("poljoprivrednik", user.vendor ? 1 : 0);
             if(user.vendor) {
                 result.put("poljoprivrednikJSON", Vendor.toJSON(user.vendorData));
             }
-            result.put("prijevoznik", user.driver);
+            result.put("prijevoznik", user.driver ? 1 : 0);
             if(user.driver){
                 JSONArray vehicles = new JSONArray();
                 for(Vehicle vehicle : user.vehicles){
@@ -151,5 +151,10 @@ public class User {
         }
 
         return result;
+    }
+
+    public static String bitmapToString(Bitmap bitmap){
+        byte[] array = bitmap.getNinePatchChunk();
+        return Base64.encodeToString(array, Base64.DEFAULT);
     }
 }

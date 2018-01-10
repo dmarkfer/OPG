@@ -17,6 +17,7 @@ import serverCommands.CreateProductCategory;
 import serverCommands.CreateReport;
 import serverCommands.DeleteComment;
 import serverCommands.DeleteProduct;
+import serverCommands.DeleteProductCategory;
 import serverCommands.DeleteUser;
 import serverCommands.EditComment;
 import serverCommands.EditProduct;
@@ -24,6 +25,7 @@ import serverCommands.Help;
 import serverCommands.LoginUser;
 import serverCommands.RegisterUser;
 import serverCommands.RetrieveMessages;
+import serverCommands.RetrieveProductCategories;
 import serverCommands.RetrieveProductOffers;
 import serverCommands.RetrieveUserProfile;
 import serverCommands.SendMessage;
@@ -55,7 +57,9 @@ private static HashMap<String, ShellCommand> commands;
 						new CreateReport(), 
 						new EditProduct(), 
 						new DeleteProduct(), 
-						new RetrieveProductOffers()
+						new RetrieveProductOffers(), 
+						new DeleteProductCategory(),
+						new RetrieveProductCategories()
 		};
 		
 		for (ShellCommand shellCommand : cc) {

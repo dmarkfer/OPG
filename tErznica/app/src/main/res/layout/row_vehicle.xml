@@ -13,7 +13,10 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="@dimen/row_height"
-        android:id="@+id/row_vehicle_registration"/>
+        android:id="@+id/row_vehicle_registration"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_medium"
+        android:gravity="center"/>
 
     <ImageView
         android:layout_width="@dimen/small_image"

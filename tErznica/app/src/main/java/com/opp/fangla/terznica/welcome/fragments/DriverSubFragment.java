@@ -33,6 +33,7 @@ public class DriverSubFragment extends Fragment {
 
     private LinearLayout list;
     private ImageView add;
+    private EditText description;
     private View root;
     private RegisterViewModel model;
 
@@ -43,16 +44,20 @@ public class DriverSubFragment extends Fragment {
 
         model = ((RegisterActivity) getActivity()).getViewModel();
         root = inflater.inflate(R.layout.f_register_driver_sub, container, false);
+        description = root.findViewById(R.id.f_register_driver_sub_description);
         list = root.findViewById(R.id.f_register_driver_sub_list);
         add = root.findViewById(R.id.f_register_driver_sub_add);
+
+        description.setText(model.getDriverDescription());
+        description.addTextChangedListener(model.getDriverDescriptionWatcher());
 
         model.getVehicles().observe(this, new Observer<List<Vehicle>>() {
             @Override
             public void onChanged(@Nullable List<Vehicle> vehicles) {
                 if(vehicles != null){
                     list.removeAllViews();
-                    for(Vehicle vehicle : vehicles){
-                        list.addView(getVehicleView(vehicle));
+                    for(int i = 0; i<vehicles.size(); i++){
+                        list.addView(getVehicleView(vehicles.get(i), model, i));
                     }
                 }
             }
@@ -69,7 +74,6 @@ public class DriverSubFragment extends Fragment {
 
                 EditText registration = dialog.findViewById(R.id.f_new_vehicle_registration);
                 EditText model = dialog.findViewById(R.id.f_new_vehicle_model);
-                EditText description = dialog.findViewById(R.id.f_new_vehicle_description);
                 Spinner categories = dialog.findViewById(R.id.f_new_vehicle_category);
                 final ImageView image = dialog.findViewById(R.id.f_new_vehicle_image);
                 Button add = dialog.findViewById(R.id.f_new_vehicle_add);
@@ -77,10 +81,8 @@ public class DriverSubFragment extends Fragment {
 
                 registration.setText(vehicle.getRegistration());
                 model.setText(vehicle.getModel());
-                description.setText(vehicle.getDescription());
                 registration.addTextChangedListener(viewModel.getVehicleRegistrationWatcher());
                 model.addTextChangedListener(viewModel.getVehicleModelWatcher());
-                description.addTextChangedListener(viewModel.getVehicleDescriptionWatcher());
 
                 final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.vehicle_categories, R.layout.row_simple_item_dark);
                 adapter.setDropDownViewResource(R.layout.row_simple_item_dark);
@@ -88,12 +90,12 @@ public class DriverSubFragment extends Fragment {
                 categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        vehicle.setCategory(adapter.getItem(i).toString());
+                        vehicle.setCategory(i);
                     }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
-                        vehicle.setCategory("B");
+                        vehicle.setCategory(0);
                     }
                 });
 
@@ -139,7 +141,7 @@ public class DriverSubFragment extends Fragment {
         return root;
     }
 
-    private View getVehicleView(Vehicle vehicle){
+    private View getVehicleView(Vehicle vehicle, final RegisterViewModel model, final int position){
         final View convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_vehicle, list, false);
 
         ImageView image = convertView.findViewById(R.id.row_vehicle_image);
@@ -153,7 +155,7 @@ public class DriverSubFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                list.removeView(convertView);
+                model.removeVehicle(position);
             }
         });
 

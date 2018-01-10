@@ -13,6 +13,9 @@ import com.opp.fangla.terznica.net.ProductSearchResults;
 import com.opp.fangla.terznica.net.ProductSearchSuggestions;
 import com.opp.fangla.terznica.net.RegisterUser;
 import com.opp.fangla.terznica.util.LogInCallback;
+import com.opp.fangla.terznica.util.RegisterUserCallback;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -59,9 +62,10 @@ public class DataRepository {
         return adverts;
     }
 
-    public LiveData<LogInCallback> registerUser(User user){
-        MutableLiveData<LogInCallback> result = new MutableLiveData<>();
-        new RegisterUser(result).execute(User.toJSON(user));
+    public LiveData<RegisterUserCallback> registerUser(JSONObject user){
+        MutableLiveData<RegisterUserCallback> result = new MutableLiveData<>();
+        new RegisterUser(result).execute(user);
         return result;
     }
+
 }

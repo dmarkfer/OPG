@@ -63,7 +63,7 @@ public class BuyerInterface extends Fragment {
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
                 TextView text = view.findViewById(R.id.row_product_suggestion_text);
-                text.setText(cursor.getString(cursor.getColumnIndexOrThrow(matrixColumns[0])));
+                text.setText(cursor.getString(cursor.getColumnIndexOrThrow(matrixColumns[1])));
             }
         });
 
