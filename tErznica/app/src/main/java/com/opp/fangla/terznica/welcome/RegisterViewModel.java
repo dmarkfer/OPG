@@ -4,19 +4,31 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.text.TextWatcher;
 import android.widget.CompoundButton;
 
 import com.google.android.gms.location.places.Place;
+import com.opp.fangla.terznica.FanglaApp;
+import com.opp.fangla.terznica.R;
+import com.opp.fangla.terznica.data.entities.User;
+import com.opp.fangla.terznica.data.entities.Vehicle;
+import com.opp.fangla.terznica.data.entities.Vendor;
 import com.opp.fangla.terznica.util.SimpleTextWatcher;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterViewModel extends AndroidViewModel {
 
-    private String name, surname, mail, phone, password, confirmPassword, vendorName, vendorNumber;
-    private boolean buyer, driver;
-    private MutableLiveData<Boolean> strongPassword, passwordsMatch, vendor;
-    private MutableLiveData<Place> address;
+    private String name, surname, mail, phone, password, confirmPassword;
+    private Vendor vendorObj;
+    private boolean buyer, validVendorImage, valid;
+    private MutableLiveData<Boolean> strongPassword, passwordsMatch, vendor, driver;
+    private Vehicle newVehicle;
+    private MutableLiveData<List<Vehicle>> vehicles;
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
@@ -26,15 +38,56 @@ public class RegisterViewModel extends AndroidViewModel {
         phone = new String();
         password = new String();
         confirmPassword = new String();
-        vendorName = new String();
-        vendorNumber = new String();
+        vendorObj = new Vendor(BitmapFactory.decodeResource(getApplication().getResources(), R.mipmap.camera_white));
         strongPassword = new MutableLiveData<>();
         strongPassword.postValue(false);
         passwordsMatch = new MutableLiveData<>();
         passwordsMatch.postValue(false);
-        address = new MutableLiveData<>();
         vendor = new MutableLiveData<>();
         vendor.postValue(false);
+        vehicles = new MutableLiveData<>();
+        vehicles.postValue(new ArrayList<Vehicle>());
+        driver = new MutableLiveData<>();
+        driver.postValue(false);
+
+    }
+
+    public LiveData<List<Vehicle>> getVehicles() {
+        return vehicles;
+    }
+
+    public LiveData<Boolean> getDriver() {
+        return driver;
+    }
+
+    public Vehicle getNewVehicle() {
+        if(newVehicle == null){
+            newVehicle = new Vehicle(BitmapFactory.decodeResource(getApplication().getResources(), R.mipmap.camera_white));
+        }
+        return newVehicle;
+    }
+
+    public void addNewVehicle(){
+        if(newVehicle != null){
+            vehicles.getValue().add(newVehicle);
+            newVehicle = null;
+        }
+    }
+
+    public LiveData<Bitmap> getVendorImage() {
+        return vendorObj.getImage();
+    }
+
+    public void setVendorImage(Bitmap vendorImage) {
+        vendorObj.setImage(vendorImage);
+    }
+
+    public String getVendorDescription() {
+        return vendorObj.getDescription();
+    }
+
+    public String getVendorIban() {
+        return vendorObj.getBankAccount();
     }
 
     public LiveData<Boolean> getVendor(){
@@ -42,19 +95,19 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public void setAddress(Place place){
-        address.postValue(place);
+        vendorObj.setAddress(place);
     }
 
     public LiveData<Place> getAddress() {
-        return address;
+        return vendorObj.getAddress();
     }
 
     public String getVendorName() {
-        return vendorName;
+        return vendorObj.getName();
     }
 
     public String getVendorNumber() {
-        return vendorNumber;
+        return vendorObj.getIdNum();
     }
 
     public String getName() {
@@ -91,7 +144,8 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public boolean isDriver() {
-        return driver;
+        if(driver.getValue() == null) return false;
+        else return driver.getValue();
     }
 
     public LiveData<Boolean> getStrongPasswordObs() {
@@ -166,7 +220,7 @@ public class RegisterViewModel extends AndroidViewModel {
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                vendorName = charSequence.toString();
+                vendorObj.setName(charSequence.toString());
             }
         };
     }
@@ -175,7 +229,52 @@ public class RegisterViewModel extends AndroidViewModel {
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                vendorNumber = charSequence.toString();
+                vendorObj.setIdNum(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher getVendorDescriptionWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                vendorObj.setDescription(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher getVendorIbanWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                vendorObj.setBankAccount(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher getVehicleRegistrationWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                getNewVehicle().setRegistration(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher getVehicleModelWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                getNewVehicle().setModel(charSequence.toString());
+            }
+        };
+    }
+
+    public TextWatcher getVehicleDescriptionWatcher(){
+        return new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                getNewVehicle().setDescription(charSequence.toString());
             }
         };
     }
@@ -202,7 +301,7 @@ public class RegisterViewModel extends AndroidViewModel {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                driver = b;
+                driver.postValue(b);
             }
         };
     }
@@ -227,5 +326,54 @@ public class RegisterViewModel extends AndroidViewModel {
 
     public boolean getPasswordsMatch(){
         return passwordsMatch.getValue() != null && passwordsMatch.getValue();
+    }
+
+    public boolean vendorFieldsFilled(){
+        return vendorObj.getName().length() > 0 &&
+                vendorObj.getBankAccount().length() > 0 &&
+                vendorObj.getDescription().length() > 0 &&
+                vendorObj.getIdNum().length() > 0;
+    }
+
+    public boolean vendorAddressValid(){
+        return vendorObj.getAddress().getValue() != null;
+    }
+
+    public boolean vendorImageValid(){
+        return vendorObj.getImage().getValue() != null;
+    }
+
+    public boolean newVehicleValid(){
+        return getNewVehicle().getRegistration().length() > 0 &&
+                getNewVehicle().getModel().length() > 0 &&
+                getNewVehicle().getDescription().length() > 0 &&
+                getNewVehicle().getImage().getValue() != null;
+    }
+
+    public void cancelNewVehicle(){
+        newVehicle = null;
+    }
+
+    public boolean hasARole(){
+        return buyer || vendor.getValue() || driver.getValue();
+    }
+
+    public void register(){
+        User user = new User();
+        if(driver.getValue()) {
+            user.setVehicles(vehicles.getValue());
+        }
+        if(vendor.getValue()) {
+            user.setVendorData(vendorObj);
+        }
+        user.setName(name);
+        user.setSurname(surname);
+        user.setPassword(password);
+        user.setMail(mail);
+        user.setPhone(phone);
+        user.setBuyer(buyer);
+        user.setVendor(vendor.getValue());
+        user.setDriver(driver.getValue());
+        ((FanglaApp) getApplication()).getRepository().registerUser(user);
     }
 }

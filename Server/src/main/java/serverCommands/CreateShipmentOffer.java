@@ -11,11 +11,11 @@ import serverShell.AbstractCommand;
 import serverShell.CommandStatus;
 import serverShell.Environment;
 
-public class CreateVehicle extends AbstractCommand {
+public class CreateShipmentOffer extends AbstractCommand {
 	
 	
-	public CreateVehicle() {
-		super("CREATEVEHICLE", "Create vehicle.");
+	public CreateShipmentOffer() {
+		super("CREATESHIPMENTOFFER", "Create shipment offer.");
 	}
 	
 	
@@ -28,28 +28,36 @@ public class CreateVehicle extends AbstractCommand {
 			Statement statement = connection.createStatement();
 			StringBuilder sql = new StringBuilder();
 			
-			sql.append("INSERT INTO vozilo VALUES (default,'");
-			sql.append(arguments.get("registarskaOznaka"));
-			sql.append("','");
-			sql.append(arguments.get("slikaVozila"));
-			sql.append("','");
-			sql.append(arguments.get("opisVozila"));
-			sql.append("',");
-			sql.append(arguments.get("idKategorijeVozila"));
+			sql.append("INSERT INTO oglas_prijevoz VALUES (default,");
+			sql.append(arguments.get("idOglasa"));
 			sql.append(",");
-			sql.append(arguments.get("idKorisnika"));
-			sql.append(");");
+			sql.append(arguments.get("idKupca"));
+			sql.append(",'");
+			sql.append(arguments.get("polaziste"));
+			sql.append("','");
+			sql.append(arguments.get("odrediste"));
+			sql.append("','");
+			sql.append(arguments.get("vrijeme"));
+			sql.append("');");
 			
 			statement.execute(sql.toString());
 			
 			sql = new StringBuilder();
-			sql.append("SELECT id FROM vozilo WHERE registarska_oznaka='");
-			sql.append(arguments.get("registarskaOznaka"));
+			sql.append("SELECT id FROM oglas_prijevoz WHERE id_oglasa=");
+			sql.append(arguments.get("idOglasa"));
+			sql.append(" AND id_kupca=");
+			sql.append(arguments.get("idOKupca"));
+			sql.append(" AND polaziste='");
+			sql.append(arguments.get("polaziste"));
+			sql.append("' AND odrediste='");
+			sql.append(arguments.get("odrediste"));
+			sql.append("' AND vrijeme='");
+			sql.append(arguments.get("vrijeme"));
 			sql.append("';");
 			
 			ResultSet id = statement.executeQuery(sql.toString());
 			id.next();
-			returnObject.put("idVozila", id.getString("id"));
+			returnObject.put("idOglasaPrijevoza", id.getString("id"));
 			returnObject.put("success", true);
 			
 			environment.sendText(returnObject.toString());
@@ -60,4 +68,5 @@ public class CreateVehicle extends AbstractCommand {
 		
 		return CommandStatus.CONTINUE;
 	}
+
 }

@@ -38,6 +38,15 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="DarkDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
 </resources>
 <!--
         <item name="colorControlActivated">@color/white</item>

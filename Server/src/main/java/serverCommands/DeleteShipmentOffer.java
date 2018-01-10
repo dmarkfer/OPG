@@ -10,30 +10,28 @@ import serverShell.AbstractCommand;
 import serverShell.CommandStatus;
 import serverShell.Environment;
 
-public class CreateProductCategory extends AbstractCommand {
+public class DeleteShipmentOffer extends AbstractCommand {
 	
-	String[] columns = new String[] {"idKorisnika", "naziv", "komentar"};
-
-	public CreateProductCategory() {
-		super("CREATEPRODUCTCATEGORY", "Command creates a suggestion for a new product category.");
+	public DeleteShipmentOffer() {
+		super("DELETESHIPMENTOFFER", "Delete shipment offer.");
 	}
-
+	
+	
 	@Override
 	public CommandStatus execute(Environment environment, JSONObject arguments) {
 		Connection connection = environment.getDatabase();
 		JSONObject returnObject = new JSONObject();
-		try {						
+		
+		try {
 			Statement statement = connection.createStatement();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("INSERT INTO nova_kategorija_oglasa VALUES (default,");
-			for(int i = 0; i < columns.length; ++i) {
-				sql.append("'" + arguments.get(columns[i]) + "',");
-			}
-			sql.deleteCharAt(sql.length()-1);
-			sql.append(");");
+			sql.append("DELETE FROM oglas_prijevoz WHERE id=");
+			sql.append(arguments.get("idOglasaPrijevoza"));
+			sql.append(";");
 			
-			statement.executeUpdate(sql.toString());
+			statement.execute(sql.toString());
+			
 			returnObject.put("success", true);
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {

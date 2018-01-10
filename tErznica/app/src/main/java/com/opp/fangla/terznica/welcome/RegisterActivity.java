@@ -3,6 +3,9 @@ package com.opp.fangla.terznica.welcome;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,10 +24,14 @@ import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.util.CustomViewPager;
 import com.opp.fangla.terznica.welcome.fragments.BuyerFragment;
 import com.opp.fangla.terznica.welcome.fragments.DriverFragment;
+import com.opp.fangla.terznica.welcome.fragments.DriverSubFragment;
 import com.opp.fangla.terznica.welcome.fragments.FinishFragment;
 import com.opp.fangla.terznica.welcome.fragments.GeneralFragment;
 import com.opp.fangla.terznica.welcome.fragments.VendorFragment;
 import com.opp.fangla.terznica.welcome.fragments.VendorSubFragment;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -79,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Log.d("RegisterActivity", "AAAAAAAAAAAA returned from intent, result code: " + resultCode + ", request code: " + requestCode);
         if (requestCode == VendorSubFragment.PLACE_AUTOCOMPLETE) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
@@ -90,8 +98,35 @@ public class RegisterActivity extends AppCompatActivity {
             } else if (resultCode == RESULT_CANCELED) {
                 Log.i("RegisterActivity", "Autocomplete cancelled");
             }
-        }
+        } else if(requestCode == VendorSubFragment.VENDOR_IMAGE){
+            //Log.d("RegisterActivity", "AAAAAAAAAAAA picker finished");
+            if(resultCode == RESULT_OK){
+                //Log.d("RegisterActivity", "AAAAAAAAAAAA image changed");
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    viewModel.setVendorImage(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
 
+            }
+        }else if(requestCode == DriverSubFragment.VEHICLE_IMAGE){
+            //Log.d("RegisterActivity", "AAAAAAAAAAAA picker finished");
+            if(resultCode == RESULT_OK){
+                //Log.d("RegisterActivity", "AAAAAAAAAAAA image changed");
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    viewModel.getNewVehicle().setImage(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
     }
 
     private class RegisterPagerAdapter extends FragmentPagerAdapter{

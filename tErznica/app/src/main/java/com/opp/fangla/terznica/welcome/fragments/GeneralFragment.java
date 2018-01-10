@@ -85,16 +85,16 @@ public class GeneralFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!model.generalFieldsFilled()){
+                /*if(!model.generalFieldsFilled()){
                     Snackbar.make(root, "Molimo popunite sva polja", Snackbar.LENGTH_SHORT).show();
                 } else if(!model.getStrongPassword()){
                     Snackbar.make(root, "Prekratka lozinka", Snackbar.LENGTH_SHORT).show();
                 } else if(!model.getPasswordsMatch()){
                     Snackbar.make(root, "Lozinke se ne podudaraju", Snackbar.LENGTH_SHORT).show();
-                } else {
+                } else {*/
                     ((RegisterActivity) getActivity()).hideKeyBoard();
                     ((RegisterActivity) getActivity()).changeFragment(1);
-                }
+                //}
             }
         });
 

@@ -24,6 +24,7 @@ import android.content.res.Resources.Theme;
 import android.widget.TextView;
 
 import com.opp.fangla.terznica.interfaces.BuyerInterface;
+import com.opp.fangla.terznica.interfaces.VendorInterface;
 import com.opp.fangla.terznica.welcome.LogInActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 toolbar.getContext(),
                 new String[]{
                         "Kupac",
-                        "Section 2",
-                        "Section 3",
+                        "OPG",
+                        "Prijevoznik",
                 }));
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -54,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 switch(position){
                     case 0:
                         fragment = new BuyerInterface();
+                        break;
+                    case 1:
+                        fragment = new VendorInterface();
                         break;
                     default:
                         fragment = PlaceholderFragment.newInstance(position + 1);

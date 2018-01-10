@@ -1,6 +1,7 @@
 package serverCommands;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -10,12 +11,12 @@ import serverShell.AbstractCommand;
 import serverShell.CommandStatus;
 import serverShell.Environment;
 
-public class CreateProductCategory extends AbstractCommand {
+public class CreateReport extends AbstractCommand {
 	
-	String[] columns = new String[] {"idKorisnika", "naziv", "komentar"};
+	String[] columns = new String[] {"idKorisnika", "tipPrijave", "idPrijavljeneStavke", "idVrstePrijave", "komentar"};
 
-	public CreateProductCategory() {
-		super("CREATEPRODUCTCATEGORY", "Command creates a suggestion for a new product category.");
+	public CreateReport() {
+		super("CREATEREPORT", "Creates a report.");
 	}
 
 	@Override
@@ -26,7 +27,7 @@ public class CreateProductCategory extends AbstractCommand {
 			Statement statement = connection.createStatement();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("INSERT INTO nova_kategorija_oglasa VALUES (default,");
+			sql.append("INSERT INTO prijava VALUES (default,");
 			for(int i = 0; i < columns.length; ++i) {
 				sql.append("'" + arguments.get(columns[i]) + "',");
 			}
@@ -34,14 +35,17 @@ public class CreateProductCategory extends AbstractCommand {
 			sql.append(");");
 			
 			statement.executeUpdate(sql.toString());
-			returnObject.put("success", true);
+			
+			ResultSet id = statement.executeQuery("SELECT MAX(id) AS id FROM prijava;");
+			id.next();
+			returnObject.put("idPrijave", id.getString("id"));
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
 			returnObject.put("success", false);
 			environment.sendText(returnObject.toString());
 		}
 		
-		return CommandStatus.CONTINUE;
+		return CommandStatus.CONTINUE;	
 	}
 
 }

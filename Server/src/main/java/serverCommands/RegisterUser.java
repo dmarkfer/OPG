@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import serverShell.AbstractCommand;
@@ -59,8 +60,10 @@ public class RegisterUser extends AbstractCommand {
 			if(arguments.get("poljoprivrednik").equals(1)) {
 				sql = new StringBuilder();
 				sql.append("INSERT INTO poljoprivrednik VALUES(");
+				JSONObject poljoprivrednikJSON = arguments.getJSONObject("poljoprivrednikJSON");
+				poljoprivrednikJSON.put("idKorisnika", arguments.get("idKorisnika"));
 				for(int i = 0; i < columnsOpg.length; ++i) {
-					sql.append("'" + arguments.get(columnsOpg[i]) + "',");
+					sql.append("'" + poljoprivrednikJSON.get(columnsOpg[i]) + "',");
 				}
 				sql.deleteCharAt(sql.length()-1);
 				sql.append(");");
@@ -78,29 +81,27 @@ public class RegisterUser extends AbstractCommand {
 				
 				statement.executeUpdate(sql.toString());
 				
-				sql = new StringBuilder();
-				sql.append("INSERT INTO vozilo VALUES(default,");
-				for(int i = 0; i < columnsPrijevoz.length; ++i) {
-					sql.append("'" + arguments.get(columnsPrijevoz[i]) + "',");
+				JSONArray vozila = arguments.getJSONArray("vozila");
+				
+				for(int i = 0; i < vozila.length(); ++i) {
+					JSONObject vozilo = vozila.getJSONObject(i);
+					vozilo.put("idKorisnika", arguments.get("idKorisnika"));
+					sql = new StringBuilder();
+					sql.append("INSERT INTO vozilo VALUES(default,");
+					for(int j = 0; j < columnsPrijevoz.length; ++j) {
+						sql.append("'" + vozilo.get(columnsPrijevoz[j]) + "',");
+					}
+					sql.deleteCharAt(sql.length()-1);
+					sql.append(");");
+					
+					statement.executeUpdate(sql.toString());
 				}
-				sql.deleteCharAt(sql.length()-1);
-				sql.append(");");
-				
-				statement.executeUpdate(sql.toString());
-				
-				sql = new StringBuilder();
-				sql.append("SELECT id FROM vozilo WHERE id_korisnika=");
-				sql.append(arguments.get("idKorisnika"));
-				sql.append(";");
-				
-				id = statement.executeQuery(sql.toString());
-				id.next();
-				returnObject.put("idVozila", id.getString("id"));
 			}
 			
 			returnObject.put("success", true);
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
+			e.printStackTrace();
 			returnObject.put("success", false);
 			environment.sendText(returnObject.toString());
 		}
