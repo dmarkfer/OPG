@@ -56,4 +56,5 @@
         <item>H</item>
     </string-array>
     <string name="hostname">165.227.175.217</string>
+    <string name="add_a_vehicle">Dodaj vozilo</string>
 </resources>

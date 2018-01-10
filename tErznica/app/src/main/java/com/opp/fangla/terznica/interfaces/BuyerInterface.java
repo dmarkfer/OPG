@@ -46,7 +46,15 @@ public class BuyerInterface extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                viewModel.getProductSearchResults();
+                viewModel.getProductSearchResults(query).observe(BuyerInterface.this, new Observer<List<SimpleAdvert>>() {
+                    @Override
+                    public void onChanged(@Nullable List<SimpleAdvert> simpleAdverts) {
+                        ((ArrayAdapter) listView.getAdapter()).clear();
+                        if(simpleAdverts != null) {
+                            ((ArrayAdapter) listView.getAdapter()).addAll(simpleAdverts);
+                        }
+                    }
+                });
                 return true;
             }
 
@@ -106,15 +114,6 @@ public class BuyerInterface extends Fragment {
             @Override
             public void onChanged(@Nullable MatrixCursor cursor) {
                 searchView.getSuggestionsAdapter().changeCursor(cursor);
-            }
-        });
-        viewModel.getProductSearchResults().observe(this, new Observer<List<SimpleAdvert>>() {
-            @Override
-            public void onChanged(@Nullable List<SimpleAdvert> simpleAdverts) {
-                ((ArrayAdapter) listView.getAdapter()).clear();
-                if(simpleAdverts != null) {
-                    ((ArrayAdapter) listView.getAdapter()).addAll(simpleAdverts);
-                }
             }
         });
 

@@ -32,7 +32,7 @@ public class DriverSubFragment extends Fragment {
     public static final int VEHICLE_IMAGE = 494;
 
     private LinearLayout list;
-    private ImageView add;
+    private LinearLayout add;
     private EditText description;
     private View root;
     private RegisterViewModel model;
@@ -46,7 +46,7 @@ public class DriverSubFragment extends Fragment {
         root = inflater.inflate(R.layout.f_register_driver_sub, container, false);
         description = root.findViewById(R.id.f_register_driver_sub_description);
         list = root.findViewById(R.id.f_register_driver_sub_list);
-        add = root.findViewById(R.id.f_register_driver_sub_add);
+        add = root.findViewById(R.id.f_register_driver_sub_add_l);
 
         description.setText(model.getDriverDescription());
         description.addTextChangedListener(model.getDriverDescriptionWatcher());

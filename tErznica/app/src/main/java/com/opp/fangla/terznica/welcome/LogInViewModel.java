@@ -6,21 +6,27 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.text.TextWatcher;
+
+import com.opp.fangla.terznica.FanglaApp;
+import com.opp.fangla.terznica.data.DataRepository;
 import com.opp.fangla.terznica.net.LogIn;
+import com.opp.fangla.terznica.util.LogInCallback;
 import com.opp.fangla.terznica.util.SimpleTextWatcher;
 
 public class LogInViewModel extends AndroidViewModel {
 
-    private String username = new String(), password = new String();
+    private String username, password;
+    private DataRepository repository;
 
     public LogInViewModel(@NonNull Application application) {
         super(application);
+        repository = ((FanglaApp) application).getRepository();
+        username = new String();
+        password = new String();
     }
 
-    public LiveData<String> logIn(){
-        MutableLiveData<String> liveResult = new MutableLiveData<>();
-        new LogIn(liveResult).execute(username, password);
-        return liveResult;
+    public LiveData<LogInCallback> logIn(){
+        return repository.logIn(username, password);
     }
 
     public TextWatcher usernameWatcher(){
@@ -45,15 +51,8 @@ public class LogInViewModel extends AndroidViewModel {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

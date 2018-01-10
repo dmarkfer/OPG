@@ -9,6 +9,7 @@ import com.opp.fangla.terznica.data.entities.Advert;
 import com.opp.fangla.terznica.data.entities.SimpleAdvert;
 import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.net.AdvertsDownload;
+import com.opp.fangla.terznica.net.LogIn;
 import com.opp.fangla.terznica.net.ProductSearchResults;
 import com.opp.fangla.terznica.net.ProductSearchSuggestions;
 import com.opp.fangla.terznica.net.RegisterUser;
@@ -23,14 +24,6 @@ public class DataRepository {
 
     private static DataRepository dInstance;
 
-    private MutableLiveData<List<SimpleAdvert>> productSearchResults;
-    private MutableLiveData<MatrixCursor> productSearchSuggestions;
-
-    private DataRepository() {
-        productSearchResults = new MutableLiveData<>();
-        productSearchSuggestions = new MutableLiveData<>();
-    }
-
     public static DataRepository getInstance(){
         if(dInstance == null){
             synchronized (DataRepository.class){
@@ -40,20 +33,16 @@ public class DataRepository {
         return dInstance;
     }
 
-    public void searchProducts(String searchTerm){
-        new ProductSearchResults(productSearchResults).execute(searchTerm);
-    }
-
-    public void searchProductSuggestions(){
-        new ProductSearchSuggestions(productSearchSuggestions).execute();
-    }
-
-    public MutableLiveData<List<SimpleAdvert>> getProductSearchResults() {
-        return productSearchResults;
+    public MutableLiveData<List<SimpleAdvert>> getProductSearchResults(String searchTerm) {
+        MutableLiveData<List<SimpleAdvert>> adverts = new MutableLiveData<>();
+        new ProductSearchResults(adverts).execute(searchTerm);
+        return adverts;
     }
 
     public MutableLiveData<MatrixCursor> getProductSearchSuggestions(){
-        return productSearchSuggestions;
+        MutableLiveData<MatrixCursor> suggestions = new MutableLiveData<>();
+        new ProductSearchSuggestions(suggestions).execute();
+        return suggestions;
     }
 
     public LiveData<List<Advert>> getAdverts() {
@@ -62,10 +51,22 @@ public class DataRepository {
         return adverts;
     }
 
-    public LiveData<RegisterUserCallback> registerUser(JSONObject user){
+    /*public LiveData<RegisterUserCallback> registerUser(JSONObject user){
         MutableLiveData<RegisterUserCallback> result = new MutableLiveData<>();
         new RegisterUser(result).execute(user);
         return result;
+    }*/
+
+    public LiveData<LogInCallback> registerUser(JSONObject user){
+        MutableLiveData<LogInCallback> result = new MutableLiveData<>();
+        new RegisterUser(result).execute(user);
+        return result;
+    }
+
+    public LiveData<LogInCallback> logIn(String username, String password){
+        MutableLiveData<LogInCallback> liveResult = new MutableLiveData<>();
+        new LogIn(liveResult).execute(username, password);
+        return liveResult;
     }
 
 }

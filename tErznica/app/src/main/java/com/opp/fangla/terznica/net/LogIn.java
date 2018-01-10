@@ -4,6 +4,8 @@ import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.opp.fangla.terznica.util.LogInCallback;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,19 +16,20 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.List;
 
-public class LogIn extends AsyncTask<String, Void, String> {
+public class LogIn extends AsyncTask<String, Void, LogInCallback> {
 
-    private MutableLiveData<String> liveData;
+    private MutableLiveData<LogInCallback> liveData;
     protected static final String HOSTNAME = "165.227.175.217";
     protected static final int PORT = 8080;
 
-    public LogIn(MutableLiveData<String> liveData) {
+    public LogIn(MutableLiveData<LogInCallback> liveData) {
         this.liveData = liveData;
     }
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected LogInCallback doInBackground(String... strings) {
         Socket socket = new Socket();
+        LogInCallback result = new LogInCallback();
         try {
             JSONObject json = new JSONObject();
             json.put("command", "LoginUser");
@@ -40,22 +43,28 @@ public class LogIn extends AsyncTask<String, Void, String> {
             c.sendText(json.toString());
 
             Log.d("Login server welcome", c.getText());
-            Log.d("Login result", c.getText());
-
+            String sResponse = c.getText();
+            Log.d("Login result", sResponse);
             c.close();
             c.disconnect();
-        } catch (UnknownHostException e) {
+            JSONObject response = new JSONObject(sResponse);
+            result.setSuccess(response.getBoolean("idKorisnika"));
+            if(result.isSuccess()) {
+                result.setId(response.getInt("idKorisnika"));
+                result.setAdmin(response.getInt("uloga") == 1);
+                result.setBuyer(response.getInt("kupac") == 1);
+                result.setDriver(response.getInt("prijevoznik") == 1);
+                result.setVendor(response.getInt("poljoprivrednik") == 1);
+            }
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+            result.setServerError(true);
         }
-        return "";
+        return result;
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        liveData.postValue(s);
+    protected void onPostExecute(LogInCallback callback) {
+        liveData.postValue(callback);
     }
 }

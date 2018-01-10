@@ -3,6 +3,7 @@ package com.opp.fangla.terznica.welcome.fragments;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -55,8 +56,12 @@ public class DriverFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((RegisterActivity) getActivity()).hideKeyBoard();
-                ((RegisterActivity) getActivity()).changeFragment(4);
+                if(model.getDriver().getValue() && !model.hasAVehicle()){
+                    Snackbar.make(root, "Unesite bar jedno vozilo", Snackbar.LENGTH_SHORT).show();
+                } else {
+                    ((RegisterActivity) getActivity()).hideKeyBoard();
+                    ((RegisterActivity) getActivity()).changeFragment(4);
+                }
             }
         });
         back.setOnClickListener(new View.OnClickListener() {

@@ -20,19 +20,10 @@ public class BuyerInterfaceViewModel extends AndroidViewModel {
     public BuyerInterfaceViewModel(@NonNull Application application) {
         super(application);
         repository = ((FanglaApp) application).getRepository();
-        repository.searchProductSuggestions();
     }
 
-    public void searchProducts(String searchTerm){
-        repository.searchProducts(searchTerm);
-    }
-
-    /*public void searchProductSuggestions(String searchTerm){
-        repository.searchProductSuggestions(searchTerm);
-    }*/
-
-    public LiveData<List<SimpleAdvert>> getProductSearchResults() {
-        return repository.getProductSearchResults();
+    public LiveData<List<SimpleAdvert>> getProductSearchResults(String searchTerm) {
+        return repository.getProductSearchResults(searchTerm);
     }
 
     public LiveData<MatrixCursor> getProductSearchSuggestions(){
