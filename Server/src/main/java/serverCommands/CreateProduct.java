@@ -1,9 +1,9 @@
 package serverCommands;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 
 import org.json.JSONObject;
 
@@ -13,8 +13,8 @@ import serverShell.Environment;
 
 public class CreateProduct extends AbstractCommand {
 	
-	String[] columns = new String[] {"id_poljoprivrednika","id_kategorije_oglasa",
-			"naziv_oglasa","slika_oglasa","opis_oglasa","cijena","vrijeme"};
+	String[] columns = new String[] {"idKorisnika", "idKategorijeOglasa", "nazivOglasa", "slikaOglasa", 
+			"opisOglasa", "cijena", "vrijeme"};
 
 	public CreateProduct() {
 		super("CREATEPRODUCT", "Creates a new advertisement for a product.");
@@ -23,6 +23,7 @@ public class CreateProduct extends AbstractCommand {
 	@Override
 	public CommandStatus execute(Environment environment, JSONObject arguments)  {
 		Connection connection = environment.getDatabase();
+		JSONObject returnObject = new JSONObject();
 		try {						
 			Statement statement = connection.createStatement();
 			
@@ -35,10 +36,14 @@ public class CreateProduct extends AbstractCommand {
 			sql.append(");");
 			
 			statement.executeUpdate(sql.toString());
-			environment.sendText("true");
 			
+			ResultSet id = statement.executeQuery("SELECT MAX(id) AS id FROM oglas;");
+			id.next();
+			returnObject.put("idOglasa", id.getString("id"));
+			environment.sendText(returnObject.toString());			
 		} catch (SQLException e) {
-			environment.sendText("false");
+			returnObject.put("success", false);
+			environment.sendText(returnObject.toString());
 		}
 		
 		return CommandStatus.CONTINUE;

@@ -37,6 +37,16 @@ public class TestClient {
 		request.put("idKupca", 10);
 		request.put("idOglasa", 4);
 		request.put("idOglasaPrijevoza", 1); */
+		
+		/* CREATEPRODUCT */
+		request.put("command", "CREATEPRODUCT");
+		request.put("idKorisnika", 10);
+		request.put("idKategorijeOglasa", 1);
+		request.put("nazivOglasa", "jabkeee");
+		request.put("slikaOglasa", "slik");
+		request.put("opisOglasa", "opis");
+		request.put("cijena", 12);
+		request.put("vrijeme", new Date());
  
 		/* DELETECOMMENT
 		request.put("command", "DELETECOMMENT");
@@ -80,10 +90,10 @@ public class TestClient {
 		request.put("slikaVozila", "slikica");
 		request.put("opisPrijevoza", "opisprijevza"); */
 		
-		
-		/* RETRIEVEMESSAGES */
+	
+		/* RETRIEVEMESSAGES 
 		request.put("command", "RETRIEVEMESSAGES");
-		request.put("idRazgovora", 12);
+		request.put("idRazgovora", 12); */
 		
 		
 		/* RETRIEVEUSERPROFILE	
