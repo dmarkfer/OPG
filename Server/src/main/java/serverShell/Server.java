@@ -18,6 +18,7 @@ import serverCommands.CreateReport;
 import serverCommands.DeleteComment;
 import serverCommands.DeleteUser;
 import serverCommands.EditComment;
+import serverCommands.EditProduct;
 import serverCommands.Help;
 import serverCommands.LoginUser;
 import serverCommands.RegisterUser;
@@ -49,7 +50,8 @@ private static HashMap<String, ShellCommand> commands;
 						new DeleteComment(),
 						new SendMessage(),
 						new RetrieveMessages(),
-						new CreateReport()
+						new CreateReport(), 
+						new EditProduct()
 		};
 		
 		for (ShellCommand shellCommand : cc) {

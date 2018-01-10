@@ -38,7 +38,7 @@ public class TestClient {
 		request.put("idOglasa", 4);
 		request.put("idOglasaPrijevoza", 1); */
 		
-		/* CREATEPRODUCT */
+		/* CREATEPRODUCT
 		request.put("command", "CREATEPRODUCT");
 		request.put("idKorisnika", 10);
 		request.put("idKategorijeOglasa", 1);
@@ -46,7 +46,7 @@ public class TestClient {
 		request.put("slikaOglasa", "slik");
 		request.put("opisOglasa", "opis");
 		request.put("cijena", 12);
-		request.put("vrijeme", new Date());
+		request.put("vrijeme", new Date()); */
  
 		/* DELETECOMMENT
 		request.put("command", "DELETECOMMENT");
@@ -62,6 +62,16 @@ public class TestClient {
 		request.put("ocjena", 5);
 		request.put("komentar", "novo");
 		request.put("vrijeme", new Date()); */
+		
+		/* EDITPRODUCT */
+		request.put("command", "EDITPRODUCT");
+		request.put("idOglasa", 7);
+		request.put("idKategorijeOglasa", 2);
+		request.put("nazivOglasa", "jabkeee!!!");
+		request.put("slikaOglasa", "slik!");
+		request.put("opisOglasa", "opis!");
+		request.put("cijena", 13);
+		request.put("vrijeme", new Date()); 
 		
 		/* LOGINUSER 
 		request.put("command", "LOGINUSER");
