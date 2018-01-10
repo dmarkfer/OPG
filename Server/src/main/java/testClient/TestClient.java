@@ -109,6 +109,11 @@ public class TestClient {
 		request.put("command", "RETRIEVEMESSAGES");
 		request.put("idRazgovora", 12); */
 		
+		/* RETRIEVEPRODUCTOFFERS */
+		request.put("command", "RETRIEVEPRODUCTOFFERS");
+		request.put("idKategorijeOglasa", 1);
+		request.put("naziv", "ab");
+		request.put("brojTrazenihOglasa", 3);
 		
 		/* RETRIEVEUSERPROFILE	
 		request.put("command", "RETRIEVEUSERPROFILE");

@@ -24,6 +24,7 @@ import serverCommands.Help;
 import serverCommands.LoginUser;
 import serverCommands.RegisterUser;
 import serverCommands.RetrieveMessages;
+import serverCommands.RetrieveProductOffers;
 import serverCommands.RetrieveUserProfile;
 import serverCommands.SendMessage;
 import serverCommands.Terminate;
@@ -53,7 +54,8 @@ private static HashMap<String, ShellCommand> commands;
 						new RetrieveMessages(),
 						new CreateReport(), 
 						new EditProduct(), 
-						new DeleteProduct()
+						new DeleteProduct(), 
+						new RetrieveProductOffers()
 		};
 		
 		for (ShellCommand shellCommand : cc) {
