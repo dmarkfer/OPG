@@ -107,6 +107,9 @@ public class Vendor {
             if(vendor.bankAccount != null){
                 result.put("IBAN", vendor.bankAccount);
             }
+            if(vendor.getImage().getValue() != null){
+                result.put("slikaOPG", User.bitmapToString(vendor.getImage().getValue()));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

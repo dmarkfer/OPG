@@ -30,16 +30,17 @@ public class LogIn extends AsyncTask<String, Void, String> {
         try {
             JSONObject json = new JSONObject();
             json.put("command", "LoginUser");
-            json.put("email", "");
-            json.put("lozinka", "");
+            json.put("email", strings[0]);
+            json.put("lozinka", strings[1]);
 
 
+            Log.d("Login arguments", json.toString());
             socket.connect(new InetSocketAddress(InetAddress.getByName(HOSTNAME), PORT));
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
 
-            //c.getText();
-            //Log.d("Login", "AAAAAAAAAAAAAAAAAAA " + c);
+            Log.d("Login server welcome", c.getText());
+            Log.d("Login result", c.getText());
 
             c.close();
             c.disconnect();

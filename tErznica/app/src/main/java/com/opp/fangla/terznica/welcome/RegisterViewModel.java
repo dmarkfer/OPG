@@ -18,12 +18,15 @@ import com.opp.fangla.terznica.data.entities.Vehicle;
 import com.opp.fangla.terznica.data.entities.Vendor;
 import com.opp.fangla.terznica.util.SimpleTextWatcher;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterViewModel extends AndroidViewModel {
 
-    private String name, surname, mail, phone, password, confirmPassword;
+    private String name, surname, mail, phone, password, confirmPassword, driverDescription;
     private Vendor vendorObj;
     private boolean buyer, validVendorImage, valid;
     private MutableLiveData<Boolean> strongPassword, passwordsMatch, vendor, driver;
@@ -38,6 +41,7 @@ public class RegisterViewModel extends AndroidViewModel {
         phone = new String();
         password = new String();
         confirmPassword = new String();
+        driverDescription = new String();
         vendorObj = new Vendor(BitmapFactory.decodeResource(getApplication().getResources(), R.mipmap.camera_white));
         strongPassword = new MutableLiveData<>();
         strongPassword.postValue(false);
@@ -50,6 +54,10 @@ public class RegisterViewModel extends AndroidViewModel {
         driver = new MutableLiveData<>();
         driver.postValue(false);
 
+    }
+
+    public String getDriverDescription() {
+        return driverDescription;
     }
 
     public LiveData<List<Vehicle>> getVehicles() {
@@ -69,7 +77,9 @@ public class RegisterViewModel extends AndroidViewModel {
 
     public void addNewVehicle(){
         if(newVehicle != null){
-            vehicles.getValue().add(newVehicle);
+            List<Vehicle> list = vehicles.getValue();
+            list.add(newVehicle);
+            vehicles.postValue(list);
             newVehicle = null;
         }
     }
@@ -270,11 +280,11 @@ public class RegisterViewModel extends AndroidViewModel {
         };
     }
 
-    public TextWatcher getVehicleDescriptionWatcher(){
+    public TextWatcher getDriverDescriptionWatcher(){
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                getNewVehicle().setDescription(charSequence.toString());
+                driverDescription = charSequence.toString();
             }
         };
     }
@@ -346,7 +356,6 @@ public class RegisterViewModel extends AndroidViewModel {
     public boolean newVehicleValid(){
         return getNewVehicle().getRegistration().length() > 0 &&
                 getNewVehicle().getModel().length() > 0 &&
-                getNewVehicle().getDescription().length() > 0 &&
                 getNewVehicle().getImage().getValue() != null;
     }
 
@@ -374,6 +383,18 @@ public class RegisterViewModel extends AndroidViewModel {
         user.setBuyer(buyer);
         user.setVendor(vendor.getValue());
         user.setDriver(driver.getValue());
-        ((FanglaApp) getApplication()).getRepository().registerUser(user);
+        JSONObject userJSON = User.toJSON(user);
+        try {
+            userJSON.put("opisPrijevoza", driverDescription);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ((FanglaApp) getApplication()).getRepository().registerUser(userJSON);
+    }
+
+    public void removeVehicle(int position){
+        List<Vehicle> list = vehicles.getValue();
+        list.remove(position);
+        vehicles.postValue(list);
     }
 }

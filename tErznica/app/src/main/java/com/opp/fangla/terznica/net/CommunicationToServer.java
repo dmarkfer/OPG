@@ -18,11 +18,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
-
-/**
- * Created by domagoj on 01.01.18..
- */
-
 public class CommunicationToServer {
     private static final String FAIL="fail";
     private Socket accessPoint=null;

@@ -32,7 +32,7 @@
             app:buttonTint="@color/white"/>
 
         <FrameLayout
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/log_in_width"
             android:layout_height="wrap_content"
             android:id="@+id/f_register_driver_container"
             android:layout_marginTop="30dp"/>

@@ -8,10 +8,6 @@ import com.opp.fangla.terznica.data.entities.SimpleAdvert;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by domagoj on 29.12.17..
- */
-
 public class ProductSearchResults extends AsyncTask<String, Void, List<SimpleAdvert>> {
 
     private MutableLiveData<List<SimpleAdvert>> liveData;

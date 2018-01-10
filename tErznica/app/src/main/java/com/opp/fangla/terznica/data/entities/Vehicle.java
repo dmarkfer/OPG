@@ -11,14 +11,13 @@ import org.json.JSONObject;
 public class Vehicle {
 
     private Integer id, category;
-    private String registration, model, description;
+    private String registration, model;
     private MutableLiveData<Bitmap> image;
     private boolean validImage;
 
     public Vehicle(Bitmap image) {
         registration = new String();
         model = new String();
-        description = new String();
         this.image = new MutableLiveData<>();
         this.image.postValue(image);
     }
@@ -45,14 +44,6 @@ public class Vehicle {
 
     public void setModel(String model) {
         this.model = model;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int getCategory() {
@@ -85,14 +76,11 @@ public class Vehicle {
             if(vehicle.category != null){
                 result.put("idKategorijaVozila", vehicle.category);
             }
-            if(vehicle.description != null){
+            if(vehicle.model != null){
                 result.put("opisVozila", vehicle.model);
             }
-            if(vehicle.description != null){
-                result.put("opisPrijevoza", vehicle.description);
-            }
             if(vehicle.image.getValue() != null){
-                result.put("slikaVozila", Base64.encodeToString(vehicle.image.getValue().getNinePatchChunk(), Base64.DEFAULT));
+                result.put("slikaVozila", User.bitmapToString(vehicle.image.getValue()));
             }
         } catch (JSONException e) {
             e.printStackTrace();
