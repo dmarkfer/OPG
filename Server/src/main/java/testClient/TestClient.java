@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class TestClient {
@@ -82,38 +83,50 @@ public class TestClient {
 		request.put("email", "vv");
 		request.put("lozinka", "bla"); */
 		
-		/* REGISTERUSER	
+		/* REGISTERUSER */	
 		request.put("command", "REGISTERUSER");
 		request.put("ime", "Meho");
 		request.put("prezime", "Puzić");
 		request.put("lozinka", "Puzić");
-		request.put("email", "Puzsisć@bla.hr");
+		request.put("email", "mail@bla.hr");
 		request.put("telefon", "654746");
 		request.put("poljoprivrednik", 1);
 		request.put("kupac", 1);
 		request.put("prijevoznik", 1);
-		request.put("nazivOPG", "opgg");
-		request.put("OIBOPG", "45452");
-		request.put("adresaOPG", "oddpgg");
-		request.put("slikaOPG", "slki");
-		request.put("opisOPG", "opsfad");
-		request.put("IBAN", "456565435");
-		request.put("registarskaOznaka", "zg454534DFD");
-		request.put("idKategorijeVozila", 1);
-		request.put("opisVozila", "opisddfas");
-		request.put("slikaVozila", "slikica");
-		request.put("opisPrijevoza", "opisprijevza"); */
+		JSONObject request2 = new JSONObject();
+		request2.put("nazivOPG", "opgg");
+		request2.put("OIBOPG", "45452");
+		request2.put("adresaOPG", "oddpgg");
+		request2.put("slikaOPG", "slki");
+		request2.put("opisOPG", "opsfad");
+		request2.put("IBAN", "456565435");
+		request.put("poljoprivrednikJSON", request2);
+		JSONArray array = new JSONArray();
+		JSONObject request3 = new JSONObject();
+		request3.put("registarskaOznaka", "zg454534DFD");
+		request3.put("idKategorijeVozila", 1);
+		request3.put("opisVozila", "opisddfas");
+		request3.put("slikaVozila", "slikica");
+		array.put(request3);
+		request3 = new JSONObject();
+		request3.put("registarskaOznaka", "st454534DFD");
+		request3.put("idKategorijeVozila", 1);
+		request3.put("opisVozila", "bldfldl");
+		request3.put("slikaVozila", "sliketina");
+		array.put(request3);
+		request.put("vozila", array);
+		request.put("opisPrijevoza", "opisprijevza"); 
 		
 	
 		/* RETRIEVEMESSAGES 
 		request.put("command", "RETRIEVEMESSAGES");
 		request.put("idRazgovora", 12); */
 		
-		/* RETRIEVEPRODUCTOFFERS */
+		/* RETRIEVEPRODUCTOFFERS 
 		request.put("command", "RETRIEVEPRODUCTOFFERS");
 		request.put("idKategorijeOglasa", 1);
 		request.put("naziv", "ab");
-		request.put("brojTrazenihOglasa", 3);
+		request.put("brojTrazenihOglasa", 3); */
 		
 		/* RETRIEVEUSERPROFILE	
 		request.put("command", "RETRIEVEUSERPROFILE");
