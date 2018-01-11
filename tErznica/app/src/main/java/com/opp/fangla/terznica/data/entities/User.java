@@ -19,6 +19,7 @@ public class User {
     private List<Vehicle> vehicles;
     private Bitmap picture;
 
+
     public int getId() {
         return id;
     }

@@ -48,7 +48,7 @@ public class LogIn extends AsyncTask<String, Void, LogInCallback> {
             c.close();
             c.disconnect();
             JSONObject response = new JSONObject(sResponse);
-            result.setSuccess(response.getBoolean("idKorisnika"));
+            result.setSuccess(response.getBoolean("success"));
             if(result.isSuccess()) {
                 result.setId(response.getInt("idKorisnika"));
                 result.setAdmin(response.getInt("uloga") == 1);

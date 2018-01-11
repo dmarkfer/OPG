@@ -9,6 +9,8 @@ import com.opp.fangla.terznica.data.entities.Advert;
 import com.opp.fangla.terznica.data.entities.SimpleAdvert;
 import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.net.AdvertsDownload;
+import com.opp.fangla.terznica.net.DeleteUser;
+import com.opp.fangla.terznica.net.GetUser;
 import com.opp.fangla.terznica.net.LogIn;
 import com.opp.fangla.terznica.net.ProductSearchResults;
 import com.opp.fangla.terznica.net.ProductSearchSuggestions;
@@ -69,4 +71,15 @@ public class DataRepository {
         return liveResult;
     }
 
+    public LiveData<Boolean> deleteUser (String userId) {
+        MutableLiveData <Boolean> isSuccesful= new MutableLiveData();
+        new DeleteUser(isSuccesful).execute(userId);
+        return isSuccesful;
+    }
+
+    public LiveData<User> getUser (String userId) {
+        MutableLiveData<User> liveResult = new MutableLiveData<>();
+        new GetUser(liveResult).execute(userId);
+        return liveResult;
+    }
 }

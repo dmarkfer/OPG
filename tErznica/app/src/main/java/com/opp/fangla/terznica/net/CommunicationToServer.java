@@ -123,6 +123,8 @@ public class CommunicationToServer {
         return array;
     }
 
+
+
     public void disconnect(){
         try {
             JSONObject jsonObject = new JSONObject();

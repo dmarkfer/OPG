@@ -2,11 +2,15 @@ package com.opp.fangla.terznica.data.entities;
 
 import android.graphics.Bitmap;
 
+import java.util.Date;
+
 public class SimpleAdvert {
 
     private long id;
     private Bitmap image;
-    private String title, description;
+    private String title;
+    private Integer value;
+    private Date date;
 
     public long getId() {
         return id;
@@ -32,12 +36,18 @@ public class SimpleAdvert {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public Date getDate() {return this.date;}
+
+    public void setDate (Date date) {
+        this.date = date;
     }
 
 }

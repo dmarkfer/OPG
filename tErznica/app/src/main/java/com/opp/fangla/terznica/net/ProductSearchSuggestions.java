@@ -5,6 +5,7 @@ import android.database.MatrixCursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.opp.fangla.terznica.data.entities.SimpleAdvert;
 import com.opp.fangla.terznica.interfaces.BuyerInterface;
 
 import org.json.JSONArray;
