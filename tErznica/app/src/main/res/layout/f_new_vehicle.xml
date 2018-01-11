@@ -32,9 +32,10 @@
             android:textSize="@dimen/font_large"/>
 
         <Spinner
-            android:layout_width="@dimen/log_in_width"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/f_new_vehicle_category"/>
+            android:id="@+id/f_new_vehicle_category"
+            android:paddingLeft="15dp"/>
 
     </LinearLayout>
 

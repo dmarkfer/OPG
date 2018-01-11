@@ -1,6 +1,6 @@
 package com.opp.fangla.terznica.util;
 
-public class RegisterUserCallback {
+public class RegisterUserCallback extends InternetCallback{
 
 
     private boolean success;

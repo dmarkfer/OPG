@@ -65,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         switch (adapter.getCurrentPosition()){
             case 0:
                 //super.onBackPressed();
+                startActivity(new Intent(getApplicationContext(), LogInActivity.class));
                 finish();
                 break;
             default:

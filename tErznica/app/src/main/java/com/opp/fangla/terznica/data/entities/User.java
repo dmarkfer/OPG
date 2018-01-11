@@ -1,13 +1,13 @@
 package com.opp.fangla.terznica.data.entities;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class User {
@@ -154,7 +154,9 @@ public class User {
     }
 
     public static String bitmapToString(Bitmap bitmap){
-        byte[] array = bitmap.getNinePatchChunk();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] array = stream.toByteArray();
         return Base64.encodeToString(array, Base64.DEFAULT);
     }
 }

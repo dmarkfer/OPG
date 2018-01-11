@@ -1,6 +1,8 @@
 package com.opp.fangla.terznica;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +30,12 @@ import com.opp.fangla.terznica.interfaces.BuyerInterface;
 import com.opp.fangla.terznica.interfaces.VendorInterface;
 import com.opp.fangla.terznica.welcome.LogInActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static String[] roleNames = {"buyer", "vendor", "driver", "admin"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +47,41 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Setup spinner
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String prefsUsername = preferences.getString("username", "");
+        Log.d("AAAAAAAAAAAAAAA", prefsUsername);
+        if(prefsUsername.equals("")){
+            startActivity(new Intent(getApplicationContext(), LogInActivity.class));
+            finish();
+        }
+        final List<String> roles = new ArrayList<>();
+        for(String s : roleNames){
+            if(preferences.getBoolean(s, false)){
+                roles.add(s);
+            }
+        }
+        String[] rolesArray = new String[roles.size()];
+        for (int i = 0; i < roles.size(); i++){
+            rolesArray[i] = roles.get(i);
+        }
         Spinner spinner = findViewById(R.id.spinner);
-        spinner.setAdapter(new MyAdapter(
-                toolbar.getContext(),
-                new String[]{
-                        "Kupac",
-                        "OPG",
-                        "Prijevoznik",
-                }));
+        spinner.setAdapter(new MyAdapter(toolbar.getContext(), rolesArray));
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Fragment fragment;
-                switch(position){
+                switch (roles.get(position)){
+                    case "buyer":
+                        fragment = new BuyerInterface();
+                        break;
+                    case "vendor":
+                        fragment = new VendorInterface();
+                        break;
+                    default:
+                        fragment = PlaceholderFragment.newInstance(position + 1);
+                }
+                /*switch(position){
                     case 0:
                         fragment = new BuyerInterface();
                         break;
@@ -61,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     default:
                         fragment = PlaceholderFragment.newInstance(position + 1);
-                }
+                }*/
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, fragment)
                         .commit();

@@ -64,7 +64,7 @@ public class VendorSubFragment extends Fragment{
                 if(place == null){
                     address.setText(R.string.add_address);
                 } else {
-                    address.setText(place.getName());
+                    address.setText(place.getAddress());
                 }
             }
         });

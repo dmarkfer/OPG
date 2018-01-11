@@ -57,11 +57,7 @@ public class ProductSearchSuggestions extends AsyncTask<Void, Void, MatrixCursor
                 row[1] = array.getJSONObject(i).get("naziv");
                 result.addRow(row);
             }
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         return result;

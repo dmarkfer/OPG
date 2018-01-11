@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.opp.fangla.terznica.MainActivity;
 import com.opp.fangla.terznica.R;
+import com.opp.fangla.terznica.util.LogInCallback;
 
 public class LogInActivity extends AppCompatActivity{
 
@@ -36,19 +38,25 @@ public class LogInActivity extends AppCompatActivity{
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.logIn().observe(LogInActivity.this, new Observer<String>() {
+                viewModel.logIn().observe(LogInActivity.this, new Observer<LogInCallback>() {
                     @Override
-                    public void onChanged(@Nullable String s) {
-                        if(s != null){
-                            if(s.equals("error")){
-                                Toast.makeText(getApplicationContext(), "Neuspjela prijava", Toast.LENGTH_SHORT).show();
-                            } else {
-                                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                prefs.edit().putString("username", username.getText().toString())
-                                        .putString("password", password.getText().toString()).apply();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            }
+                    public void onChanged(@Nullable LogInCallback callback) {
+                        if(!callback.isSuccess()){
+                            Toast.makeText(getApplicationContext(), "Server nije dostupan", Toast.LENGTH_SHORT).show();
+                        } else if(!callback.isSuccess()) {
+                            Toast.makeText(getApplicationContext(), "Neuspjela prijava", Toast.LENGTH_SHORT).show();
+                        } else {
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            prefs.edit().putString("username", viewModel.getUsername())
+                                    .putString("password", viewModel.getPassword())
+                                    .putInt("userId", callback.getId())
+                                    .putBoolean("admin", callback.isAdmin())
+                                    .putBoolean("buyer", callback.isBuyer())
+                                    .putBoolean("vendor", callback.isVendor())
+                                    .putBoolean("driver", callback.isDriver())
+                                    .apply();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
                         }
                     }
                 });
@@ -65,5 +73,15 @@ public class LogInActivity extends AppCompatActivity{
         password.setText(viewModel.getPassword());
         username.addTextChangedListener(viewModel.usernameWatcher());
         password.addTextChangedListener(viewModel.passwordWatcher());
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        prefs.edit().putString("username", "")
+                .putString("password", "")
+                .apply();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), "Niste prijavljeni", Toast.LENGTH_SHORT).show();
     }
 }

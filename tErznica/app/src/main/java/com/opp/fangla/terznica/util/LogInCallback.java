@@ -1,6 +1,6 @@
 package com.opp.fangla.terznica.util;
 
-public class LogInCallback {
+public class LogInCallback extends InternetCallback{
     private boolean admin, buyer, vendor, driver, success;
     private int id;
 

@@ -16,6 +16,7 @@ import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.data.entities.Vehicle;
 import com.opp.fangla.terznica.data.entities.Vendor;
+import com.opp.fangla.terznica.util.LogInCallback;
 import com.opp.fangla.terznica.util.SimpleTextWatcher;
 
 import org.json.JSONException;
@@ -28,7 +29,7 @@ public class RegisterViewModel extends AndroidViewModel {
 
     private String name, surname, mail, phone, password, confirmPassword, driverDescription;
     private Vendor vendorObj;
-    private boolean buyer, validVendorImage, valid;
+    private boolean buyer;
     private MutableLiveData<Boolean> strongPassword, passwordsMatch, vendor, driver;
     private Vehicle newVehicle;
     private MutableLiveData<List<Vehicle>> vehicles;
@@ -367,7 +368,7 @@ public class RegisterViewModel extends AndroidViewModel {
         return buyer || vendor.getValue() || driver.getValue();
     }
 
-    public void register(){
+    public LiveData<LogInCallback> register(){
         User user = new User();
         if(driver.getValue()) {
             user.setVehicles(vehicles.getValue());
@@ -389,7 +390,7 @@ public class RegisterViewModel extends AndroidViewModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ((FanglaApp) getApplication()).getRepository().registerUser(userJSON);
+        return ((FanglaApp) getApplication()).getRepository().registerUser(userJSON);
     }
 
     public void removeVehicle(int position){
@@ -397,4 +398,9 @@ public class RegisterViewModel extends AndroidViewModel {
         list.remove(position);
         vehicles.postValue(list);
     }
+
+    public boolean hasAVehicle(){
+        return vehicles.getValue().size() > 0;
+    }
+
 }

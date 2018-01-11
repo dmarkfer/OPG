@@ -21,7 +21,7 @@
             android:theme="@style/WelcomeEditText"
             android:hint="@string/username"
             android:textColor="@color/white"
-            android:inputType="textCapWords"
+            android:inputType="textEmailAddress"
             android:paddingTop="180dp"/>
 
         <EditText
