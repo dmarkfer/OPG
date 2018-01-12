@@ -2,21 +2,12 @@ package com.opp.fangla.terznica.data;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.SharedPreferences;
 import android.database.MatrixCursor;
 
-import com.opp.fangla.terznica.data.entities.Advert;
-import com.opp.fangla.terznica.data.entities.SimpleAdvert;
-import com.opp.fangla.terznica.data.entities.User;
-import com.opp.fangla.terznica.net.AdvertsDownload;
-import com.opp.fangla.terznica.net.DeleteUser;
-import com.opp.fangla.terznica.net.GetUser;
-import com.opp.fangla.terznica.net.LogIn;
-import com.opp.fangla.terznica.net.ProductSearchResults;
-import com.opp.fangla.terznica.net.ProductSearchSuggestions;
-import com.opp.fangla.terznica.net.RegisterUser;
-import com.opp.fangla.terznica.util.LogInCallback;
-import com.opp.fangla.terznica.util.RegisterUserCallback;
+
+import com.opp.fangla.terznica.data.entities.*;
+import com.opp.fangla.terznica.net.*;
+import com.opp.fangla.terznica.util.*;
 
 import org.json.JSONObject;
 
@@ -77,9 +68,56 @@ public class DataRepository {
         return isSuccesful;
     }
 
-    public LiveData<User> getUser (String userId) {
+    public MutableLiveData<User> getUser (String userId) {
         MutableLiveData<User> liveResult = new MutableLiveData<>();
         new GetUser(liveResult).execute(userId);
         return liveResult;
+    }
+
+    public MutableLiveData<String> createComment ( Comment comment) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        new CreateComment(liveData).execute(comment);
+        return liveData;
+    }
+
+    /*
+        Create new object Comment and put in new data and old
+        idReviewMark.
+     */
+    public MutableLiveData<Boolean> editComment (Comment comment) {
+        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
+        new EditComment(liveData).execute(comment);
+        return liveData;
+    }
+
+
+    public MutableLiveData<Boolean> deleteComment (String idReviewMark) {
+        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
+        new DeleteComment(liveData).execute(idReviewMark);
+        return liveData;
+    }
+
+    public MutableLiveData<String> createConversation (Conversation conversation) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        new CreateConversation(liveData).execute(conversation);
+        return liveData;
+    }
+
+    public MutableLiveData<Boolean> sendMessage (Message message) {
+        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
+        new SendMessage(liveData).execute(message);
+        return liveData;
+    }
+
+    public MutableLiveData<List<Message>> getMessages (int idChat) {
+        MutableLiveData<List<Message>> liveData = new MutableLiveData<>();
+        new GetMessages(liveData).execute(idChat);
+        return  liveData;
+    }
+
+    public MutableLiveData<Integer> createReport (Report report) {
+        MutableLiveData<Integer> liveData = new MutableLiveData<>();
+        new CreateReport(liveData).execute(report);
+        return liveData;
     }
 }

@@ -18,7 +18,18 @@ public class User {
     private Vendor vendorData;
     private List<Vehicle> vehicles;
     private Bitmap picture;
+    private String transportDescription;
 
+
+
+    public void setTransportDescription(String transportDescription) {
+        this.transportDescription = transportDescription;
+    }
+
+    public String getTransportDescription() {
+
+        return transportDescription;
+    }
 
     public int getId() {
         return id;

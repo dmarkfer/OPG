@@ -13,14 +13,13 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.List;
+import static com.opp.fangla.terznica.util.Random.*;
+
 
 public class LogIn extends AsyncTask<String, Void, LogInCallback> {
 
     private MutableLiveData<LogInCallback> liveData;
-    protected static final String HOSTNAME = "165.227.175.217";
-    protected static final int PORT = 8080;
+
 
     public LogIn(MutableLiveData<LogInCallback> liveData) {
         this.liveData = liveData;
@@ -35,9 +34,9 @@ public class LogIn extends AsyncTask<String, Void, LogInCallback> {
             json.put("command", "LoginUser");
             json.put("email", strings[0]);
             json.put("lozinka", strings[1]);
-
-
             Log.d("Login arguments", json.toString());
+
+
             socket.connect(new InetSocketAddress(InetAddress.getByName(HOSTNAME), PORT));
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
@@ -47,6 +46,7 @@ public class LogIn extends AsyncTask<String, Void, LogInCallback> {
             Log.d("Login result", sResponse);
             c.close();
             c.disconnect();
+
             JSONObject response = new JSONObject(sResponse);
             result.setSuccess(response.getBoolean("success"));
             if(result.isSuccess()) {

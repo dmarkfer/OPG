@@ -20,8 +20,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.opp.fangla.terznica.net.LogIn.HOSTNAME;
-import static com.opp.fangla.terznica.net.LogIn.PORT;
+import static com.opp.fangla.terznica.util.Random.*;
+
 
 public class ProductSearchSuggestions extends AsyncTask<Void, Void, MatrixCursor> {
 

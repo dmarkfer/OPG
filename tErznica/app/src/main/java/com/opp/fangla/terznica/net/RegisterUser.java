@@ -15,8 +15,8 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import static com.opp.fangla.terznica.net.LogIn.HOSTNAME;
-import static com.opp.fangla.terznica.net.LogIn.PORT;
+import static com.opp.fangla.terznica.util.Random.*;
+
 
 //Kad se slozi AdministratorInterface, treba vratiti objekt u verziju s RegisterUserCallbackom
 

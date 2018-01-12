@@ -3,6 +3,7 @@ package com.opp.fangla.terznica.data.entities;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.graphics.Bitmap;
+import android.support.annotation.IntegerRes;
 import android.util.Base64;
 
 import org.json.JSONException;
@@ -26,8 +27,8 @@ public class Vehicle {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String idStr) {
+        this.id = Integer.valueOf(idStr);
     }
 
     public String getRegistration() {
@@ -50,8 +51,9 @@ public class Vehicle {
         return category;
     }
 
-    public void setCategory(int category) {
-        this.category = category;
+    public void setCategory(String cat) {
+        Integer.valueOf(cat);
+        this.category = Integer.valueOf(cat);
     }
 
     public LiveData<Bitmap> getImage() {

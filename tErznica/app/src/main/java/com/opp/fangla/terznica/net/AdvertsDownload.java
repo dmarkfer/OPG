@@ -21,7 +21,7 @@ public class AdvertsDownload extends AsyncTask<String, Void, List<Advert>>{
         List<Advert> list = new ArrayList<>();
 
 
-
+        //TODO Adverts download 
         return list;
     }
 

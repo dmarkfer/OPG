@@ -13,13 +13,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import static com.opp.fangla.terznica.util.Random.*;
 
 public class ProductSearchResults extends AsyncTask<String, Void, List<SimpleAdvert>> {
 
     private MutableLiveData<List<SimpleAdvert>> liveData;
-    protected static final String HOSTNAME = "165.227.175.217";
-    protected static final int PORT = 8080;
+
 
     public ProductSearchResults(MutableLiveData<List<SimpleAdvert>> liveData){
         this.liveData = liveData;
