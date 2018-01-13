@@ -27,11 +27,11 @@ public class Vendor {
         address = new MutableLiveData<>();
     }
 
-    /*public int getId() {
+    /*public int getIdVehicle() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setIdVehicle(int id) {
         this.id = id;
     }*/
 

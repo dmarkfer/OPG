@@ -4,6 +4,16 @@ public class ProductCategory {
     private int id;
     private String name;
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    private String comment;
+
     public int getId() {
         return id;
     }
@@ -19,4 +29,5 @@ public class ProductCategory {
     public void setName(String name) {
         this.name = name;
     }
+
 }

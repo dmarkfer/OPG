@@ -90,12 +90,12 @@ public class DriverSubFragment extends Fragment {
                 categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        vehicle.setCategory(i);
+                        vehicle.setCategory(String.valueOf(i));
                     }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
-                        vehicle.setCategory(0);
+                        vehicle.setCategory(String.valueOf(0));
                     }
                 });
 

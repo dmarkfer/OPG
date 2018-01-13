@@ -2,7 +2,7 @@ package com.opp.fangla.terznica.data.entities;
 
 import android.graphics.Bitmap;
 
-public class SimplePerson {
+public class Person {
 
     private Bitmap picture;
     private String name;

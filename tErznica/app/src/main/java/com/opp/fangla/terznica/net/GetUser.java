@@ -1,6 +1,5 @@
 package com.opp.fangla.terznica.net;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -72,6 +71,7 @@ public class GetUser extends AsyncTask<String, Void, User> {
             if(user.isVendor()){
                 Bitmap image = convertByteToBitMap(response.getString("slikaOPG"));
                 Vendor vendor = new Vendor(image);
+                //TODO stringToPlace ovdje koristimo
                 vendor.setAddress(Random.stringToPlace(response.getString("adresaOPG")));
                 vendor.setBankAccount(response.getString("IBAN"));
                 vendor.setDescription(response.getString("opisOPG"));
@@ -92,8 +92,7 @@ public class GetUser extends AsyncTask<String, Void, User> {
                     object = array.getJSONObject(i);
                     vehicle = new Vehicle(convertByteToBitMap(object.getString("slikaVozila")));
                     vehicle.setCategory(object.getString("idKategorijeVozila"));
-                    vehicle.setId(object.getString("registarskaOznaka"));
-                    //TODO check is model same as opis vozila
+                    vehicle.setIdVehicle(object.getString("registarskaOznaka"));
                     vehicle.setModel(object.getString("opisVozila"));
                     vehicleList.add(vehicle);
                 }

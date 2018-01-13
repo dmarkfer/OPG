@@ -3,15 +3,13 @@ package com.opp.fangla.terznica.data.entities;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.graphics.Bitmap;
-import android.support.annotation.IntegerRes;
-import android.util.Base64;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Vehicle {
 
-    private Integer id, category;
+    private Integer idVehicle,userId, category;
     private String registration, model;
     private MutableLiveData<Bitmap> image;
     private boolean validImage;
@@ -23,12 +21,12 @@ public class Vehicle {
         this.image.postValue(image);
     }
 
-    public int getId() {
-        return id;
+    public int getIdVehicle() {
+        return idVehicle;
     }
 
-    public void setId(String idStr) {
-        this.id = Integer.valueOf(idStr);
+    public void setIdVehicle(String idStr) {
+        this.idVehicle = Integer.valueOf(idStr);
     }
 
     public String getRegistration() {
@@ -88,5 +86,13 @@ public class Vehicle {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

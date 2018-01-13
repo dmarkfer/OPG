@@ -1,7 +1,6 @@
 package com.opp.fangla.terznica.data.entities;
 
 import android.graphics.Bitmap;
-import android.widget.ListView;
 
 import java.util.Date;
 import java.util.List;
@@ -12,8 +11,27 @@ public class Advert {
     private Bitmap picture;
     private double cijena;
     private Date date;
-    private int id, categoryId, vendorId;
-    private List<SimplePerson> persons;
+    private int advertId;
+    private int creatorId;
+    private int categoryId;
+    private int vendorId;
+    private List<Person> persons;
+
+    public int getAdvertId() {
+        return advertId;
+    }
+
+    public void setAdvertId(int advertId) {
+        this.advertId = advertId;
+    }
+
+    public int getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(int creatorId) {
+        this.creatorId = creatorId;
+    }
 
     public String getName() {
         return name;
@@ -39,11 +57,11 @@ public class Advert {
         this.picture = picture;
     }
 
-    public double getCijena() {
+    public double getValue() {
         return cijena;
     }
 
-    public void setCijena(double cijena) {
+    public void setValue(double cijena) {
         this.cijena = cijena;
     }
 
@@ -56,11 +74,11 @@ public class Advert {
     }
 
     public int getId() {
-        return id;
+        return advertId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.advertId = id;
     }
 
     public int getCategoryId() {
@@ -79,11 +97,11 @@ public class Advert {
         this.vendorId = vendorId;
     }
 
-    public List<SimplePerson> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 
-    public void setPersons(List<SimplePerson> persons) {
+    public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
 }

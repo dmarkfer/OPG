@@ -26,15 +26,15 @@ public class DataRepository {
         return dInstance;
     }
 
-    public MutableLiveData<List<SimpleAdvert>> getProductSearchResults(String searchTerm) {
-        MutableLiveData<List<SimpleAdvert>> adverts = new MutableLiveData<>();
-        new ProductSearchResults(adverts).execute(searchTerm);
+    public MutableLiveData<List<Advert>> getProductSearchResults(String searchTerm) {
+        MutableLiveData<List<Advert>> adverts = new MutableLiveData<>();
+        new GetAdverts(adverts).execute(searchTerm);
         return adverts;
     }
 
     public MutableLiveData<MatrixCursor> getProductSearchSuggestions(){
         MutableLiveData<MatrixCursor> suggestions = new MutableLiveData<>();
-        new ProductSearchSuggestions(suggestions).execute();
+        new GetAdvertsSuggestion(suggestions).execute();
         return suggestions;
     }
 
@@ -118,6 +118,66 @@ public class DataRepository {
     public MutableLiveData<Integer> createReport (Report report) {
         MutableLiveData<Integer> liveData = new MutableLiveData<>();
         new CreateReport(liveData).execute(report);
+        return liveData;
+    }
+
+    public MutableLiveData<Integer> createProductCategory (ProductCategory productCategory) {
+        MutableLiveData<Integer> liveData = new MutableLiveData<>();
+        new CreateProductCategory(liveData).execute(productCategory);
+        return liveData;
+    }
+
+    public MutableLiveData<Boolean> deleteProductCategory (Integer categoryId) {
+        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
+        new DeleteProductCategory(liveData).execute(categoryId);
+        return liveData;
+    }
+
+    public MutableLiveData<Integer> createAdvert (Advert advert) {
+        MutableLiveData<Integer> liveData = new MutableLiveData<>();
+        new CreateAdvert(liveData).execute(advert);
+        return liveData;
+    }
+
+    public MutableLiveData<Boolean> editAdvert (Advert advert) {
+        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
+        new EditAdvert(liveData).execute(advert);
+        return liveData;
+    }
+
+    public  MutableLiveData<Boolean> deleteAdvert (Integer advertId) {
+        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
+        new DeleteAdvert(liveData).execute(String.valueOf(advertId));
+        return liveData;
+    }
+
+    public  MutableLiveData<Integer> createAdvertShipment (AdvertShipment advertShipment) {
+        MutableLiveData<Integer> liveData = new MutableLiveData<>();
+        new CreateAdvertShipment(liveData).execute(advertShipment);
+        return liveData;
+    }
+
+    public MutableLiveData<List<AdvertShipment>> getShipmentAdverts (String placeName) {
+        MutableLiveData<List<AdvertShipment>> liveData = new MutableLiveData<>();
+        new GetShipmentAdverts(liveData).execute(placeName);
+        return liveData;
+    }
+
+    public MutableLiveData<Integer> createVehicle (Vehicle vehicle) {
+        MutableLiveData<Integer> liveData = new MutableLiveData<>();
+        new CreateVehicle(liveData).execute(vehicle);
+        return liveData;
+    }
+
+    public MutableLiveData<List<Vehicle>> getVehicles (Integer userId) {
+        MutableLiveData<List<Vehicle>> liveData = new MutableLiveData<>();
+        new GetVehicles(liveData).execute(userId);
+        return liveData;
+    }
+
+    public  MutableLiveData<Boolean> deleteVehicles (Integer vehicleId) {
+        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
+        new DeleteVehicle(liveData).execute(vehicleId);
         return liveData;
     }
 }

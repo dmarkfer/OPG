@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.opp.fangla.terznica.R;
-import com.opp.fangla.terznica.data.entities.SimpleAdvert;
+import com.opp.fangla.terznica.data.entities.Advert;
 
 import java.util.List;
 
@@ -46,12 +46,12 @@ public class BuyerInterface extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                viewModel.getProductSearchResults(query).observe(BuyerInterface.this, new Observer<List<SimpleAdvert>>() {
+                viewModel.getProductSearchResults(query).observe(BuyerInterface.this, new Observer<List<Advert>>() {
                     @Override
-                    public void onChanged(@Nullable List<SimpleAdvert> simpleAdverts) {
+                    public void onChanged(@Nullable List<Advert> adverts) {
                         ((ArrayAdapter) listView.getAdapter()).clear();
-                        if(simpleAdverts != null) {
-                            ((ArrayAdapter) listView.getAdapter()).addAll(simpleAdverts);
+                        if(adverts != null) {
+                            ((ArrayAdapter) listView.getAdapter()).addAll(adverts);
                         }
                     }
                 });
@@ -75,11 +75,11 @@ public class BuyerInterface extends Fragment {
             }
         });
 
-        listView.setAdapter(new ArrayAdapter<SimpleAdvert>(getContext(), R.layout.row_product_search) {
+        listView.setAdapter(new ArrayAdapter<Advert>(getContext(), R.layout.row_product_search) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                SimpleAdvert advert = getItem(position);
+                Advert advert = getItem(position);
                 if(convertView == null){
                     ViewHolder holder = new ViewHolder();
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_product_search, parent);
@@ -89,10 +89,10 @@ public class BuyerInterface extends Fragment {
                     convertView.setTag(holder);
                 }
                 ViewHolder holder = (ViewHolder) convertView.getTag();
-                if(advert.getImage() == null) {
-                    holder.image.setImageBitmap(advert.getImage());
+                if(advert.getPicture() == null) {
+                    holder.image.setImageBitmap(advert.getPicture());
                 }
-                holder.title.setText(advert.getTitle());
+                holder.title.setText(advert.getName());
                 holder.description.setText(advert.getDescription());
                 return convertView;
             }
@@ -106,7 +106,7 @@ public class BuyerInterface extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //Zamijeniti kad se napravi activity za prikaz proizvoda, ocito
-                Toast.makeText(getContext(), "Otvaram " + ((SimpleAdvert) adapterView.getItemAtPosition(i)).getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Otvaram " + ((Advert) adapterView.getItemAtPosition(i)).getName(), Toast.LENGTH_SHORT).show();
             }
         });
 

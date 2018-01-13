@@ -36,7 +36,6 @@ public class CreateConversation extends AsyncTask<Conversation,Void,String> {
         String idConversation = null;
 
         try {
-            // createConversation(idPrijevoznika, idKupca, idOglasa, idOglasaPrijevoza) -> (idRazgovora)
 
             JSONObject json = new JSONObject();
             json.put("command","createConversation");

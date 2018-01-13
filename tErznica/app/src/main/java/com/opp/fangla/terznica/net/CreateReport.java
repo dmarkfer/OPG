@@ -17,7 +17,6 @@ import java.net.Socket;
 import static com.opp.fangla.terznica.util.Random.HOSTNAME;
 import static com.opp.fangla.terznica.util.Random.PORT;
 
-//createReport(idKorisnika, tipPrijave, idPrijavljeneStavke, idVrstePrijave, komentar) -> (idPrijave)
 
 public class CreateReport extends AsyncTask<Report,Void,Integer> {
 
@@ -34,8 +33,7 @@ public class CreateReport extends AsyncTask<Report,Void,Integer> {
 
         try {
 
-            //createReport(idKorisnika, tipPrijave, idPrijavljeneStavke, idVrstePrijave, komentar)
-            // -> (idPrijave)
+
             JSONObject json = new JSONObject();
             json.put("command","createReport");
             json.put("idKorisnika",report.getUserId());

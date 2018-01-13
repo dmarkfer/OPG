@@ -5,7 +5,6 @@ import android.database.MatrixCursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.opp.fangla.terznica.data.entities.SimpleAdvert;
 import com.opp.fangla.terznica.interfaces.BuyerInterface;
 
 import org.json.JSONArray;
@@ -16,18 +15,15 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.opp.fangla.terznica.util.Random.*;
 
 
-public class ProductSearchSuggestions extends AsyncTask<Void, Void, MatrixCursor> {
+public class GetAdvertsSuggestion extends AsyncTask<Void, Void, MatrixCursor> {
 
     private MutableLiveData<MatrixCursor> liveData;
 
-    public ProductSearchSuggestions(MutableLiveData<MatrixCursor> liveData) {
+    public GetAdvertsSuggestion(MutableLiveData<MatrixCursor> liveData) {
         this.liveData = liveData;
     }
 

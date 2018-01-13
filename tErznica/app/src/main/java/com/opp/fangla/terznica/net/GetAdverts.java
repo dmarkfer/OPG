@@ -2,7 +2,7 @@ package com.opp.fangla.terznica.net;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 import android.util.Log;
-import com.opp.fangla.terznica.data.entities.SimpleAdvert;
+import com.opp.fangla.terznica.data.entities.Advert;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,18 +16,18 @@ import java.util.List;
 
 import static com.opp.fangla.terznica.util.Random.*;
 
-public class ProductSearchResults extends AsyncTask<String, Void, List<SimpleAdvert>> {
+public class GetAdverts extends AsyncTask<String, Void, List<Advert>> {
 
-    private MutableLiveData<List<SimpleAdvert>> liveData;
+    private MutableLiveData<List<Advert>> liveData;
 
 
-    public ProductSearchResults(MutableLiveData<List<SimpleAdvert>> liveData){
+    public GetAdverts(MutableLiveData<List<Advert>> liveData){
         this.liveData = liveData;
     }
 
     @Override
-    protected List<SimpleAdvert> doInBackground(String... strings) {
-        List<SimpleAdvert> result = new ArrayList<>();
+    protected List<Advert> doInBackground(String... strings) {
+        List<Advert> result = new ArrayList<>();
         Socket socket = new Socket();
 
         try{
@@ -52,11 +52,15 @@ public class ProductSearchResults extends AsyncTask<String, Void, List<SimpleAdv
             JSONArray  array = response.getJSONArray("oglasi");
 
 
+            //+retrieveProductOffers
+            // (idKategorijeOglasa, naziv, brojTrazenihOglasa) -> (
+            // oglasi[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme])
+
             for (int i = 0; i < array.length(); i++) {
-                SimpleAdvert tmp = new SimpleAdvert();
-                tmp.setId(array.getJSONObject(i).getLong("idOglasa"));
-                tmp.setTitle( array.getJSONObject(i).getString("nazivOglasa"));
-                tmp.setImage(convertByteToBitMap(array.getJSONObject(i).getString("slikaOglasa")));
+                Advert tmp = new Advert();
+                tmp.setId(array.getJSONObject(i).getInt("idOglasa"));
+                tmp.setName( array.getJSONObject(i).getString("nazivOglasa"));
+                tmp.setPicture(convertByteToBitMap(array.getJSONObject(i).getString("slikaOglasa")));
                 tmp.setValue(( array.getJSONObject(i).getInt("cijena")));
                 tmp.setDate(setDateFromString( array.getJSONObject(i).getString("vrijeme")));
                 result.add(tmp);
@@ -70,7 +74,7 @@ public class ProductSearchResults extends AsyncTask<String, Void, List<SimpleAdv
     }
 
     @Override
-    protected void onPostExecute(List<SimpleAdvert> adverts) {
+    protected void onPostExecute(List<Advert> adverts) {
         liveData.postValue(adverts);
     }
 }

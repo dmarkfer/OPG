@@ -96,7 +96,7 @@ public class RegisterUser extends AsyncTask<JSONObject, Void, LogInCallback> {
             JSONObject response = new JSONObject(sResponse);
             result.setSuccess(response.getBoolean("success"));
             if(result.isSuccess()){
-                result.setId(response.getInt("idKorisnika"));
+                result.setIdVehicle(response.getInt("idKorisnika"));
             }
             Log.d("RegisterUser", response.toString());
             c.close();

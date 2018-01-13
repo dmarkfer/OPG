@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.data.entities.Advert;
-import com.opp.fangla.terznica.data.entities.SimplePerson;
+import com.opp.fangla.terznica.data.entities.Person;
 
 import java.util.List;
 
@@ -90,7 +90,7 @@ public class VendorInterface extends Fragment {
                     }
                 }
             });
-            for(SimplePerson person : advert.getPersons()){
+            for(Person person : advert.getPersons()){
                 View view = getListItemView(person, holder.list);
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -103,7 +103,7 @@ public class VendorInterface extends Fragment {
             return convertView;
         }
 
-        private View getListItemView(SimplePerson person, LinearLayout parent){
+        private View getListItemView(Person person, LinearLayout parent){
             View view = LayoutInflater.from(getContext()).inflate(R.layout.row_simple_user, parent);
             TextView name = view.findViewById(R.id.row_simple_user_name);
             ImageView img = view.findViewById(R.id.row_simple_user_img);
