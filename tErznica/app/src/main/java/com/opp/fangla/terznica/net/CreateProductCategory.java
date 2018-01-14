@@ -10,8 +10,6 @@ import com.opp.fangla.terznica.util.Random;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 public class CreateProductCategory extends AsyncTask<ProductCategory,Void,Integer> {
 
     private MutableLiveData<Integer> liveData;

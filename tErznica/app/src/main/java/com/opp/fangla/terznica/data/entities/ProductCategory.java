@@ -1,7 +1,7 @@
 package com.opp.fangla.terznica.data.entities;
 
 public class ProductCategory {
-    private int id;
+    private int id, userId;
     private String name;
 
     public String getComment() {
@@ -30,4 +30,11 @@ public class ProductCategory {
         this.name = name;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }
