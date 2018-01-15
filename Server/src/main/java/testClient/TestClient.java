@@ -56,7 +56,7 @@ public class TestClient {
 		/* CREATEPRODUCTCATEGORY 
 		request.put("command", "CREATEPRODUCTCATEGORY");
 		request.put("idKorisnika", 10);
-		request.put("nazivKategorije", "Jagode");
+		request.put("nazivKategorije", "Jagode2");
 		request.put("komentar", "blabla"); */
 		
 		/* CREATEREPORT 
@@ -123,6 +123,9 @@ public class TestClient {
 		request.put("opisOglasa", "opis!");
 		request.put("cijena", 13);
 		request.put("vrijeme", new Date()); */
+		
+		/* GETADMINTASKS
+		request.put("command", "GETADMINTASKS"); */
 		
 		/* GETCONVERSATIONS 
 		request.put("command", "GETCONVERSATIONS");

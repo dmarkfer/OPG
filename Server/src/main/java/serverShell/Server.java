@@ -26,6 +26,7 @@ import serverCommands.DeleteUser;
 import serverCommands.DeleteVehicle;
 import serverCommands.EditComment;
 import serverCommands.EditProduct;
+import serverCommands.GetAdminTasks;
 import serverCommands.GetConversations;
 import serverCommands.Help;
 import serverCommands.LoginUser;
@@ -75,7 +76,8 @@ private static HashMap<String, ShellCommand> commands;
 						new CreateVehicle(), 
 						new RetrieveVehicles(),
 						new DeleteVehicle(), 
-						new RetrieveShipmentOffers()
+						new RetrieveShipmentOffers(),
+						new GetAdminTasks()
 		};
 		
 		for (ShellCommand shellCommand : cc) {
