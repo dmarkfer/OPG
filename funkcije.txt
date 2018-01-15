@@ -25,5 +25,8 @@ createVehicle(idKorisnika, registarskaOznaka, idKategorijeVozila, opisVozila, sl
 retrieveVehicles(idKorisnika) -> (vozila[idVozila, registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila])
 deleteVehicle(idVozila) -> (success)
 
+
+getConversations(idKorisnika) -> (razgovori[idRazgovora, sudionik, zadnjaPoruka])
+
 tipPrijave = { 0 = korisnik, 1 = proizvod, 2 = ocjena/komentar}
 idVrstePrijave = { 0 = govorMržnje, 1 = neprimjerenSadržaj, 2 = lažanProfil, 3 = nevaljanOglas}
