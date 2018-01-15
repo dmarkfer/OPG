@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 import serverCommands.ConfirmProductCategory;
 import serverCommands.CreateComment;
 import serverCommands.CreateConversation;
-import serverCommands.CreateFarmer;
 import serverCommands.CreateProduct;
 import serverCommands.CreateProductCategory;
 import serverCommands.CreateReport;
@@ -57,7 +56,6 @@ private static HashMap<String, ShellCommand> commands;
 						new CreateComment(),
 						new CreateConversation(),
 						new CreateProduct(),
-						new CreateFarmer(),
 						new CreateProductCategory(),
 						new EditComment(),
 						new DeleteComment(),
