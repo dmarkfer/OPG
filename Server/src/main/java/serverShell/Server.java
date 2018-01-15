@@ -33,6 +33,7 @@ import serverCommands.RegisterUser;
 import serverCommands.RetrieveMessages;
 import serverCommands.RetrieveProductCategories;
 import serverCommands.RetrieveProductOffers;
+import serverCommands.RetrieveShipmentOffers;
 import serverCommands.RetrieveUserProfile;
 import serverCommands.RetrieveVehicles;
 import serverCommands.SendMessage;
@@ -73,7 +74,8 @@ private static HashMap<String, ShellCommand> commands;
 						new DeleteShipmentOffer(),
 						new CreateVehicle(), 
 						new RetrieveVehicles(),
-						new DeleteVehicle()
+						new DeleteVehicle(), 
+						new RetrieveShipmentOffers()
 		};
 		
 		for (ShellCommand shellCommand : cc) {

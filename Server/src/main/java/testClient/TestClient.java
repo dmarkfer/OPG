@@ -181,6 +181,10 @@ public class TestClient {
 		request.put("naziv", "ab");
 		request.put("brojTrazenihOglasa", 3); */
 		
+		/* RETRIEVESHIPMENTOFFERS 
+		request.put("command", "RETRIEVESHIPMENTOFFERS");
+		request.put("nazivMjesta", "ij"); */
+		
 		/* RETRIEVEUSERPROFILE	
 		request.put("command", "RETRIEVEUSERPROFILE");
 		request.put("idKorisnika", 5); */
