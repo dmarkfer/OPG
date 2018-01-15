@@ -24,7 +24,11 @@ public class TestClient {
 		
 		JSONObject request = new JSONObject();
 		
-		/* CREATECOMMENT 
+		/* CONFIRMPRODUCTCATEGORY 
+		request.put("command", "CONFIRMPRODUCTCATEGORY");
+		request.put("idKategorije", 1); */
+		 
+		 /* CREATECOMMENT
 		request.put("command", "CREATECOMMENT");
 		request.put("idOcjenjenog", 18);
 		request.put("idOcjenjivaca", 17);
@@ -48,6 +52,20 @@ public class TestClient {
 		request.put("opisOglasa", "opis");
 		request.put("cijena", 12);
 		request.put("vrijeme", new Date()); */
+		
+		/* CREATEPRODUCTCATEGORY 
+		request.put("command", "CREATEPRODUCTCATEGORY");
+		request.put("idKorisnika", 10);
+		request.put("nazivKategorije", "Jagode");
+		request.put("komentar", "blabla"); */
+		
+		/* CREATEREPORT 
+		request.put("command", "CREATEREPORT");
+		request.put("idKorisnika", 10);
+		request.put("tipPrijave", 2);
+		request.put("idPrijavljeneStavke", 4);
+		request.put("idVrstePrijave", 1);
+		request.put("komentar", "komentar"); */
  
 		/* DELETECOMMENT
 		request.put("command", "DELETECOMMENT");
@@ -126,8 +144,8 @@ public class TestClient {
 		request.put("command", "RETRIEVEMESSAGES");
 		request.put("idRazgovora", 12); */
 		
-		/* RETRIEVEPRODUCTCATEGORIES */
-		request.put("command", "RETRIEVEPRODUCTCATEGORIES");
+		/* RETRIEVEPRODUCTCATEGORIES
+		request.put("command", "RETRIEVEPRODUCTCATEGORIES"); */
 		
 		/* RETRIEVEPRODUCTOFFERS 
 		request.put("command", "RETRIEVEPRODUCTOFFERS");

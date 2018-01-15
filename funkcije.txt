@@ -28,5 +28,5 @@ deleteVehicle(idVozila) -> (success)
 
 getConversations(idKorisnika) -> (razgovori[idRazgovora, sudionik, zadnjaPoruka])
 
-tipPrijave = { 0 = korisnik, 1 = proizvod, 2 = ocjena/komentar}
-idVrstePrijave = { 0 = govorMržnje, 1 = neprimjerenSadržaj, 2 = lažanProfil, 3 = nevaljanOglas}
+tipPrijave = { 0 = korisnik, 1 = proizvod, 2 = ocjena/komentar} //nije unutar baze, interne vrijednosti
+idVrstePrijave = { 1 = Govor mržnje, 2 = Neprimjeren sadržaj, 3 = Lažni profil, 4 = Nevaljan oglas} //nalazi se u bazi trenutno, tablica vrsta_prijave

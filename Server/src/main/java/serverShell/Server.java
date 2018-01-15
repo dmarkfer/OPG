@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import serverCommands.ConfirmProductCategory;
 import serverCommands.CreateComment;
 import serverCommands.CreateConversation;
 import serverCommands.CreateFarmer;
@@ -59,7 +60,8 @@ private static HashMap<String, ShellCommand> commands;
 						new DeleteProduct(), 
 						new RetrieveProductOffers(), 
 						new DeleteProductCategory(),
-						new RetrieveProductCategories()
+						new RetrieveProductCategories(),
+						new ConfirmProductCategory()
 		};
 		
 		for (ShellCommand shellCommand : cc) {
