@@ -22,6 +22,7 @@ import serverCommands.DeleteProductCategory;
 import serverCommands.DeleteUser;
 import serverCommands.EditComment;
 import serverCommands.EditProduct;
+import serverCommands.GetConversations;
 import serverCommands.Help;
 import serverCommands.LoginUser;
 import serverCommands.RegisterUser;
@@ -61,7 +62,8 @@ private static HashMap<String, ShellCommand> commands;
 						new RetrieveProductOffers(), 
 						new DeleteProductCategory(),
 						new RetrieveProductCategories(),
-						new ConfirmProductCategory()
+						new ConfirmProductCategory(),
+						new GetConversations()
 		};
 		
 		for (ShellCommand shellCommand : cc) {

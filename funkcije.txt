@@ -5,7 +5,7 @@ retrieveUserProfile(idKorisnika) -> (ime, prezime, lozinka, email, telefon, polj
 createComment(idOcjenjenog, idOcjenjivaca, ocjena, komentar, vrijeme) -> (idOcjene)
 editComment(idOcjene, ocjena, komenatar, vrijeme) -> (success)
 deleteComment(idOcjene) -> (success)
-createConversation(idPrijevoznika, idKupca, idOglasa, idOglasaPrijevoza) -> (idRazgovora)
+createConversation(idPrijevoznikaIliPoljoprivrednika, idKupca, idOglasa, idOglasaPrijevoza) -> (idRazgovora)
 sendMessage(idRazgovora, idPosiljatelja, vrijeme, poruka) -> (success)
 retrieveMessages(idRazgovora) -> (poruke[idPoruka, idRazgovora, vrijeme, poruka, idPosiljatelja])
 createReport(idKorisnika, tipPrijave, idPrijavljeneStavke, idVrstePrijave, komentar) -> (idPrijave)
@@ -26,7 +26,7 @@ retrieveVehicles(idKorisnika) -> (vozila[idVozila, registarskaOznaka, idKategori
 deleteVehicle(idVozila) -> (success)
 
 
-getConversations(idKorisnika) -> (razgovori[idRazgovora, sudionik, zadnjaPoruka])
+getConversations(idKorisnika) -> (razgovori[idRazgovora, idOglasa, idOglasaPrijevoza, sudionik, gotovRazgovor, kolicina, cijena, zadnjaPoruka[idPoruka, idRazgovora, vrijeme, poruka, idPosiljatelja]])
 
 tipPrijave = { 0 = korisnik, 1 = proizvod, 2 = ocjena/komentar} //nije unutar baze, interne vrijednosti
 idVrstePrijave = { 1 = Govor mržnje, 2 = Neprimjeren sadržaj, 3 = Lažni profil, 4 = Nevaljan oglas} //nalazi se u bazi trenutno, tablica vrsta_prijave

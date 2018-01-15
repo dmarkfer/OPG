@@ -38,7 +38,7 @@ public class TestClient {
 		
 		/* CREATECONVERSATION 
 		request.put("command", "CREATECONVERSATION");
-		request.put("idPrijevoznika", 5);
+		request.put("idPrijevoznikaIliPoljoprivrednika", 5);
 		request.put("idKupca", 10);
 		request.put("idOglasa", 4);
 		request.put("idOglasaPrijevoza", 1); */
@@ -100,6 +100,10 @@ public class TestClient {
 		request.put("cijena", 13);
 		request.put("vrijeme", new Date()); */
 		
+		/* GETCONVERSATIONS 
+		request.put("command", "GETCONVERSATIONS");
+		request.put("idKorisnika", 5); */
+		
 		/* LOGINUSER 
 		request.put("command", "LOGINUSER");
 		request.put("email", "domagoj.kralj@gmail.com");
@@ -159,8 +163,8 @@ public class TestClient {
 		
 		/* SENDMESSAGE 
 		request.put("command", "SENDMESSAGE");
-		request.put("idRazgovora", 12);
-		request.put("idPosiljatelja", 5);
+		request.put("idRazgovora", 6);
+		request.put("idPosiljatelja", 23);
 		request.put("vrijeme", new Date());
 		request.put("poruka", "evo ti na!"); */
 		

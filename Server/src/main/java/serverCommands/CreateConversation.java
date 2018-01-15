@@ -13,7 +13,7 @@ import serverShell.Environment;
 
 public class CreateConversation extends AbstractCommand {
 	
-	String[] columns = new String[] {"idOglasa", "idOglasaPrijevoza", "idPrijevoznika", 
+	String[] columns = new String[] {"idOglasa", "idOglasaPrijevoza", "idPrijevoznikaIliPoljoprivrednika", 
 			"gotovRazgovor", "kolicina", "cijena", "idKupca" };
 
 	public CreateConversation() {
