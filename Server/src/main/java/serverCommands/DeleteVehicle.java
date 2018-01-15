@@ -25,7 +25,7 @@ public class DeleteVehicle extends AbstractCommand {
 			Statement statement = connection.createStatement();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("DELETE FROM vehicle WHERE id=");
+			sql.append("DELETE FROM vozilo WHERE id=");
 			sql.append(arguments.get("idVozila"));
 			sql.append(";");
 			

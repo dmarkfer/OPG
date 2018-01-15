@@ -66,6 +66,22 @@ public class TestClient {
 		request.put("idPrijavljeneStavke", 4);
 		request.put("idVrstePrijave", 1);
 		request.put("komentar", "komentar"); */
+		
+		/* CREATESHIPMENTOFFER
+		request.put("command", "CREATESHIPMENTOFFER");
+		request.put("idOglasa", 4);
+		request.put("idKupca", 5);
+		request.put("polaziste", "polazisze");
+		request.put("odrediste", "dest");
+		request.put("vrijeme", new Date()); */
+		
+		/* CREATEVEHICLE 
+		request.put("command", "CREATEVEHICLE");
+		request.put("idKorisnika", 5);
+		request.put("registarskaOznaka", "zg3432423");
+		request.put("idKategorijeVozila", 1);
+		request.put("opisVozila", "ops");
+		request.put("slikaVozila", "ddfewewf.jpg");	*/			
  
 		/* DELETECOMMENT
 		request.put("command", "DELETECOMMENT");
@@ -79,9 +95,17 @@ public class TestClient {
 		request.put("command", "DELETEPRODUCTCATEGORY");
 		request.put("idKategorije", 3); */
 		
+		/* DELETESHIPMENTOFFER 
+		request.put("command", "DELETESHIPMENTOFFER");
+		request.put("idOglasaPrijevoza", 3); */
+		
 		/* DELETEUSER 
 		request.put("command", "DELETEUSER");
 		request.put("idKorisnika", 19); */
+		
+		/* DELETEVEHICLE
+		request.put("command", "DELETEVEHICLE");
+		request.put("idVozila", 7); */
 		
 		/* EDITCOMMENT 
 		request.put("command", "EDITCOMMENT");
@@ -159,6 +183,10 @@ public class TestClient {
 		
 		/* RETRIEVEUSERPROFILE	
 		request.put("command", "RETRIEVEUSERPROFILE");
+		request.put("idKorisnika", 5); */
+		
+		/* RETRIEVEVEHICLES 
+		request.put("command", "RETRIEVEVEHICLES");
 		request.put("idKorisnika", 5); */
 		
 		/* SENDMESSAGE 

@@ -16,10 +16,14 @@ import serverCommands.CreateFarmer;
 import serverCommands.CreateProduct;
 import serverCommands.CreateProductCategory;
 import serverCommands.CreateReport;
+import serverCommands.CreateShipmentOffer;
+import serverCommands.CreateVehicle;
 import serverCommands.DeleteComment;
 import serverCommands.DeleteProduct;
 import serverCommands.DeleteProductCategory;
+import serverCommands.DeleteShipmentOffer;
 import serverCommands.DeleteUser;
+import serverCommands.DeleteVehicle;
 import serverCommands.EditComment;
 import serverCommands.EditProduct;
 import serverCommands.GetConversations;
@@ -30,6 +34,7 @@ import serverCommands.RetrieveMessages;
 import serverCommands.RetrieveProductCategories;
 import serverCommands.RetrieveProductOffers;
 import serverCommands.RetrieveUserProfile;
+import serverCommands.RetrieveVehicles;
 import serverCommands.SendMessage;
 import serverCommands.Terminate;
 
@@ -63,7 +68,12 @@ private static HashMap<String, ShellCommand> commands;
 						new DeleteProductCategory(),
 						new RetrieveProductCategories(),
 						new ConfirmProductCategory(),
-						new GetConversations()
+						new GetConversations(),
+						new CreateShipmentOffer(),
+						new DeleteShipmentOffer(),
+						new CreateVehicle(), 
+						new RetrieveVehicles(),
+						new DeleteVehicle()
 		};
 		
 		for (ShellCommand shellCommand : cc) {

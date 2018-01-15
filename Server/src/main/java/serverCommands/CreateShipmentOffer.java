@@ -46,7 +46,7 @@ public class CreateShipmentOffer extends AbstractCommand {
 			sql.append("SELECT id FROM oglas_prijevoz WHERE id_oglasa=");
 			sql.append(arguments.get("idOglasa"));
 			sql.append(" AND id_kupca=");
-			sql.append(arguments.get("idOKupca"));
+			sql.append(arguments.get("idKupca"));
 			sql.append(" AND polaziste='");
 			sql.append(arguments.get("polaziste"));
 			sql.append("' AND odrediste='");
