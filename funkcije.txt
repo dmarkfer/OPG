@@ -29,7 +29,7 @@ deleteProduct(idOglasa) -> (success)
 ---------------
 retrieveProductOffers(idKategorijeOglasa, naziv, brojTrazenihOglasa) -> (oglasi[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa, idPoljoprivrednika]) 
 
-retrieveProductOffersByVendor(idOPG) -> (oglasi[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa]) 
+retrieveProductOffersByVendor(idOPG) -> (oglasi[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa, idPoljoprivrednika]) 
 ---------------
 
 createProductCategory(idKorisnika, nazivKategorije, komentar) -> (idKategorije)
