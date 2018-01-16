@@ -44,7 +44,8 @@ getAdminTasks() -> (noveKategorije[idKategorije, idKorisnika, nazivKategorije, k
 
 createShipmentOffer(idOglasa, idKupca, polaziste, odrediste, vrijeme) -> (idOglasaPrijevoza)
 
-retrieveShipmentOffers(nazivMjesta) -> (oglasi[idOglasaPrijevoza, idOglasa, idKupca, polaziste, odrediste, vrijeme])
+--------
+retrieveShipmentOffers(nazivPolazista, nazivOdredista) -> (oglasi[idOglasaPrijevoza, idOglasa, idKupca, polaziste, odrediste, vrijeme])
 
 deleteShipmentOffer(idOglasaPrijevoza) -> (success)
 
