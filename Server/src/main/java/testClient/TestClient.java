@@ -184,6 +184,10 @@ public class TestClient {
 		request.put("naziv", "ab");
 		request.put("brojTrazenihOglasa", 3); */
 		
+		/* RETRIEVEPRODUCTOFFERSBYVENDOR 
+		request.put("command", "RETRIEVEPRODUCTOFFERSBYVENDOR");
+		request.put("idOPG", 10); */
+		
 		/* RETRIEVESHIPMENTOFFERS 
 		request.put("command", "RETRIEVESHIPMENTOFFERS");
 		request.put("nazivMjesta", "ij"); */
