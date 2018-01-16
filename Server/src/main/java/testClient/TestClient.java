@@ -190,7 +190,8 @@ public class TestClient {
 		
 		/* RETRIEVESHIPMENTOFFERS 
 		request.put("command", "RETRIEVESHIPMENTOFFERS");
-		request.put("nazivMjesta", "ij"); */
+		request.put("nazivPolazista", "dgs"); 
+		request.put("nazivOdredista", "osijek"); */
 		
 		/* RETRIEVEUSERPROFILE	
 		request.put("command", "RETRIEVEUSERPROFILE");
