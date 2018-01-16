@@ -21,6 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.opp.fangla.terznica.MainActivity;
+import com.opp.fangla.terznica.MainViewModel;
 import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.data.entities.Advert;
 
@@ -31,7 +33,7 @@ public class BuyerInterface extends Fragment {
     private View root;
     private SearchView searchView;
     private ListView listView;
-    private BuyerInterfaceViewModel viewModel;
+    private MainViewModel viewModel;
     public static final String[] matrixColumns = {"_id", "name"};
 
     @Nullable
@@ -41,7 +43,7 @@ public class BuyerInterface extends Fragment {
         root = inflater.inflate(R.layout.f_buyer_interface, container, false);
         searchView = root.findViewById(R.id.f_buyer_int_search);
         listView = root.findViewById(R.id.f_buyer_int_list);
-        viewModel = ViewModelProviders.of(this).get(BuyerInterfaceViewModel.class);
+        viewModel = ((MainActivity)getActivity()).getViewModel();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

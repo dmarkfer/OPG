@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_medium"
+        android:text="@string/departure"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/f_driver_int_departure"
+        android:gravity="center"
+        android:textSize="@dimen/font_large"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_medium"
+        android:text="@string/destination"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/f_driver_int_destination"
+        android:gravity="center"
+        android:textSize="@dimen/font_large"
+        android:padding="10dp"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/f_driver_int_list"/>
+
+</LinearLayout>

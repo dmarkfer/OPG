@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.opp.fangla.terznica.MainActivity;
+import com.opp.fangla.terznica.MainViewModel;
 import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.data.entities.Advert;
 import com.opp.fangla.terznica.data.entities.Person;
@@ -27,7 +29,7 @@ public class VendorInterface extends Fragment {
     private View root;
     private ListView list;
     private AdvertAdapter adapter;
-    private VendorViewModel model;
+    private MainViewModel model;
 
     @Nullable
     @Override
@@ -38,8 +40,8 @@ public class VendorInterface extends Fragment {
 
         list = root.findViewById(R.id.f_vendor_int_list);
         adapter = new AdvertAdapter(getContext(), R.layout.row_product_vendor);
-        model = ViewModelProviders.of(this).get(VendorViewModel.class);
-        model.getAdverts().observe(this, new Observer<List<Advert>>() {
+        model = ((MainActivity)getActivity()).getViewModel();
+        model.getProductAdverts().observe(this, new Observer<List<Advert>>() {
             @Override
             public void onChanged(@Nullable List<Advert> adverts) {
                 if(adverts != null) {

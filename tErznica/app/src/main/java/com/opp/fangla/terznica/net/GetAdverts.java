@@ -61,7 +61,7 @@ public class GetAdverts extends AsyncTask<String, Void, List<Advert>> {
                 tmp.setId(array.getJSONObject(i).getInt("idOglasa"));
                 tmp.setName( array.getJSONObject(i).getString("nazivOglasa"));
                 tmp.setPicture(convertByteToBitMap(array.getJSONObject(i).getString("slikaOglasa")));
-                tmp.setPrice(( array.getJSONObject(i).getDouble("cijena")));
+                tmp.setValue(( array.getJSONObject(i).getInt("cijena")));
                 tmp.setDate(setDateFromString( array.getJSONObject(i).getString("vrijeme")));
                 result.add(tmp);
             }

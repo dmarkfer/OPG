@@ -1,7 +1,11 @@
 package com.opp.fangla.terznica;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,21 +30,30 @@ import android.content.res.Resources.Theme;
 
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.opp.fangla.terznica.interfaces.BuyerInterface;
+import com.opp.fangla.terznica.interfaces.DriverInterface;
 import com.opp.fangla.terznica.interfaces.VendorInterface;
 import com.opp.fangla.terznica.welcome.LogInActivity;
+import com.opp.fangla.terznica.welcome.fragments.VendorSubFragment;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private static String[] roleNames = {"buyer", "vendor", "driver", "admin"};
+    private MainViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_main);
+        model = ViewModelProviders.of(this).get(MainViewModel.class);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.a_main_fab_messages);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,6 +150,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == DriverInterface.DEPARTURE_AUTOCOMPLETE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                model.setDeparture(place);
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                Log.i("MainActivity", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.i("MainActivity", "Autocomplete cancelled");
+            }
+        } else if(requestCode == DriverInterface.DESTINATION_AUTOCOMPLETE){
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                model.setDestination(place);
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                Log.i("MainActivity", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.i("MainActivity", "Autocomplete cancelled");
+            }
+        }
+    }
+
+    public MainViewModel getViewModel(){
+        return model;
+    }
 
     private static class MyAdapter extends ArrayAdapter<String> implements ThemedSpinnerAdapter {
         private final ThemedSpinnerAdapter.Helper mDropDownHelper;
