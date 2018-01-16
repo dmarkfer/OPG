@@ -1,7 +1,9 @@
 package com.opp.fangla.terznica.interfaces;
 
+import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
+import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,10 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -23,7 +24,10 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.opp.fangla.terznica.MainActivity;
 import com.opp.fangla.terznica.MainViewModel;
 import com.opp.fangla.terznica.R;
-import com.opp.fangla.terznica.data.entities.Advert;
+import com.opp.fangla.terznica.data.entities.AdvertShipment;
+import com.opp.fangla.terznica.util.Random;
+
+import java.util.List;
 
 public class DriverInterface extends Fragment{
 
@@ -76,38 +80,76 @@ public class DriverInterface extends Fragment{
             }
         });
 
-        advertList.setAdapter(new ArrayAdapter<Advert>(getContext(), R.layout.row_product_search) {
+        advertList.setAdapter(new ArrayAdapter<AdvertShipment>(getContext(), R.layout.row_shipment) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                /*Advert advert = getItem(position);
+                AdvertShipment advert = getItem(position);
                 if(convertView == null){
                     ViewHolder holder = new ViewHolder();
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_product_search, parent);
-                    holder.image = convertView.findViewById(R.id.row_product_search_image);
-                    holder.title = convertView.findViewById(R.id.row_product_search_title);
-                    holder.description = convertView.findViewById(R.id.row_product_search_description);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_shipment, parent);
+                    holder.name = convertView.findViewById(R.id.row_shipment_name);
+                    holder.from = convertView.findViewById(R.id.row_shipment_from);
+                    holder.to = convertView.findViewById(R.id.row_shipment_to);
                     convertView.setTag(holder);
                 }
                 ViewHolder holder = (ViewHolder) convertView.getTag();
-                if(advert.getPicture() == null) {
-                    holder.image.setImageBitmap(advert.getPicture());
-                }
-                holder.title.setText(advert.getName());
-                holder.description.setText(advert.getDescription());*/
+                //holder.name.setText(advert.getAdvert().getName());
+                holder.from.setText(R.string.departure + advert.getStartLocation());
+                holder.to.setText(R.string.destination + advert.getEndLocation());
                 return convertView;
             }
 
             class ViewHolder{
-                ImageView image;
-                TextView title, description;
+                TextView name, from, to;
             }
         });
         advertList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Zamijeniti kad se napravi activity za prikaz proizvoda, ocito
-                Toast.makeText(getContext(), "Otvaram " + ((Advert) adapterView.getItemAtPosition(i)).getName(), Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                final Dialog dialog = new Dialog(getContext(), R.style.DarkDialog);
+                dialog.setContentView(R.layout.f_shipment);
+
+                AdvertShipment advert = ((ArrayAdapter<AdvertShipment>) advertList.getAdapter()).getItem(i);
+
+                TextView name = dialog.findViewById(R.id.f_shipment_name);
+                TextView description = dialog.findViewById(R.id.f_shipment_description);
+                final TextView category = dialog.findViewById(R.id.f_shipment_category);
+                TextView date = dialog.findViewById(R.id.f_shipment_date);
+                TextView from = dialog.findViewById(R.id.f_shipment_from);
+                TextView to = dialog.findViewById(R.id.f_shipment_to);
+                Button back = dialog.findViewById(R.id.f_shipment_back);
+                Button contact = dialog.findViewById(R.id.f_shipment_accept);
+
+                //name.setText(advert.getAdvert().getName());
+                //description.setText(advert.getAdvert().getDescription());
+                model.getProductSearchSuggestions().observe(DriverInterface.this, new Observer<MatrixCursor>() {
+                    @Override
+                    public void onChanged(@Nullable MatrixCursor cursor) {
+                        if(cursor != null) {
+                            cursor.moveToPosition(i);
+                            category.setText("Kategorija: " + cursor.getString(1));
+                        }
+                    }
+                });
+                date.setText(Random.dateToString(advert.getDate()));
+                from.setText(R.string.departure + advert.getStartLocation());
+                to.setText(R.string.destination + advert.getEndLocation());
+
+                contact.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //TODO otvori novi razgovor
+                    }
+                });
+                back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setTitle("Oglas za prijevoz");
+                dialog.show();
             }
         });
 
@@ -129,6 +171,15 @@ public class DriverInterface extends Fragment{
                     destination.setText(R.string.add_address);
                 } else {
                     destination.setText(place.getAddress());
+                }
+            }
+        });
+
+        model.getShipmentAdverts().observe(this, new Observer<List<AdvertShipment>>() {
+            @Override
+            public void onChanged(@Nullable List<AdvertShipment> adverts) {
+                if(adverts != null) {
+                    ((ArrayAdapter<AdvertShipment>) advertList.getAdapter()).addAll(adverts);
                 }
             }
         });

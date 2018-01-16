@@ -57,6 +57,7 @@
     </string-array>
     <string name="hostname">165.227.175.217</string>
     <string name="add_a_vehicle">Dodaj vozilo</string>
-    <string name="departure">Polazište</string>
-    <string name="destination">Odredište</string>
+    <string name="departure">Polazište: </string>
+    <string name="destination">Odredište: </string>
+    <string name="make_contact">Kontaktiraj</string>
 </resources>

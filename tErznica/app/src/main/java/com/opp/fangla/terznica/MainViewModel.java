@@ -42,7 +42,7 @@ public class MainViewModel extends AndroidViewModel {
         this.destination.postValue(destination);
     }
 
-    public LiveData<AdvertShipment> getShipmentAdverts() {
+    public LiveData<List<AdvertShipment>> getShipmentAdverts() {
         return null;// TODO repository.getShipmentAdverts(Random.placeCity(departure.getValue(), destination.getValue());
     }
 

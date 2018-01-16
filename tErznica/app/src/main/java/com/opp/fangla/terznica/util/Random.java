@@ -101,4 +101,9 @@ public class Random {
        }
         return sResponse;
     }
+
+    public static String dateToString(Date date){
+        DateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.ENGLISH);
+        return format.format(date);
+    }
 }

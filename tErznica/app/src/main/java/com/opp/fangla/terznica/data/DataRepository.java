@@ -16,6 +16,7 @@ import java.util.List;
 public class DataRepository {
 
     private static DataRepository dInstance;
+    private MutableLiveData<MatrixCursor> suggestions = new MutableLiveData<>();
 
     public static DataRepository getInstance(){
         if(dInstance == null){
@@ -33,8 +34,9 @@ public class DataRepository {
     }
 
     public MutableLiveData<MatrixCursor> getProductSearchSuggestions(){
-        MutableLiveData<MatrixCursor> suggestions = new MutableLiveData<>();
-        new GetAdvertsSuggestion(suggestions).execute();
+        if(suggestions.getValue() == null) {
+            new GetAdvertsSuggestion(suggestions).execute();
+        }
         return suggestions;
     }
 
