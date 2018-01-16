@@ -27,9 +27,9 @@ editProduct(idOglasa, idKategorijeOglasa, nazivOglasa, slikaOglasa, opisOglasa, 
 deleteProduct(idOglasa) -> (success)
 
 ---------------
-retrieveProductOffers(idKategorijeOglasa, naziv, brojTrazenihOglasa) -> (oglasi[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa]) 
+retrieveProductOffers(idKategorijeOglasa, naziv, brojTrazenihOglasa) -> (oglasi[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa, idPoljoprivrednika]) 
 
-retrieveProductOffersByVndor(idOPG) -> (oglasi[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa]) 
+retrieveProductOffersByVendor(idOPG) -> (oglasi[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa, idPoljoprivrednika]) 
 ---------------
 
 createProductCategory(idKorisnika, nazivKategorije, komentar) -> (idKategorije)
