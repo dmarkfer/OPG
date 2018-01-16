@@ -68,8 +68,8 @@ public class VendorInterface extends Fragment {
                 ViewHolder holder = new ViewHolder();
                 holder.img = convertView.findViewById(R.id.row_product_vendor_img);
                 holder.name = convertView.findViewById(R.id.row_product_vendor_name);
-                holder.num = convertView.findViewById(R.id.row_product_vendor_num);
-                holder.list = convertView.findViewById(R.id.row_product_vendor_container);
+                //holder.num = convertView.findViewById(R.id.row_product_vendor_num);
+                //holder.list = convertView.findViewById(R.id.row_product_vendor_container);
                 convertView.setTag(holder);
             }
 
@@ -78,7 +78,7 @@ public class VendorInterface extends Fragment {
                 holder.img.setImageBitmap(advert.getPicture());
             }
             holder.name.setText(advert.getName());
-            holder.num.setText(advert.getPersons().size());
+            /*holder.num.setText(advert.getPersons().size());
             holder.list.setVisibility(View.INVISIBLE);
             holder.num.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -99,7 +99,7 @@ public class VendorInterface extends Fragment {
                     }
                 });
                 list.addView(view);
-            }
+            }*/
             return convertView;
         }
 
@@ -114,8 +114,8 @@ public class VendorInterface extends Fragment {
 
         private class ViewHolder{
             ImageView img;
-            TextView name, num;
-            LinearLayout list;
+            TextView name;// num;
+            //LinearLayout list;
         }
 
     }

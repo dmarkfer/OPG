@@ -14,9 +14,14 @@ public class Conversation {
     public Conversation () {
 
     }
-    private int idDriver, idBuyer;
-    private long idAdvert, idAdvertTransport;
 
+    /**
+     * U idBuyer uvijek ide drugi sudionik razgovora
+     */
+    private int idDriver, idBuyer;
+    private long idAdvert, idAdvertTransport, idConversation;
+    private Message firstMessage;
+    private boolean finished;
 
 
     public int getIdDriver() {
@@ -49,5 +54,29 @@ public class Conversation {
 
     public void setIdAdvertTransport(long idAdvertTransport) {
         this.idAdvertTransport = idAdvertTransport;
+    }
+
+    public Message getFirstMessage() {
+        return firstMessage;
+    }
+
+    public void setFirstMessage(Message firstMessage) {
+        this.firstMessage = firstMessage;
+    }
+
+    public long getIdConversation() {
+        return idConversation;
+    }
+
+    public void setIdConversation(long idConversation) {
+        this.idConversation = idConversation;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
 }

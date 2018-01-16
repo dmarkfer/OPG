@@ -18,20 +18,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:id="@+id/row_product_vendor_name"/>
 
-        <TextView
+        <!--<TextView
             android:layout_width="@dimen/row_height"
             android:layout_height="@dimen/row_height"
-            android:id="@+id/row_product_vendor_num"/>
+            android:id="@+id/row_product_vendor_num"/>-->
 
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/row_product_vendor_container"/>
+        android:id="@+id/row_product_vendor_container"/>-->
 
 </LinearLayout>

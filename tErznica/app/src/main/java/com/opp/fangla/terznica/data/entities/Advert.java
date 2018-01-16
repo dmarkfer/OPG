@@ -9,7 +9,7 @@ public class Advert {
 
     private String name, description;
     private Bitmap picture;
-    private double cijena;
+    private double price;
     private Date date;
     private int advertId;
     private int creatorId;
@@ -57,12 +57,12 @@ public class Advert {
         this.picture = picture;
     }
 
-    public double getValue() {
-        return cijena;
+    public double getPrice() {
+        return price;
     }
 
-    public void setValue(double cijena) {
-        this.cijena = cijena;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Date getDate() {
