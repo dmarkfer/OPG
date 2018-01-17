@@ -4,6 +4,9 @@ package com.opp.fangla.terznica.data.entities;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Address {
 
     private String state;
@@ -12,7 +15,16 @@ public class Address {
     private LatLng latLng;
     private String number;
     private String placeId;
+    private String townNum;
 
+
+    public String getTownNum() {
+        return townNum;
+    }
+
+    public void setTownNum(String townNum) {
+        this.townNum = townNum;
+    }
 
     public String getState() {
         return state;
@@ -42,6 +54,14 @@ public class Address {
         return latLng;
     }
 
+    public double getLongitude () {
+        return latLng.longitude;
+    }
+
+    public double getLatitude () {
+        return latLng.latitude;
+    }
+
     public void setLatLng(LatLng latLng) {
         this.latLng = latLng;
     }
@@ -62,11 +82,72 @@ public class Address {
         this.placeId = placeId;
     }
 
+    public boolean hasState () {
+        if(state != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasTown () {
+        if(town != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasTownNum () {
+        if(townNum != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasNumber () {
+        if(number != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasStreet() {
+        if(street != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasLatLng() {
+        if(latLng != null) {
+            return true;
+        }
+        return false;
+    }
 
 
     @Override
     public String toString () {
-        return null;
-        //TODO  address toString()
+        List<String> elements = new ArrayList<>();
+        String str = "";
+
+        if(street != null) {
+            str += street + ".";
+        }
+        if(number != null) {
+            str += number + ",";
+        }
+        if(townNum != null) {
+            str += townNum +",";
+        }
+
+        if(town != null) {
+            str += town + ",";
+        }
+
+        if(state != null) {
+            str += state;
+        }
+
+        return str;
     }
 }

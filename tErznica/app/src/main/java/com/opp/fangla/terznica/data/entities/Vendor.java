@@ -5,9 +5,12 @@ import android.arch.lifecycle.MutableLiveData;
 import android.graphics.Bitmap;
 
 import com.google.android.gms.location.places.Place;
+import com.opp.fangla.terznica.util.Random;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static com.opp.fangla.terznica.util.Random.addressToJSON;
 
 public class Vendor {
 
@@ -99,8 +102,7 @@ public class Vendor {
                 result.put("OIBOPG", vendor.idNum);
             }
             if(vendor.address.getValue() != null){
-                //TODO implement new JSONObject
-                // result.put("adresaOPG", placeJSON(vendor.address.getValue()));
+                 result.put("adresaOPG", addressToJSON(vendor.address.getValue()));
             }
             if(vendor.description != null){
                 result.put("opisOPG", vendor.description);
