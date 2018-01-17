@@ -86,14 +86,13 @@ private static HashMap<String, ShellCommand> commands;
 	}
 	
 	public static void main(String[] args) throws IOException {
-		int timeout=0;
 		ServerSocket socket=new ServerSocket(PORT);
 		socket.setSoTimeout(1000);
 		BlockingQueue<Runnable> workingThreadQueue = new ArrayBlockingQueue<Runnable>(20);
 		ExecutorService threadPool =new ThreadPoolExecutor(4, 8, 1000, TimeUnit.MILLISECONDS, workingThreadQueue);
 		
 		while(true) {
-			//System.out.println("Waiting");
+			System.out.println("Waiting");
 			ClientWorkerShell worker=null;
 			
 			try {
@@ -101,18 +100,9 @@ private static HashMap<String, ShellCommand> commands;
 				worker= new ClientWorkerShell(impl);
 				System.out.println("conenction established");
 				threadPool.execute(worker);
-				timeout=0;
 			}
-			
 			catch (Exception e) {
-				timeout++;
-				//System.out.println("No Connection");
-				if (timeout==10000) {
-					threadPool.shutdown();
-					while (threadPool.isShutdown()) {}
-					socket.close();
-					return;
-				}
+				System.out.println("No Connection");
 			}
 		}
 	}

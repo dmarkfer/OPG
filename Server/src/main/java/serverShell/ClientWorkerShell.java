@@ -13,13 +13,12 @@ public class ClientWorkerShell implements Runnable {
 
 	@Override
 	public void run() {
-		environment.sendText("Hi. Write help for list of commands.");
 		ShellCommand command;
 		
 		while(true) {
 			String inputLine=environment.getText().trim();
 			
-			if (inputLine==null||inputLine.equalsIgnoreCase("NULL")) {
+			if (inputLine.equals("null")||inputLine.equalsIgnoreCase("fail")) {
 				environment.close();
 				return;
 			}
