@@ -45,3 +45,24 @@ Ishod: Jasnija slika projekta i intenzivniji rad na dokumentaciji
 Prisutni: Benčić, Harmicar, Janjić, Markota, Maslovar, Mihaljčuk
 Sažetak: Dogovor oko daljnje podjele posla
 Ishod: Intenzivniji rad na dovršavanju dokumentacije
+
+
+8.Sastanak - 11.12.2017.
+
+Prisutni: Benčić, Harmicar, Janjić, Markota, Maslovar, Mihaljčuk
+Sažetak: Dogovor oko implementacije aplikacije
+Ishod: Podjeljen posao implementacije
+
+
+9.Sastanak - 8.1.2018.
+
+Prisutni: Benčić, Harmicar, Janjić, Markota, Maslovar, Mihaljčuk
+Sažetak: Priprema alfa inačice aplikacije
+Ishod: Podjela preostalog posla
+
+
+10.Sastanak - 10.1.2018.
+
+Prisutni: Benčić, Harmicar, Janjić, Markota, Maslovar, Mihaljčuk
+Sažetak: Dogovor oko podjele posla i pisanja dokumentacije
+Ishod: Intenzivniji rad na aplikaciji i pisanje dokumentacije
