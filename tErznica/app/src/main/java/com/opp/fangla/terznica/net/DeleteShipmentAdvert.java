@@ -20,7 +20,6 @@ public class DeleteShipmentAdvert extends AsyncTask<Integer,Void,Boolean> {
 
     @Override
     protected Boolean doInBackground(Integer... integers) {
-        //TODO check commands !!
         String[] commands = new String[] {"deleteShipmentOffer", "idOglasaPrijevoza"};
         String[] values = new String[1];
         values[0] = String.valueOf(integers[0]);

@@ -14,7 +14,9 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
-        String[] tmp = "Opatovina ul.3c,10020,Zagreb,Hrvatska".split(",|.");
+        String[] tmp = "Opatovina ul.3c,10020,Zagreb,Hrvatska".split(",|\\.");
+
+
 
         for(String str : tmp) {
             System.out.println(str);
