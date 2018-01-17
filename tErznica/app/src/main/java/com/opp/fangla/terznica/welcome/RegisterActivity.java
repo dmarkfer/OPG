@@ -22,6 +22,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.util.CustomViewPager;
+import com.opp.fangla.terznica.util.Random;
 import com.opp.fangla.terznica.welcome.fragments.BuyerFragment;
 import com.opp.fangla.terznica.welcome.fragments.DriverFragment;
 import com.opp.fangla.terznica.welcome.fragments.DriverSubFragment;
@@ -91,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (requestCode == VendorSubFragment.PLACE_AUTOCOMPLETE) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
-                viewModel.setAddress(place);
+                viewModel.setAddress(Random.getAddressFromPlace(place));
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 Log.i("RegisterActivity", status.getStatusMessage());

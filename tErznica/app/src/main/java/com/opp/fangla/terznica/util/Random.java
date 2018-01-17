@@ -8,6 +8,7 @@ import android.net.Uri;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.opp.fangla.terznica.data.entities.Address;
 import com.opp.fangla.terznica.net.CommunicationToServer;
 
 import org.json.JSONException;
@@ -54,11 +55,18 @@ public class Random {
         return date;
     }
 
-    public static Place stringToPlace (String str) {
-        //TODO stringToPlace
+    public static Address getAddressFromPlace (Place place) {
+
+        Address address = new Address();
+        address.setLatLng(place.getLatLng());
+        address.setPlaceId(place.getId());
+        String[] coreAddr = new String[4];
+        String[] tmp = place.getAddress().toString().split(",|.");
+        // TODO finish getAddressFromPlace
+
+
         return null;
     }
-
 
     /**
      * NAPOMENA: Stringovi u logs ne smiju imati vise od 23 char-a.

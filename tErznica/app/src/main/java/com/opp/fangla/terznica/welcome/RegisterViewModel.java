@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import com.google.android.gms.location.places.Place;
 import com.opp.fangla.terznica.FanglaApp;
 import com.opp.fangla.terznica.R;
+import com.opp.fangla.terznica.data.entities.Address;
 import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.data.entities.Vehicle;
 import com.opp.fangla.terznica.data.entities.Vendor;
@@ -105,11 +106,11 @@ public class RegisterViewModel extends AndroidViewModel {
         return vendor;
     }
 
-    public void setAddress(Place place){
+    public void setAddress(Address place){
         vendorObj.setAddress(place);
     }
 
-    public LiveData<Place> getAddress() {
+    public LiveData<Address> getAddress() {
         return vendorObj.getAddress();
     }
 

@@ -14,7 +14,7 @@ public class Vendor {
     //private int id;
     private String name, description, idNum, bankAccount;
     private MutableLiveData<Bitmap> image;
-    private MutableLiveData<Place> address;
+    private MutableLiveData<Address> address;
     private boolean validImage;
 
     public Vendor(Bitmap image) {
@@ -76,11 +76,11 @@ public class Vendor {
         validImage = true;
     }
 
-    public LiveData<Place> getAddress() {
+    public LiveData<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(Place address) {
+    public void setAddress(Address address) {
         this.address.postValue(address);
     }
 
@@ -99,7 +99,8 @@ public class Vendor {
                 result.put("OIBOPG", vendor.idNum);
             }
             if(vendor.address.getValue() != null){
-                result.put("adresaOPG", placeJSON(vendor.address.getValue()));
+                //TODO implement new JSONObject
+                // result.put("adresaOPG", placeJSON(vendor.address.getValue()));
             }
             if(vendor.description != null){
                 result.put("opisOPG", vendor.description);

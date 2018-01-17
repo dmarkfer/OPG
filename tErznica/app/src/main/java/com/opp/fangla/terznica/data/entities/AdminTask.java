@@ -1,5 +1,9 @@
 package com.opp.fangla.terznica.data.entities;
 
+import com.opp.fangla.terznica.data.entities.Person;
+import com.opp.fangla.terznica.data.entities.ProductCategory;
+import com.opp.fangla.terznica.data.entities.Report;
+
 import java.util.List;
 
 public class AdminTask {

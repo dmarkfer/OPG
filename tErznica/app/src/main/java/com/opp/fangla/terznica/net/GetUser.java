@@ -71,8 +71,8 @@ public class GetUser extends AsyncTask<String, Void, User> {
             if(user.isVendor()){
                 Bitmap image = convertByteToBitMap(response.getString("slikaOPG"));
                 Vendor vendor = new Vendor(image);
-                //TODO stringToPlace ovdje koristimo
-                vendor.setAddress(Random.stringToPlace(response.getString("adresaOPG")));
+                //TODO Address sredi ovdje koristimo
+                //vendor.setAddress(Random.stringToPlace(response.getString("adresaOPG")));
                 vendor.setBankAccount(response.getString("IBAN"));
                 vendor.setDescription(response.getString("opisOPG"));
                 vendor.setName(response.getString("nazivOPG"));

@@ -10,6 +10,8 @@ public class AdvertShipment {
     private Integer advertId,shipmentAdvertId, creatorId;
     private String startLocation, endLocation;
     private Date  date;
+    private Advert advert;
+
 
 
     public Integer getAdvertId() {
@@ -58,5 +60,13 @@ public class AdvertShipment {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Advert getAdvert() {
+        return advert;
+    }
+
+    public void setAdvert(Advert advert) {
+        this.advert = advert;
     }
 }

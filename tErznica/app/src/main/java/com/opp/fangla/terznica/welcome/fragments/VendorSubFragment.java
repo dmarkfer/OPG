@@ -20,6 +20,7 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.opp.fangla.terznica.R;
+import com.opp.fangla.terznica.data.entities.Address;
 import com.opp.fangla.terznica.welcome.RegisterActivity;
 import com.opp.fangla.terznica.welcome.RegisterViewModel;
 
@@ -58,13 +59,13 @@ public class VendorSubFragment extends Fragment{
         description.addTextChangedListener(model.getVendorDescriptionWatcher());
         iban.addTextChangedListener(model.getVendorIbanWatcher());
 
-        model.getAddress().observe(this, new Observer<Place>() {
+        model.getAddress().observe(this, new Observer<Address>() {
             @Override
-            public void onChanged(@Nullable Place place) {
+            public void onChanged(@Nullable Address place) {
                 if(place == null){
                     address.setText(R.string.add_address);
                 } else {
-                    address.setText(place.getAddress());
+                    address.setText(place.toString());
                 }
             }
         });
