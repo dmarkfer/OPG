@@ -47,6 +47,10 @@
         <item name="android:windowFullscreen">false</item>
     </style>
 
+    <style name="LightDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:width"></item>
+    </style>
+
 </resources>
 <!--
         <item name="colorControlActivated">@color/white</item>

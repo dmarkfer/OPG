@@ -60,4 +60,9 @@
     <string name="departure">Polazište: </string>
     <string name="destination">Odredište: </string>
     <string name="make_contact">Kontaktiraj</string>
+    <string name="search">Pretraži</string>
+    <string name="product_name">Naziv</string>
+    <string name="description">Opis</string>
+    <string name="quantity">Količina</string>
+    <string name="price">Cijena</string>
 </resources>

@@ -49,6 +49,7 @@ public class VendorInterface extends Fragment {
                 }
             }
         });
+        list.setAdapter(adapter);
 
         return root;
     }

@@ -1,12 +1,17 @@
 package com.opp.fangla.terznica;
 
+import android.app.Dialog;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.MatrixCursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +28,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.content.Context;
 import android.support.v7.widget.ThemedSpinnerAdapter;
@@ -33,10 +41,14 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.opp.fangla.terznica.data.entities.Advert;
+import com.opp.fangla.terznica.data.entities.AdvertShipment;
 import com.opp.fangla.terznica.interfaces.BuyerInterface;
 import com.opp.fangla.terznica.interfaces.DriverInterface;
 import com.opp.fangla.terznica.interfaces.VendorInterface;
+import com.opp.fangla.terznica.util.Random;
 import com.opp.fangla.terznica.welcome.LogInActivity;
+import com.opp.fangla.terznica.welcome.fragments.DriverFragment;
 import com.opp.fangla.terznica.welcome.fragments.VendorSubFragment;
 
 import java.io.FileNotFoundException;
@@ -48,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static String[] roleNames = {"buyer", "vendor", "driver", "admin"};
     private MainViewModel model;
+    private FloatingActionButton messageFab, auxFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,24 +99,17 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (roles.get(position)){
                     case "buyer":
+                        auxFab.setVisibility(View.INVISIBLE);
                         fragment = new BuyerInterface();
                         break;
                     case "vendor":
+                        auxFab.setVisibility(View.VISIBLE);
                         fragment = new VendorInterface();
                         break;
                     default:
-                        fragment = PlaceholderFragment.newInstance(position + 1);
+                        auxFab.setVisibility(View.INVISIBLE);
+                        fragment = new DriverFragment();
                 }
-                /*switch(position){
-                    case 0:
-                        fragment = new BuyerInterface();
-                        break;
-                    case 1:
-                        fragment = new VendorInterface();
-                        break;
-                    default:
-                        fragment = PlaceholderFragment.newInstance(position + 1);
-                }*/
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, fragment)
                         .commit();
@@ -114,12 +120,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.a_main_fab_messages);
-        fab.setOnClickListener(new View.OnClickListener() {
+        messageFab = findViewById(R.id.a_main_fab_messages);
+        messageFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Otvaram razgovor", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        auxFab = findViewById(R.id.a_main_fab_aux);
+        auxFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -218,39 +232,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private class EditProductDialog extends Dialog{
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+        private MainViewModel model;
+        private boolean isNew;
+        private ImageView image;
+        private EditText name, description, price;
+        private Spinner categories;
+        private Button left, right;
+        private Advert advert;
 
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
+        public EditProductDialog(@NonNull Context context, int themeResId, MainViewModel model, Advert advert, boolean isNew) {
+            super(context, themeResId);
+            this.model = model;
+            this.advert = advert;
+            this.isNew = isNew;
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.f_a_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            image = findViewById(R.id.d_product_edit_image);
+            name = findViewById(R.id.d_product_edit_name);
+            description = findViewById(R.id.d_product_edit_description);
+            categories = findViewById(R.id.d_product_edit_categories);
+            price = findViewById(R.id.d_product_edit_price);
+            left = findViewById(R.id.d_product_edit_left);
+            right = findViewById(R.id.d_product_edit_right);
+
+
         }
     }
 }

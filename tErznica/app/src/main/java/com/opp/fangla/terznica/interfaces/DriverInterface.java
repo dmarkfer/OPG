@@ -36,6 +36,7 @@ public class DriverInterface extends Fragment{
     private View root;
     private TextView departure, destination;
     private ListView advertList;
+    private Button search;
     private MainViewModel model;
 
     @Nullable
@@ -48,6 +49,7 @@ public class DriverInterface extends Fragment{
 
         departure = root.findViewById(R.id.f_driver_int_departure);
         destination = root.findViewById(R.id.f_driver_int_destination);
+        search = root.findViewById(R.id.f_driver_int_search);
         advertList = root.findViewById(R.id.f_driver_int_list);
 
         departure.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +79,21 @@ public class DriverInterface extends Fragment{
                     e.printStackTrace();
                 }
 
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                model.getShipmentAdverts().observe(DriverInterface.this, new Observer<List<AdvertShipment>>() {
+                    @Override
+                    public void onChanged(@Nullable List<AdvertShipment> adverts) {
+                        if(adverts != null) {
+                            ((ArrayAdapter<AdvertShipment>) advertList.getAdapter()).addAll(adverts);
+                        }
+                    }
+                });
             }
         });
 
@@ -171,15 +188,6 @@ public class DriverInterface extends Fragment{
                     destination.setText(R.string.add_address);
                 } else {
                     destination.setText(place.getAddress());
-                }
-            }
-        });
-
-        model.getShipmentAdverts().observe(this, new Observer<List<AdvertShipment>>() {
-            @Override
-            public void onChanged(@Nullable List<AdvertShipment> adverts) {
-                if(adverts != null) {
-                    ((ArrayAdapter<AdvertShipment>) advertList.getAdapter()).addAll(adverts);
                 }
             }
         });
