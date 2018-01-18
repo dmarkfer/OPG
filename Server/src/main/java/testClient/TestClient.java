@@ -67,12 +67,30 @@ public class TestClient {
 		request.put("idVrstePrijave", 1);
 		request.put("komentar", "komentar"); */
 		
-		/* CREATESHIPMENTOFFER
+		/* CREATESHIPMENTOFFER 
 		request.put("command", "CREATESHIPMENTOFFER");
 		request.put("idOglasa", 4);
 		request.put("idKupca", 5);
-		request.put("polaziste", "polazisze");
-		request.put("odrediste", "dest");
+		JSONObject requestAdr = new JSONObject();
+		requestAdr.put("drzava","slovenija");
+		requestAdr.put("grad", "kranj");
+		requestAdr.put("postanskiBroj", 1990);
+		requestAdr.put("ulica", "maruliceva");
+		requestAdr.put("brojUlaza", 41);
+		requestAdr.put("latitude", 4.4);
+		requestAdr.put("longitude", 4.4);
+		requestAdr.put("idMjesta", "fdfdsfdfdsfdsf");
+		request.put("polaziste", requestAdr);
+		requestAdr = new JSONObject();
+		requestAdr.put("drzava","hrvatska");
+		requestAdr.put("grad", "split");
+		requestAdr.put("postanskiBroj", 122990);
+		requestAdr.put("ulica", "marulxdsdiceva");
+		requestAdr.put("brojUlaza", 241);
+		requestAdr.put("latitude", 45.812829799999996);
+		requestAdr.put("longitude", 15.977474099999998);
+		requestAdr.put("idMjesta", "fdfdsfdfdsfdsf");
+		request.put("odrediste", requestAdr);
 		request.put("vrijeme", new Date()); */
 		
 		/* CREATEVEHICLE 

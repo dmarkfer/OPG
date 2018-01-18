@@ -13,6 +13,8 @@ import serverShell.Environment;
 
 public class CreateShipmentOffer extends AbstractCommand {
 	
+	String[] columnsAdresa = new String[] {"drzava", "grad", "ulica", "postanskiBroj", "idMjesta", "latitude", "longitude", "brojUlaza"};
+	
 	
 	public CreateShipmentOffer() {
 		super("CREATESHIPMENTOFFER", "Create shipment offer.");
@@ -26,8 +28,38 @@ public class CreateShipmentOffer extends AbstractCommand {
 		
 		try {
 			Statement statement = connection.createStatement();
-			StringBuilder sql = new StringBuilder();
 			
+			StringBuilder sql = new StringBuilder();
+			sql.append("INSERT INTO adresa VALUES(default,");
+			JSONObject adresaJSON = arguments.getJSONObject("polaziste");
+			for(int i = 0; i < columnsAdresa.length; ++i) {
+				sql.append("'" + adresaJSON.get(columnsAdresa[i]) + "',");
+			}
+			sql.deleteCharAt(sql.length()-1);
+			sql.append(");");
+			
+			statement.executeUpdate(sql.toString());
+			
+			ResultSet idAdrese = statement.executeQuery("SELECT MAX(id) AS id FROM adresa;");
+			idAdrese.next();
+			arguments.put("polaziste", idAdrese.getString("id"));
+			
+			sql = new StringBuilder();
+			sql.append("INSERT INTO adresa VALUES(default,");
+			adresaJSON = arguments.getJSONObject("odrediste");
+			for(int i = 0; i < columnsAdresa.length; ++i) {
+				sql.append("'" + adresaJSON.get(columnsAdresa[i]) + "',");
+			}
+			sql.deleteCharAt(sql.length()-1);
+			sql.append(");");
+			
+			statement.executeUpdate(sql.toString());
+			
+			idAdrese = statement.executeQuery("SELECT MAX(id) AS id FROM adresa;");
+			idAdrese.next();
+			arguments.put("odrediste", idAdrese.getString("id"));
+			
+			sql = new StringBuilder();
 			sql.append("INSERT INTO oglas_prijevoz VALUES (default,");
 			sql.append(arguments.get("idOglasa"));
 			sql.append(",");
