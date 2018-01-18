@@ -51,16 +51,19 @@ public class Random {
             e.printStackTrace();
             return null;
         }
-
         return date;
     }
+
+    /**
+     * @param str
+     * @return
+     */
 
     public static Address parseStringToAddress (String str) {
 
         String[] tmp = str.split(",|\\.");
         Address address ;
 
-        //TODO logitude i latitude popravi ovdje ako treba
         switch (tmp.length){
             case 1:
                 address = setAddress(tmp[0],null,null,null,null);
@@ -96,6 +99,12 @@ public class Random {
         return address;
     }
 
+    /**
+     *
+     *  Parisira place u address
+     * @param place
+     * @return
+     */
     public static Address getAddressFromPlace (Place place) {
 
         Address address ;
@@ -165,6 +174,11 @@ public class Random {
         return object;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     public static Address JSonToAddress (JSONObject object) {
 
         //TODO JsonToAddress
@@ -181,7 +195,7 @@ public class Random {
             address.setTownNum(null);
         }
         try {
-            address.setNumber(object.getString("brojUlice"));
+            address.setNumber(object.getString("brojUlaza"));
         } catch (JSONException e) {
             address.setNumber(null);
         }
@@ -197,9 +211,21 @@ public class Random {
             address.setState(null);
         }
 
+        try {
+            double lng = (object.getDouble("logitude"));
+            double lat = object.getDouble("latitude");
+            address.setLatLng(new LatLng(lat,lng));
+        } catch (JSONException e) {
+            address.setLatLng(null);
+        }
+        try {
+            address.setPlaceId(object.getString("idMjesta"));
+        } catch (JSONException e) {
+            address.setState(null);
+        }
 
 
-        return null;
+        return address;
     }
 
     /**
