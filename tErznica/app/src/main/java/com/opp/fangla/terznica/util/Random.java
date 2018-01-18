@@ -141,7 +141,6 @@ public class Random {
     public static JSONObject addressToJSON (Address address) {
 
         JSONObject object = new JSONObject();
-        //TODO check Janjic api when it is finished
         try {
 
             object.put("idMjesta",address.getPlaceId().toString());
@@ -170,10 +169,8 @@ public class Random {
             e.printStackTrace();
         }
 
-
         return object;
     }
-
     /**
      *
      * @param object
@@ -181,7 +178,6 @@ public class Random {
      */
     public static Address JSonToAddress (JSONObject object) {
 
-        //TODO JsonToAddress
         Address address = new Address();
 
         try {
