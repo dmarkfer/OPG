@@ -23,6 +23,9 @@ public class RetrieveUserProfile extends AbstractCommand {
 	String[] columnsVozilo = new String[] {"registarska_oznaka", "slika_vozila", "opis_vozila", "id_kategorije_vozila"};
 	String[] columnsVozilo2 = new String[] {"registarskaOznaka", "slikaVozila", "opisVozila", "idKategorijeVozila"};
 	
+	String[] columnsAdresa = new String[] {"drzava", "grad", "ulica", "postanski_broj", "place_id", "latitude", "longitude", "broj_ulaza"};
+	String[] columnsAdresa2 = new String[] {"drzava", "grad", "ulica", "postanskiBroj", "idMjesta", "latitude", "longitude", "brojUlaza"};
+	
 	public RetrieveUserProfile() {
 		super("RETRIEVEUSERPROFILE", "Retrieves user profile info.");
 	}
@@ -56,6 +59,20 @@ public class RetrieveUserProfile extends AbstractCommand {
 				for(int i = 0; i < columnsopg.length; ++i) {
 					returnObject.put(columnsopg2[i], opgProfile.getString(columnsopg[i]));
 				}
+				
+				JSONObject adresa = new JSONObject();
+				sql2 = new StringBuilder();
+				sql2.append("SELECT * FROM adresa WHERE id=");
+				sql2.append(returnObject.get("adresaOPG"));
+				sql2.append(";");
+				
+				ResultSet address = statement.executeQuery(sql2.toString());
+				address.next();
+				for(int i = 0; i < columnsAdresa.length; ++i) {
+					adresa.put(columnsAdresa2[i], address.getString(columnsAdresa[i]));
+				}
+				returnObject.put("adresaOPG", adresa);
+				
 			}
 			
 			if(returnObject.getString("prijevoznik").equals("1")) {
@@ -87,6 +104,7 @@ public class RetrieveUserProfile extends AbstractCommand {
 			
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
+			e.printStackTrace();
 			environment.sendText("false");
 		}
 		return CommandStatus.CONTINUE;

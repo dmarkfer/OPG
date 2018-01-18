@@ -1,10 +1,10 @@
-registerUser(ime, prezime, lozinka, email, telefon, poljoprivrednik, kupac, prijevoznik, nazivOPG, OIBOPG, adresaOPG, slikaOPG, opisOPG, IBAN, registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila, opisPrijevoza) -> (idKorisnika, idVozila, success)
+registerUser(ime, prezime, lozinka, email, telefon, poljoprivrednik, kupac, prijevoznik, nazivOPG, OIBOPG, adresaOPG[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], slikaOPG, opisOPG, IBAN, registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila, opisPrijevoza) -> (idKorisnika, idVozila, success)
 
 loginUser(email, lozinka) -> (idKorisnika, uloga, kupac, prijevoznik, poljoprivrednik, success)
 
 deleteUser(idKorisnika) -> (success)
 
-retrieveUserProfile(idKorisnika) -> (ime, prezime, lozinka, email, telefon, poljoprivrednik, kupac, prijevoznik, nazivOPG, OIBOPG, adresaOPG, slikaOPG, opisOPG, IBAN, vozila[registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila], opisPrijevoza)
+retrieveUserProfile(idKorisnika) -> (ime, prezime, lozinka, email, telefon, poljoprivrednik, kupac, prijevoznik, nazivOPG, OIBOPG, adresaOPG[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], slikaOPG, opisOPG, IBAN, vozila[registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila], opisPrijevoza)
 
 createComment(idOcjenjenog, idOcjenjivaca, ocjena, komentar, vrijeme) -> (idOcjene)
 
@@ -42,10 +42,10 @@ retrieveProductCategories() -> (kategorije[idKategorije, naziv])
 
 getAdminTasks() -> (noveKategorije[idKategorije, idKorisnika, nazivKategorije, komentar], noviKorisnici[idKorisnika, ime, prezime], prijave[idPrijave, idVrstePrijave, idKorisnika, komentar, idPrijavljeneStavke, tipPrijave])
 
-createShipmentOffer(idOglasa, idKupca, polaziste, odrediste, vrijeme) -> (idOglasaPrijevoza)
+createShipmentOffer(idOglasa, idKupca, polaziste[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], odrediste[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], vrijeme) -> (idOglasaPrijevoza)
 
 --------
-retrieveShipmentOffers(nazivPolazista, nazivOdredista) -> (oglasi[idOglasaPrijevoza, idOglasa, idKupca, polaziste, odrediste, vrijeme, oglasProizvoda[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa, idPoljoprivrednika]])
+retrieveShipmentOffers(nazivPolazista, nazivOdredista) -> (oglasi[idOglasaPrijevoza, idOglasa, idKupca, polaziste[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], odrediste[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], vrijeme, oglasProizvoda[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa, idPoljoprivrednika]])
 
 deleteShipmentOffer(idOglasaPrijevoza) -> (success)
 
