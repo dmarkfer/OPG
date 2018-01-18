@@ -113,16 +113,16 @@ public class Random {
 
         switch (tmp.length){
             case 1:
-                address = setAddress(tmp[0],null,null,null,null);
+                address = setAddress(null,null,null,null,tmp[0]);
                 break;
             case 2:
-                address = setAddress(tmp[0],tmp[1],null,null,null);
+                address = setAddress(null,null,null,tmp[0],tmp[1]);
                 break;
             case 3:
-                address = setAddress(tmp[0],tmp[1],tmp[2],null,null);
+                address = setAddress(null,null,tmp[0],tmp[1],tmp[2]);
                 break;
             case 4:
-                address = setAddress(tmp[0],tmp[1],tmp[2],tmp[3],null);
+                address = setAddress(null,tmp[0],tmp[1],tmp[2],tmp[3]);
                 break;
             case 5:
                 address = setAddress(tmp[0],tmp[1],tmp[2],tmp[3],tmp[4]);
