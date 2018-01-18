@@ -14,6 +14,7 @@ import com.google.android.gms.location.places.Place;
 import com.opp.fangla.terznica.data.DataRepository;
 import com.opp.fangla.terznica.data.entities.Advert;
 import com.opp.fangla.terznica.data.entities.AdvertShipment;
+import com.opp.fangla.terznica.data.entities.Category;
 import com.opp.fangla.terznica.data.entities.Conversation;
 import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.util.Random;
@@ -89,8 +90,8 @@ public class MainViewModel extends AndroidViewModel {
         return repository.getProductSearchResults(searchTerm);
     }
 
-    public LiveData<MatrixCursor> getProductSearchSuggestions(){
-        return repository.getProductSearchSuggestions();
+    public LiveData<List<Category>> getCategories(){
+        return repository.getCategories();
     }
 
     public Advert getNewAdvert(){
@@ -133,7 +134,8 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void createProduct(final Advert advert){
-        repository.createAdvert(advert).observeForever(new Observer<Integer>() {
+        final LiveData<Integer> liveData = repository.createAdvert(advert);
+        liveData.observeForever(new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer integer) {
                 if(integer != null) {
@@ -141,6 +143,7 @@ public class MainViewModel extends AndroidViewModel {
                     List<Advert> list = vendorAdverts.getValue();
                     list.add(advert);
                     vendorAdverts.postValue(list);
+                    liveData.removeObserver(this);
                 }
             }
         });

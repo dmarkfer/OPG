@@ -44,7 +44,7 @@ public class Random {
 
 
     public static Date setDateFromString (String d) {
-        DateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date;
 
         try {

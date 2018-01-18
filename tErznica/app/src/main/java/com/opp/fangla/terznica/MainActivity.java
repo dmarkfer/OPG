@@ -44,6 +44,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.opp.fangla.terznica.data.entities.Advert;
 import com.opp.fangla.terznica.data.entities.AdvertShipment;
+import com.opp.fangla.terznica.data.entities.Category;
 import com.opp.fangla.terznica.data.entities.Conversation;
 import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.interfaces.BuyerInterface;
@@ -148,11 +149,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showEditAdvert(Advert advert){
+        if(dialog != null) dialog.dismiss();
         dialog = new EditProductDialog(MainActivity.this, R.style.LightDialog, model, advert, false);
         dialog.show();
     }
 
     public void showAdvert(Advert advert, boolean isVendor){
+        if(dialog != null) dialog.dismiss();
         dialog = new ProductDialog(MainActivity.this, R.style.LightDialog, model, advert, isVendor);
         dialog.show();
     }
@@ -273,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
         private Spinner categories;
         private Button left, right;
         private Advert advert;
+        private List<Category> categoryList;
 
         public EditProductDialog(@NonNull Context context, int themeResId, MainViewModel model, Advert advert, boolean isNew) {
             super(context, themeResId);
@@ -300,18 +304,23 @@ public class MainActivity extends AppCompatActivity {
             }
             name.setText(advert.getName());
             description.setText(advert.getDescription());
-            model.getProductSearchSuggestions().observe(MainActivity.this, new Observer<MatrixCursor>() {
+            model.getCategories().observe(MainActivity.this, new Observer<List<Category>>() {
                 @Override
-                public void onChanged(@Nullable MatrixCursor cursor) {
-                    categories.setAdapter(new SimpleCursorAdapter(getContext(), android.R.layout.simple_spinner_item, cursor, new String[] {BuyerInterface.matrixColumns[1]}, new int[] {android.R.id.text1}));
-                    if(cursor.getCount() > 0) {
+                public void onChanged(@Nullable List<Category> categories) {
+                    if(categories != null) {
+                        categoryList = categories;
                         int i = 0;
-                        cursor.moveToFirst();
-                        while (cursor.getInt(0) != advert.getCategoryId() && cursor.moveToNext()) {
-                            cursor.move(1);
-                            i++;
+                        List<String> strings = new ArrayList<>();
+                        for (Category category : categories) {
+                            strings.add(category.getName());
+                            if(category.getId() == advert.getCategoryId()){
+                                i = categories.indexOf(category);
+                            }
                         }
-                        categories.setSelection(i);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, strings);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+                        EditProductDialog.this.categories.setAdapter(adapter);
+                        EditProductDialog.this.categories.setSelection(i);
                     }
                 }
             });
@@ -332,9 +341,7 @@ public class MainActivity extends AppCompatActivity {
             categories.setOnItemSelectedListener(new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    MatrixCursor cursor = (MatrixCursor) ((SimpleCursorAdapter) categories.getAdapter()).getCursor();
-                    cursor.moveToPosition(i);
-                    advert.setCategoryId(cursor.getInt(0));
+                    advert.setCategoryId(categoryList.get(i).getId());
                 }
 
                 @Override
@@ -399,12 +406,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+            setContentView(R.layout.d_product);
             image = findViewById(R.id.d_product_image);
             name = findViewById(R.id.d_product_name);
             description = findViewById(R.id.d_product_description);
             categories = findViewById(R.id.d_product_category);
             price = findViewById(R.id.d_product_price);
             action = findViewById(R.id.d_product_action);
+            action.setVisibility(View.INVISIBLE);
             left = findViewById(R.id.d_product_left);
             right = findViewById(R.id.d_product_right);
 
@@ -415,18 +424,20 @@ public class MainActivity extends AppCompatActivity {
             }
             name.setText(advert.getName());
             description.setText(advert.getDescription());
-            model.getProductSearchSuggestions().observe(MainActivity.this, new Observer<MatrixCursor>() {
+            model.getCategories().observe(MainActivity.this, new Observer<List<Category>>() {
                 @Override
-                public void onChanged(@Nullable MatrixCursor cursor) {
-                    int i = 0;
-                    while(!cursor.isLast() && cursor.getInt(0) != advert.getCategoryId()){
-                        cursor.move(1);
-                        i++;
+                public void onChanged(@Nullable List<Category> categories) {
+                    if(categories != null) {
+                        for(Category category : categories){
+                            if(category.getId() == advert.getCategoryId()){
+                                ProductDialog.this.categories.setText(category.getName());
+                                break;
+                            }
+                        }
                     }
-                    categories.setText(cursor.getString(1));
                 }
             });
-            price.setText(advert.getValue());
+            price.setText(Integer.toString(advert.getValue()));
             left.setText(R.string.back);
             left.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -440,7 +451,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         ((MainActivity) getOwnerActivity()).showEditAdvert(advert);
-                        ProductDialog.this.dismiss();
                     }
                 });
             } else {

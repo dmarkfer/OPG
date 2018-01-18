@@ -16,7 +16,7 @@ import java.util.List;
 public class DataRepository {
 
     private static DataRepository dInstance;
-    private MutableLiveData<MatrixCursor> suggestions = new MutableLiveData<>();
+    private MutableLiveData<List<Category>> categories = new MutableLiveData<>();
 
     public static DataRepository getInstance(){
         if(dInstance == null){
@@ -33,11 +33,11 @@ public class DataRepository {
         return adverts;
     }
 
-    public MutableLiveData<MatrixCursor> getProductSearchSuggestions(){
-        if(suggestions.getValue() == null) {
-            new GetAdvertsSuggestion(suggestions).execute();
+    public MutableLiveData<List<Category>> getCategories(){
+        if(categories.getValue() == null) {
+            new GetCategories(categories).execute();
         }
-        return suggestions;
+        return categories;
     }
 
     public LiveData<List<Advert>> getAdverts() {

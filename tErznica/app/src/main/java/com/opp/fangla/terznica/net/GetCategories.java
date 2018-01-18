@@ -4,7 +4,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.database.MatrixCursor;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ListView;
 
+import com.opp.fangla.terznica.data.entities.Category;
 import com.opp.fangla.terznica.interfaces.BuyerInterface;
 
 import org.json.JSONArray;
@@ -15,21 +17,24 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.opp.fangla.terznica.util.Random.*;
 
 
-public class GetAdvertsSuggestion extends AsyncTask<Void, Void, MatrixCursor> {
+public class GetCategories extends AsyncTask<Void, Void, List<Category>> {
 
-    private MutableLiveData<MatrixCursor> liveData;
+    private MutableLiveData<List<Category>> liveData;
 
-    public GetAdvertsSuggestion(MutableLiveData<MatrixCursor> liveData) {
+    public GetCategories(MutableLiveData<List<Category>> liveData) {
         this.liveData = liveData;
     }
 
     @Override
-    protected MatrixCursor doInBackground(Void... voids) {
-        MatrixCursor result = new MatrixCursor(BuyerInterface.matrixColumns);
+    protected List<Category> doInBackground(Void... voids) {
+        //MatrixCursor result = new MatrixCursor(BuyerInterface.matrixColumns);
+        List<Category> result = new ArrayList<>();
         Socket socket = new Socket();
         try {
             JSONObject json = new JSONObject();
@@ -49,10 +54,14 @@ public class GetAdvertsSuggestion extends AsyncTask<Void, Void, MatrixCursor> {
             JSONObject jsonObject = new JSONObject(response);
             JSONArray array = jsonObject.getJSONArray("kategorije");
             for(int i = 0; i < array.length(); i++){
-                Object[] row = new Object[2];
+                Category cat = new Category();
+                cat.setId(array.getJSONObject(i).getInt("idKategorije"));
+                cat.setName(array.getJSONObject(i).getString("naziv"));
+                result.add(cat);
+                /*Object[] row = new Object[2];
                 row[0] = array.getJSONObject(i).get("idKategorije");
                 row[1] = array.getJSONObject(i).get("naziv");
-                result.addRow(row);
+                result.addRow(row);*/
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -61,7 +70,7 @@ public class GetAdvertsSuggestion extends AsyncTask<Void, Void, MatrixCursor> {
     }
 
     @Override
-    protected void onPostExecute(MatrixCursor cursor) {
-        liveData.postValue(cursor);
+    protected void onPostExecute(List<Category> categoryList) {
+        liveData.postValue(categoryList);
     }
 }

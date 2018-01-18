@@ -26,6 +26,7 @@ import com.opp.fangla.terznica.MainActivity;
 import com.opp.fangla.terznica.MainViewModel;
 import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.data.entities.Advert;
+import com.opp.fangla.terznica.data.entities.Category;
 
 import java.util.List;
 
@@ -120,10 +121,19 @@ public class BuyerInterface extends Fragment {
             }
         });*/
 
-        viewModel.getProductSearchSuggestions().observe(this, new Observer<MatrixCursor>() {
+        viewModel.getCategories().observe(this, new Observer<List<Category>>() {
             @Override
-            public void onChanged(@Nullable MatrixCursor cursor) {
-                searchView.getSuggestionsAdapter().changeCursor(cursor);
+            public void onChanged(@Nullable List<Category> categoryList) {
+                if(categoryList != null) {
+                    MatrixCursor cursor = new MatrixCursor(matrixColumns);
+                    for (Category category : categoryList) {
+                        Object[] row = new Object[2];
+                        row[0] = category.getId();
+                        row[1] = category.getName();
+                        cursor.addRow(row);
+                    }
+                    searchView.getSuggestionsAdapter().swapCursor(cursor);
+                }
             }
         });
 

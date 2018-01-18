@@ -26,6 +26,7 @@ import com.opp.fangla.terznica.MainActivity;
 import com.opp.fangla.terznica.MainViewModel;
 import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.data.entities.AdvertShipment;
+import com.opp.fangla.terznica.data.entities.Category;
 import com.opp.fangla.terznica.data.entities.Conversation;
 import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.messages.ConversationActivity;
@@ -144,12 +145,15 @@ public class DriverInterface extends Fragment{
 
                 name.setText(advert.getAdvert().getName());
                 description.setText(advert.getAdvert().getDescription());
-                model.getProductSearchSuggestions().observe(DriverInterface.this, new Observer<MatrixCursor>() {
+                model.getCategories().observe(DriverInterface.this, new Observer<List<Category>>() {
                     @Override
-                    public void onChanged(@Nullable MatrixCursor cursor) {
-                        if(cursor != null) {
-                            cursor.moveToPosition(i);
-                            category.setText("Kategorija: " + cursor.getString(1));
+                    public void onChanged(@Nullable List<Category> categories) {
+                        if(categories != null) {
+                            for (Category cat : categories){
+                                if(cat.getId() == advert.getAdvert().getCategoryId()){
+                                    category.setText("Kategorija: " + cat.getName());
+                                }
+                            }
                         }
                     }
                 });
