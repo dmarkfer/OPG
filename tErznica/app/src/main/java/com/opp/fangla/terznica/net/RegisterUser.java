@@ -41,7 +41,7 @@ public class RegisterUser extends AsyncTask<JSONObject, Void, LogInCallback> {
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
 
-            Log.d("RegisterUser welcome", c.getText());
+            //Log.d("RegisterUser welcome", c.getText());
             String sResponse = c.getText();
             Log.d("RegisterUser response", sResponse);
 

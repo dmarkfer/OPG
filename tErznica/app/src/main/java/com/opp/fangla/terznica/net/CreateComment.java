@@ -46,7 +46,7 @@ public class CreateComment extends AsyncTask<Comment,Void, String> {
             c.sendText(json.toString());
             Log.d("Create comment args", json.toString());
 
-            Log.d("Server welcome",c.getText());
+            //Log.d("Server welcome",c.getText());
             idReviewMark = c.getText();
             Log.d("Server response",idReviewMark);
             c.close();

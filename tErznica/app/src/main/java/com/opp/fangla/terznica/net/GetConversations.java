@@ -47,7 +47,7 @@ public class GetConversations extends AsyncTask<Integer,Void,List<Conversation>>
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
 
-            Log.d("Server welcome", c.getText());
+            //Log.d("Server welcome", c.getText());
             String sResponse = c.getText();
             Log.d("GetConvos result", sResponse);
 

@@ -49,7 +49,7 @@ public class CreateConversation extends AsyncTask<Conversation,Void,String> {
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
 
-            Log.d("Server welcome", c.getText());
+            //Log.d("Server welcome", c.getText());
             String sResponse = c.getText();
             Log.d("Server response", sResponse);
             c.close();

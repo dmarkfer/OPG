@@ -46,7 +46,7 @@ public class GetMessages extends AsyncTask<Integer,Void,List<Message>> {
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
 
-            Log.d("Server welcome", c.getText());
+            //Log.d("Server welcome", c.getText());
             String sResponse = c.getText();
             Log.d("RetreiveMessages result", sResponse);
 

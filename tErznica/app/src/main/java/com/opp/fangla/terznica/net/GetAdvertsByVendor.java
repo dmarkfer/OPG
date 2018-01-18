@@ -46,7 +46,7 @@ public class GetAdvertsByVendor extends AsyncTask<Integer, Void, List<Advert>> {
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
 
-            Log.d("ProductSearch server",c.getText());
+            //Log.d("ProductSearch server",c.getText());
             String sResponse = c.getText();
             Log.d("Product search results",sResponse);
             c.close();

@@ -40,7 +40,7 @@ public class GetAdvertsSuggestion extends AsyncTask<Void, Void, MatrixCursor> {
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
 
-            Log.d("Prod categ welcome", c.getText());
+            //Log.d("Prod categ welcome", c.getText());
             String response = c.getText();
             Log.d("Prod categ result", response);
             c.close();

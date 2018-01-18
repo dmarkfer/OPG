@@ -55,7 +55,7 @@ public class GetUser extends AsyncTask<String, Void, User> {
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
 
-            Log.d("server welcome" , c.getText());
+            //Log.d("server welcome" , c.getText());
             String sResponse = c.getText();
             Log.d("Server response",sResponse);
             c.close();

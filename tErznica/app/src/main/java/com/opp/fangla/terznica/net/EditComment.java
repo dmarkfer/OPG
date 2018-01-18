@@ -47,7 +47,7 @@ public class EditComment extends AsyncTask <Comment,Void,Boolean> {
             c.sendText(json.toString());
             Log.d("Create comment args", json.toString());
 
-            Log.d("Server welcome", c.getText());
+            //Log.d("Server welcome", c.getText());
             String sResponse = c.getText();
             Log.d("Server response", sResponse);
             c.close();

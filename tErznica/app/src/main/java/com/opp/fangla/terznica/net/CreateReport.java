@@ -47,7 +47,7 @@ public class CreateReport extends AsyncTask<Report,Void,Integer> {
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
 
-            Log.d("Server welcome", c.getText());
+            //Log.d("Server welcome", c.getText());
             String sResponse = c.getText();
             Log.d("Server response", sResponse);
 

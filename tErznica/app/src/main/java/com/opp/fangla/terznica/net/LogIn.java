@@ -41,7 +41,7 @@ public class LogIn extends AsyncTask<String, Void, LogInCallback> {
             CommunicationToServer c = new CommunicationToServer(socket);
             c.sendText(json.toString());
 
-            Log.d("Login server welcome", c.getText());
+            //Log.d("Login server welcome", c.getText());
             String sResponse = c.getText();
             Log.d("Login result", sResponse);
             c.close();

@@ -255,7 +255,7 @@ public class Random {
            CommunicationToServer c = new CommunicationToServer(socket);
            c.sendText(json.toString());
 
-           d("Server welcome", c.getText());
+           //d("Server welcome", c.getText());
            sResponse = c.getText();
            d("Server response", sResponse);
            c.close();

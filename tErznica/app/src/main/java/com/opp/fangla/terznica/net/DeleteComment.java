@@ -41,7 +41,7 @@ public class DeleteComment extends AsyncTask<String,Void,Boolean> {
             c.sendText(json.toString());
 
 
-            Log.d("Server welcome", c.getText());
+            //Log.d("Server welcome", c.getText());
             String sResponse = c.getText();
             Log.d("Delete comment result", sResponse);
             c.close();
