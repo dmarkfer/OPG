@@ -122,7 +122,9 @@ public class MainViewModel extends AndroidViewModel {
         return new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                advert.setValue(Integer.valueOf(charSequence.toString()));
+                if(charSequence.length() > 0) {
+                    advert.setValue(Integer.valueOf(charSequence.toString()));
+                }
             }
         };
     }
@@ -141,5 +143,9 @@ public class MainViewModel extends AndroidViewModel {
 
     public void editProduct(Advert advert){
         repository.editAdvert(advert);
+    }
+
+    public int createConversation(){
+        return repository.createConversation();
     }
 }
