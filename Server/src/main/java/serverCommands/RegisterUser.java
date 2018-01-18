@@ -64,6 +64,10 @@ public class RegisterUser extends AbstractCommand {
 				sql.append("INSERT INTO adresa VALUES(default,");
 				JSONObject adresaJSON = arguments.getJSONObject("poljoprivrednikJSON").getJSONObject("adresaOPG");
 				for(int i = 0; i < columnsAdresa.length; ++i) {
+					if(!adresaJSON.has(columnsAdresa[i])) {
+						sql.append("null,");
+						continue;
+					}
 					sql.append("'" + adresaJSON.get(columnsAdresa[i]) + "',");
 				}
 				sql.deleteCharAt(sql.length()-1);
