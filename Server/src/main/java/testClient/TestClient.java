@@ -215,10 +215,10 @@ public class TestClient {
 		request.put("command", "RETRIEVEPRODUCTOFFERSBYVENDOR");
 		request.put("idOPG", 10); */
 		
-		/* RETRIEVESHIPMENTOFFERS 
+		/* RETRIEVESHIPMENTOFFERS
 		request.put("command", "RETRIEVESHIPMENTOFFERS");
-		request.put("nazivPolazista", "dgs"); 
-		request.put("nazivOdredista", "osijek"); */
+		request.put("nazivPolazista", "st"); 
+		request.put("nazivOdredista", "zg"); */
 		
 		/* RETRIEVEUSERPROFILE 
 		request.put("command", "RETRIEVEUSERPROFILE");
