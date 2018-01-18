@@ -38,7 +38,8 @@ public class SendMessage extends AbstractCommand {
 			returnObject.put("sucess", true);
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
-			returnObject.put("sucess", false);
+			e.printStackTrace();
+			returnObject.put("success", false);
 			environment.sendText(returnObject.toString());
 		}
 

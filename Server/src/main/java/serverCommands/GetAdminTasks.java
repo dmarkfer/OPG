@@ -77,7 +77,8 @@ public class GetAdminTasks extends AbstractCommand {
 				reports.put(report);
 			}
 			
-			returnObject.put("prijave", reports);			
+			returnObject.put("prijave", reports);	
+			returnObject.put("success", true);
 			
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {

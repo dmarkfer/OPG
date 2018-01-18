@@ -50,10 +50,12 @@ public class CreateConversation extends AbstractCommand {
 			ResultSet id = statement.executeQuery("SELECT MAX(id) AS id FROM razgovor;");
 			id.next();
 			returnObject.put("idRazgovora", id.getString("id"));
+			returnObject.put("success", true);
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			environment.sendText("false");
+			returnObject.put("success", false);
+			environment.sendText(returnObject.toString());
 		}
 		
 		return CommandStatus.CONTINUE;	

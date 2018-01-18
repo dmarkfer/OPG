@@ -44,9 +44,12 @@ public class CreateComment extends AbstractCommand {
 			ResultSet id = statement.executeQuery(sql.toString());
 			id.next();
 			returnObject.put("idOcjene", id.getString("id"));
+			returnObject.put("success", true);
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
-			environment.sendText("false");
+			e.printStackTrace();
+			returnObject.put("success", false);
+			environment.sendText(returnObject.toString());
 		}
 		
 		return CommandStatus.CONTINUE;	

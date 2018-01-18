@@ -68,6 +68,7 @@ public class GetConversations extends AbstractCommand {
 			}
 			
 			returnObject.put("razgovori", conversations);
+			returnObject.put("success", true);
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();

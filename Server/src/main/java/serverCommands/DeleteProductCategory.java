@@ -34,6 +34,7 @@ public class DeleteProductCategory extends AbstractCommand {
 			returnObject.put("success", true);
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
+			e.printStackTrace();
 			returnObject.put("success", false);
 			environment.sendText(returnObject.toString());
 		}

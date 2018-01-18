@@ -40,8 +40,10 @@ public class CreateProduct extends AbstractCommand {
 			ResultSet id = statement.executeQuery("SELECT MAX(id) AS id FROM oglas;");
 			id.next();
 			returnObject.put("idOglasa", id.getString("id"));
+			returnObject.put("success", true);
 			environment.sendText(returnObject.toString());			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			returnObject.put("success", false);
 			environment.sendText(returnObject.toString());
 		}

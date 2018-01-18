@@ -194,7 +194,8 @@ public class RetrieveShipmentOffers extends AbstractCommand {
 				}				
 			}		
 			
-			returnObject.put("oglasi", offers);			
+			returnObject.put("oglasi", offers);	
+			returnObject.put("success", true);
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -101,11 +101,12 @@ public class RetrieveUserProfile extends AbstractCommand {
 				}
 				returnObject.put("vozila", vozila);
 			}
-			
+			returnObject.put("success", true);
 			environment.sendText(returnObject.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			environment.sendText("false");
+			returnObject.put("success", false);
+			environment.sendText(returnObject.toString());
 		}
 		return CommandStatus.CONTINUE;
 	}
