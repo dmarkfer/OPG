@@ -1,6 +1,6 @@
 package serverCommands;
 
-import java.util.HashMap;
+import org.json.JSONObject;
 
 import serverShell.AbstractCommand;
 import serverShell.CommandStatus;
@@ -13,7 +13,7 @@ public class Terminate extends AbstractCommand {
 	}
 
 	@Override
-	public CommandStatus execute(Environment environment, HashMap<String, String> arguments) {
+	public CommandStatus execute(Environment environment, JSONObject arguments) {
 		environment.close();
 		return CommandStatus.EXIT;
 	}

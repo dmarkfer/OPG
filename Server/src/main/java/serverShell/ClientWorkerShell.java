@@ -1,6 +1,7 @@
 package serverShell;
 
-import java.util.HashMap;
+
+import org.json.JSONObject;
 
 public class ClientWorkerShell implements Runnable {
 	private EnvironmentImpl environment;
@@ -12,21 +13,18 @@ public class ClientWorkerShell implements Runnable {
 
 	@Override
 	public void run() {
-		environment.sendText("Hi. Write help for list of commands.");
 		ShellCommand command;
 		
 		while(true) {
-			String inputLine=environment.getText().toUpperCase().trim();
-			String inputCommand=getCommand(inputLine);
-			HashMap<String, String> arguments=Parser.parse(inputLine);
+			String inputLine=environment.getText().trim();
 			
-			if (inputLine==null||inputLine.equals("NULL")) {
+			if (inputLine.equals("null")||inputLine.equalsIgnoreCase("fail")) {
 				environment.close();
 				return;
 			}
-			for (String string : arguments.keySet()) {
-				System.out.println(string + " " + arguments.get(string));
-			}
+			
+			JSONObject input=new JSONObject(inputLine);
+			String inputCommand=input.getString("command").toUpperCase();
 			command=environment.getCommand(inputCommand);
 			
 			if (command==null) {
@@ -34,17 +32,9 @@ public class ClientWorkerShell implements Runnable {
 				continue;
 			}
 			
-			if (!command.execute(environment,arguments).toString().equalsIgnoreCase("Continue")) {
+			if (!command.execute(environment,input).toString().equalsIgnoreCase("Continue")) {
 				break;
 			}
 		}
-	}
-
-
-	private String getCommand(String inputLine) {
-		if (inputLine.contains("#")) {
-			return inputLine.substring(0, inputLine.indexOf("#"));
-		}
-		return inputLine;
 	}
 }

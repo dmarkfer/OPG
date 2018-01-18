@@ -1,0 +1,62 @@
+registerUser(ime, prezime, lozinka, email, telefon, poljoprivrednik, kupac, prijevoznik, nazivOPG, OIBOPG, adresaOPG[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], slikaOPG, opisOPG, IBAN, registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila, opisPrijevoza) -> (idKorisnika, idVozila, success)
+
+loginUser(email, lozinka) -> (idKorisnika, uloga, kupac, prijevoznik, poljoprivrednik, success)
+
+deleteUser(idKorisnika) -> (success)
+
+retrieveUserProfile(idKorisnika) -> (ime, prezime, lozinka, email, telefon, poljoprivrednik, kupac, prijevoznik, nazivOPG, OIBOPG, adresaOPG[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], slikaOPG, opisOPG, IBAN, vozila[registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila], opisPrijevoza)
+
+createComment(idOcjenjenog, idOcjenjivaca, ocjena, komentar, vrijeme) -> (idOcjene)
+
+editComment(idOcjene, ocjena, komenatar, vrijeme) -> (success)
+
+deleteComment(idOcjene) -> (success)
+
+createConversation(idPrijevoznikaIliPoljoprivrednika, idKupca, idOglasa, idOglasaPrijevoza) -> (idRazgovora)
+
+sendMessage(idRazgovora, idPosiljatelja, vrijeme, poruka) -> (success)
+
+retrieveMessages(idRazgovora) -> (poruke[idPoruka, idRazgovora, vrijeme, poruka, idPosiljatelja])
+
+createReport(idKorisnika, tipPrijave, idPrijavljeneStavke, idVrstePrijave, komentar) -> (idPrijave)
+
+createProduct(idKorisnika, idKategorijeOglasa, nazivOglasa, slikaOglasa, opisOglasa, cijena, vrijeme) -> (idOglasa)
+
+editProduct(idOglasa, idKategorijeOglasa, nazivOglasa, slikaOglasa, opisOglasa, cijena, vrijeme) -> (success)
+
+deleteProduct(idOglasa) -> (success)
+
+---------------
+retrieveProductOffers(idKategorijeOglasa, naziv, brojTrazenihOglasa) -> (oglasi[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa, idPoljoprivrednika]) 
+
+retrieveProductOffersByVendor(idOPG) -> (oglasi[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa, idPoljoprivrednika]) 
+---------------
+
+createProductCategory(idKorisnika, nazivKategorije, komentar) -> (idKategorije)
+
+deleteProductCategory(idKategorije) -> (success)
+
+confirmProductCategory(idKategorije) -> (success)
+
+retrieveProductCategories() -> (kategorije[idKategorije, naziv])
+
+getAdminTasks() -> (noveKategorije[idKategorije, idKorisnika, nazivKategorije, komentar], noviKorisnici[idKorisnika, ime, prezime], prijave[idPrijave, idVrstePrijave, idKorisnika, komentar, idPrijavljeneStavke, tipPrijave])
+
+createShipmentOffer(idOglasa, idKupca, polaziste[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], odrediste[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], vrijeme) -> (idOglasaPrijevoza)
+
+--------
+retrieveShipmentOffers(nazivPolazista, nazivOdredista) -> (oglasi[idOglasaPrijevoza, idOglasa, idKupca, polaziste[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], odrediste[drzava, grad, postanskiBroj, ulica, brojUlaza, latitude, longitude, idMjesta], vrijeme, oglasProizvoda[idOglasa, nazivOglasa, slikaOglasa, cijena, vrijeme, idKategorije, opisOglasa, idPoljoprivrednika]])
+
+deleteShipmentOffer(idOglasaPrijevoza) -> (success)
+
+createVehicle(idKorisnika, registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila) -> (idVozila)
+
+retrieveVehicles(idKorisnika) -> (vozila[idVozila, registarskaOznaka, idKategorijeVozila, opisVozila, slikaVozila])
+
+deleteVehicle(idVozila) -> (success)
+
+
+getConversations(idKorisnika) -> (razgovori[idRazgovora, idOglasa, idOglasaPrijevoza, sudionik, gotovRazgovor, kolicina, cijena, zadnjaPoruka[idPoruka, idRazgovora, vrijeme, poruka, idPosiljatelja]])
+
+tipPrijave = { 0 = korisnik, 1 = proizvod, 2 = ocjena/komentar} //nije unutar baze, interne vrijednosti
+idVrstePrijave = { 1 = Govor mržnje, 2 = Neprimjeren sadržaj, 3 = Lažni profil, 4 = Nevaljan oglas} //nalazi se u bazi trenutno, tablica vrsta_prijave

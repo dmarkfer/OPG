@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <EditText
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/f_register_vendor_sub_name"
+        android:theme="@style/WelcomeEditText"
+        android:hint="@string/vendor_name"
+        android:textColor="@color/white"
+        android:inputType="textCapWords"/>
+
+    <EditText
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/f_register_vendor_sub_number"
+        android:theme="@style/WelcomeEditText"
+        android:hint="@string/vendor_id"
+        android:textColor="@color/white"
+        android:inputType="number"/>
+
+    <TextView
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/f_register_vendor_sub_address"
+        android:textColor="@color/white"
+        android:text="@string/add_address"
+        android:textSize="@dimen/font_large"
+        android:padding="10dp"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/f_register_vendor_sub_description"
+        android:theme="@style/WelcomeEditText"
+        android:hint="@string/vendor_short_description"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/f_register_vendor_sub_bank_account"
+        android:theme="@style/WelcomeEditText"
+        android:hint="@string/iban"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="@dimen/log_in_width"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="@string/choose_image"
+            android:textSize="@dimen/font_large"
+            android:padding="10dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/f_register_vendor_sub_image"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

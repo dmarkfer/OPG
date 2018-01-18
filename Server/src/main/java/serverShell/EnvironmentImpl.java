@@ -18,6 +18,8 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import org.json.JSONObject;
+
 public class EnvironmentImpl implements Environment {
 	private static final String FAIL="fail";
 	private Socket accessPoint=null;
@@ -131,7 +133,7 @@ public class EnvironmentImpl implements Environment {
 	}
 	
 	private byte[] convertImageToByte(String path) throws IOException {
-		BufferedImage original=ImageIO.read(this.getClass().getResource("/resources/testPic.jpg"));
+		BufferedImage original=ImageIO.read(this.getClass().getResource(path));
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		ImageIO.write(original, "jpg", baos);
