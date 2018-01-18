@@ -141,7 +141,7 @@ public class TestClient {
 		request.put("ime", "Meho");
 		request.put("prezime", "Puzić");
 		request.put("lozinka", "Puzić");
-		request.put("email", "mail@bla.hr");
+		request.put("email", "!emailcina@bla.hr");
 		request.put("telefon", "654746");
 		request.put("poljoprivrednik", 1);
 		request.put("kupac", 1);
@@ -149,7 +149,16 @@ public class TestClient {
 		JSONObject request2 = new JSONObject();
 		request2.put("nazivOPG", "opgg");
 		request2.put("OIBOPG", "45452");
-		request2.put("adresaOPG", "oddpgg");
+		JSONObject requestAdr = new JSONObject();
+		requestAdr.put("drzava","hr");
+		requestAdr.put("grad", "st");
+		requestAdr.put("postanskiBroj", 1990);
+		requestAdr.put("ulica", "maruliceva");
+		requestAdr.put("brojUlaza", 41);
+		requestAdr.put("latitude", 4.4);
+		requestAdr.put("longitude", 4.4);
+		requestAdr.put("idMjesta", "fdfdsfdfdsfdsf");
+		request2.put("adresaOPG", requestAdr);
 		request2.put("slikaOPG", "slki");
 		request2.put("opisOPG", "opsfad");
 		request2.put("IBAN", "456565435");
@@ -168,7 +177,7 @@ public class TestClient {
 		request3.put("slikaVozila", "sliketina");
 		array.put(request3);
 		request.put("vozila", array);
-		request.put("opisPrijevoza", "opisprijevza");  */
+		request.put("opisPrijevoza", "opisprijevza"); */
 		
 	
 		/* RETRIEVEMESSAGES 
@@ -193,7 +202,7 @@ public class TestClient {
 		request.put("nazivPolazista", "dgs"); 
 		request.put("nazivOdredista", "osijek"); */
 		
-		/* RETRIEVEUSERPROFILE	
+		/* RETRIEVEUSERPROFILE 
 		request.put("command", "RETRIEVEUSERPROFILE");
 		request.put("idKorisnika", 5); */
 		

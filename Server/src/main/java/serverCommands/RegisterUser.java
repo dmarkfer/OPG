@@ -19,7 +19,9 @@ public class RegisterUser extends AbstractCommand {
 	
 	String[] columnsOpg = new String[] {"idKorisnika", "nazivOPG", "OIBOPG", "adresaOPG", "slikaOPG", "opisOPG", "IBAN"};
 	
-	String[] columnsPrijevoz = new String[] {"registarskaOznaka", "slikaVozila", "opisVozila", "idKategorijeVozila","idKorisnika"};	
+	String[] columnsPrijevoz = new String[] {"registarskaOznaka", "slikaVozila", "opisVozila", "idKategorijeVozila","idKorisnika"};
+	
+	String[] columnsAdresa = new String[] {"drzava", "grad", "ulica", "postanskiBroj", "idMjesta", "latitude", "longitude", "brojUlaza"};
 
 	public RegisterUser() {
 		super("REGISTERUSER", "Command registers new user.");
@@ -58,6 +60,21 @@ public class RegisterUser extends AbstractCommand {
 			arguments.put("idKorisnika", id.getString("id"));
 			
 			if(arguments.get("poljoprivrednik").equals(1)) {
+				sql = new StringBuilder();
+				sql.append("INSERT INTO adresa VALUES(default,");
+				JSONObject adresaJSON = arguments.getJSONObject("poljoprivrednikJSON").getJSONObject("adresaOPG");
+				for(int i = 0; i < columnsAdresa.length; ++i) {
+					sql.append("'" + adresaJSON.get(columnsAdresa[i]) + "',");
+				}
+				sql.deleteCharAt(sql.length()-1);
+				sql.append(");");
+				
+				statement.executeUpdate(sql.toString());
+				
+				ResultSet idAdrese = statement.executeQuery("SELECT MAX(id) AS id FROM adresa;");
+				idAdrese.next();
+				arguments.getJSONObject("poljoprivrednikJSON").put("adresaOPG", idAdrese.getString("id"));
+								
 				sql = new StringBuilder();
 				sql.append("INSERT INTO poljoprivrednik VALUES(");
 				JSONObject poljoprivrednikJSON = arguments.getJSONObject("poljoprivrednikJSON");
