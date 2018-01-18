@@ -62,7 +62,9 @@
     <string name="make_contact">Kontaktiraj</string>
     <string name="search">Pretraži</string>
     <string name="product_name">Naziv</string>
-    <string name="description">Opis</string>
     <string name="quantity">Količina</string>
     <string name="price">Cijena</string>
+    <string name="write_a_message">Napišite poruku...</string>
+    <string name="visit_profile">Posjeti profil</string>
+    <string name="request_transport">Zatraži prijevoz</string>
 </resources>

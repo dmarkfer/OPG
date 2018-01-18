@@ -31,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.content.Context;
 import android.support.v7.widget.ThemedSpinnerAdapter;
@@ -46,6 +47,7 @@ import com.opp.fangla.terznica.data.entities.AdvertShipment;
 import com.opp.fangla.terznica.interfaces.BuyerInterface;
 import com.opp.fangla.terznica.interfaces.DriverInterface;
 import com.opp.fangla.terznica.interfaces.VendorInterface;
+import com.opp.fangla.terznica.messages.InboxActivity;
 import com.opp.fangla.terznica.util.Random;
 import com.opp.fangla.terznica.welcome.LogInActivity;
 import com.opp.fangla.terznica.welcome.fragments.DriverFragment;
@@ -59,8 +61,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static String[] roleNames = {"buyer", "vendor", "driver", "admin"};
+    public static int IMAGE_SELECTION = 123;
     private MainViewModel model;
     private FloatingActionButton messageFab, auxFab;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         // Setup spinner
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String prefsUsername = preferences.getString("username", "");
-        Log.d("AAAAAAAAAAAAAAA", prefsUsername);
+        //Log.d("AAAAAAAAAAAAAAA", prefsUsername);
         if(prefsUsername.equals("")){
             startActivity(new Intent(getApplicationContext(), LogInActivity.class));
             finish();
@@ -124,8 +128,7 @@ public class MainActivity extends AppCompatActivity {
         messageFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Otvaram razgovor", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(getApplicationContext(), InboxActivity.class));
             }
         });
 
@@ -133,12 +136,22 @@ public class MainActivity extends AppCompatActivity {
         auxFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dialog = new EditProductDialog(MainActivity.this, R.style.LightDialog, model, model.getNewAdvert(), true);
+                dialog.show();
             }
         });
 
     }
 
+    public void showEditAdvert(Advert advert){
+        dialog = new EditProductDialog(MainActivity.this, R.style.LightDialog, model, advert, false);
+        dialog.show();
+    }
+
+    public void showAdvert(Advert advert, boolean isVendor){
+        dialog = new ProductDialog(MainActivity.this, R.style.LightDialog, model, advert, isVendor);
+        dialog.show();
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -188,6 +201,22 @@ public class MainActivity extends AppCompatActivity {
             } else if (resultCode == RESULT_CANCELED) {
                 Log.i("MainActivity", "Autocomplete cancelled");
             }
+        } else if(requestCode == IMAGE_SELECTION){
+            if(resultCode == RESULT_OK){
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    if(dialog instanceof EditProductDialog){
+                        ((EditProductDialog) dialog).setImage(selectedImage);
+                    } else if(dialog instanceof ProductDialog){
+                        ((ProductDialog) dialog).setImage(selectedImage);
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
     }
 
@@ -208,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
             View view;
 
             if (convertView == null) {
-                // Inflate the drop down using the helper's LayoutInflater
                 LayoutInflater inflater = mDropDownHelper.getDropDownViewInflater();
                 view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
             } else {
@@ -252,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+            setContentView(R.layout.d_product_edit);
             image = findViewById(R.id.d_product_edit_image);
             name = findViewById(R.id.d_product_edit_name);
             description = findViewById(R.id.d_product_edit_description);
@@ -260,7 +289,165 @@ public class MainActivity extends AppCompatActivity {
             left = findViewById(R.id.d_product_edit_left);
             right = findViewById(R.id.d_product_edit_right);
 
+            if(advert.getPicture() == null){
+                image.setImageResource(R.mipmap.camera_white);
+            } else {
+                image.setImageBitmap(advert.getPicture());
+            }
+            name.setText(advert.getName());
+            description.setText(advert.getDescription());
+            model.getProductSearchSuggestions().observe(MainActivity.this, new Observer<MatrixCursor>() {
+                @Override
+                public void onChanged(@Nullable MatrixCursor cursor) {
+                    categories.setAdapter(new SimpleCursorAdapter(getContext(), android.R.layout.simple_spinner_item, cursor, new String[] {BuyerInterface.matrixColumns[1]}, new int[] {android.R.id.text1}));
+                    if(cursor.getCount() > 0) {
+                        int i = 0;
+                        cursor.moveToFirst();
+                        while (cursor.getInt(0) != advert.getCategoryId() && cursor.moveToNext()) {
+                            cursor.move(1);
+                            i++;
+                        }
+                        categories.setSelection(i);
+                    }
+                }
+            });
+            categories.setSelection(advert.getCategoryId());
+            price.setText(Integer.toString(advert.getValue()));
 
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                    photoPickerIntent.setType("image/*");
+                    MainActivity.this.startActivityForResult(photoPickerIntent, IMAGE_SELECTION);
+                }
+            });
+            name.addTextChangedListener(model.getAdvertNameWatcher(advert));
+            description.addTextChangedListener(model.getAdvertDescriptionWatcher(advert));
+            price.addTextChangedListener(model.getAdvertPriceWatcher(advert));
+            categories.setOnItemSelectedListener(new OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    MatrixCursor cursor = (MatrixCursor) ((SimpleCursorAdapter) categories.getAdapter()).getCursor();
+                    cursor.moveToPosition(i);
+                    advert.setCategoryId(cursor.getInt(0));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+            left.setText(R.string.back);
+            left.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EditProductDialog.this.dismiss();
+                }
+            });
+            if(isNew){
+                right.setText("Stvori");
+                right.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        model.createProduct(advert);
+                        EditProductDialog.this.dismiss();
+                    }
+                });
+            } else {
+                right.setText("Uredi");
+                right.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        model.editProduct(advert);
+                        EditProductDialog.this.dismiss();
+                    }
+                });
+            }
+        }
+
+        private void setImage(Bitmap image){
+            advert.setPicture(image);
+            this.image.setImageBitmap(image);
+        }
+    }
+
+    private class ProductDialog extends Dialog{
+
+        private MainViewModel model;
+        private boolean isVendor;
+        private ImageView image;
+        private TextView name, description, price, categories;
+        private Button action, left, right;
+        private Advert advert;
+
+        public ProductDialog(@NonNull Context context, int themeResId, MainViewModel model, Advert advert, boolean isVendor) {
+            super(context, themeResId);
+            this.model = model;
+            this.advert = advert;
+            this.isVendor = isVendor;
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            image = findViewById(R.id.d_product_image);
+            name = findViewById(R.id.d_product_name);
+            description = findViewById(R.id.d_product_description);
+            categories = findViewById(R.id.d_product_category);
+            price = findViewById(R.id.d_product_price);
+            action = findViewById(R.id.d_product_action);
+            left = findViewById(R.id.d_product_left);
+            right = findViewById(R.id.d_product_right);
+
+            if(advert.getPicture() == null){
+                image.setImageResource(R.mipmap.camera_white);
+            } else {
+                image.setImageBitmap(advert.getPicture());
+            }
+            name.setText(advert.getName());
+            description.setText(advert.getDescription());
+            model.getProductSearchSuggestions().observe(MainActivity.this, new Observer<MatrixCursor>() {
+                @Override
+                public void onChanged(@Nullable MatrixCursor cursor) {
+                    int i = 0;
+                    while(!cursor.isLast() && cursor.getInt(0) != advert.getCategoryId()){
+                        cursor.move(1);
+                        i++;
+                    }
+                    categories.setText(cursor.getString(1));
+                }
+            });
+            price.setText(advert.getValue());
+            left.setText(R.string.back);
+            left.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ProductDialog.this.dismiss();
+                }
+            });
+            if(isVendor){
+                right.setText("Uredi");
+                right.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ((MainActivity) getOwnerActivity()).showEditAdvert(advert);
+                        ProductDialog.this.dismiss();
+                    }
+                });
+            } else {
+                right.setText("Kontaktiraj");
+                right.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //TODO
+                    }
+                });
+            }
+        }
+
+        private void setImage(Bitmap image){
+            advert.setPicture(image);
         }
     }
 }

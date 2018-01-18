@@ -138,8 +138,8 @@ public class DriverInterface extends Fragment{
                 Button back = dialog.findViewById(R.id.f_shipment_back);
                 Button contact = dialog.findViewById(R.id.f_shipment_accept);
 
-                //name.setText(advert.getAdvert().getName());
-                //description.setText(advert.getAdvert().getDescription());
+                name.setText(advert.getAdvert().getName());
+                description.setText(advert.getAdvert().getDescription());
                 model.getProductSearchSuggestions().observe(DriverInterface.this, new Observer<MatrixCursor>() {
                     @Override
                     public void onChanged(@Nullable MatrixCursor cursor) {

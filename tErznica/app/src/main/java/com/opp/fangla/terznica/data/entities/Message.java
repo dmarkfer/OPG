@@ -1,9 +1,11 @@
 package com.opp.fangla.terznica.data.entities;
 
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
-public class Message {
+public class Message implements Comparable<Message>{
 
     //>sendMessage(idRazgovora, idPosiljatelja, vrijeme, poruka) -> (success)
 
@@ -60,5 +62,10 @@ public class Message {
 
     public void setMessageId(int messageId) {
         this.messageId = messageId;
+    }
+
+    @Override
+    public int compareTo(@NonNull Message message) {
+        return date.compareTo(message.date);
     }
 }

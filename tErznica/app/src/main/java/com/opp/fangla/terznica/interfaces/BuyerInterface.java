@@ -1,6 +1,7 @@
 package com.opp.fangla.terznica.interfaces;
 
 import android.arch.lifecycle.Observer;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -81,7 +82,7 @@ public class BuyerInterface extends Fragment {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                Advert advert = getItem(position);
+                final Advert advert = getItem(position);
                 if(convertView == null){
                     ViewHolder holder = new ViewHolder();
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_product_search, parent);
@@ -96,6 +97,14 @@ public class BuyerInterface extends Fragment {
                 }
                 holder.title.setText(advert.getName());
                 holder.description.setText(advert.getDescription());
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ((MainActivity) getActivity()).showAdvert(advert,
+                                PreferenceManager.getDefaultSharedPreferences(
+                                        getContext()).getInt("userId", -1) == advert.getVendorId());
+                    }
+                });
                 return convertView;
             }
 
@@ -104,13 +113,12 @@ public class BuyerInterface extends Fragment {
                 TextView title, description;
             }
         });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Zamijeniti kad se napravi activity za prikaz proizvoda, ocito
-                Toast.makeText(getContext(), "Otvaram " + ((Advert) adapterView.getItemAtPosition(i)).getName(), Toast.LENGTH_SHORT).show();
+
             }
-        });
+        });*/
 
         viewModel.getProductSearchSuggestions().observe(this, new Observer<MatrixCursor>() {
             @Override

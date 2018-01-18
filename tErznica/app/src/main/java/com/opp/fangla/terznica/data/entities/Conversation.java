@@ -1,6 +1,8 @@
 package com.opp.fangla.terznica.data.entities;
 
-public class Conversation {
+import android.support.annotation.NonNull;
+
+public class Conversation implements Comparable<Conversation> {
 
     //idPrijevoznika, idKupca, idOglasa, idOglasaPrijevoza
 
@@ -78,5 +80,10 @@ public class Conversation {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    @Override
+    public int compareTo(@NonNull Conversation conversation) {
+        return firstMessage.compareTo(conversation.firstMessage);
     }
 }

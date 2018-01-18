@@ -159,9 +159,9 @@ public class DataRepository {
         return liveData;
     }
 
-    public MutableLiveData<List<AdvertShipment>> getShipmentAdverts (String placeName) {
+    public MutableLiveData<List<AdvertShipment>> getShipmentAdverts (String departure, String destination) {
         MutableLiveData<List<AdvertShipment>> liveData = new MutableLiveData<>();
-        new GetShipmentAdverts(liveData).execute(placeName);
+        new GetShipmentAdverts(liveData).execute(departure, destination);
         return liveData;
     }
 
@@ -182,4 +182,18 @@ public class DataRepository {
         new DeleteVehicle(liveData).execute(vehicleId);
         return liveData;
     }
+
+    public MutableLiveData<List<Advert>> getAdvertsByVendor(int vendorId) {
+        MutableLiveData<List<Advert>> liveData = new MutableLiveData<>();
+        new GetAdvertsByVendor(liveData).execute(vendorId);
+        return liveData;
+    }
+
+    public MutableLiveData<List<Conversation>> getConversations(int userId){
+        MutableLiveData<List<Conversation>> liveData = new MutableLiveData<>();
+        new GetConversations(liveData).execute(userId);
+        return liveData;
+
+    }
+
 }

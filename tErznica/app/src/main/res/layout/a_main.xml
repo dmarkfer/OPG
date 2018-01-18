@@ -57,7 +57,7 @@
             android:layout_margin="@dimen/fab_margin"
             app:fabSize="mini"
             app:srcCompat="@mipmap/plus"
-            app:backgroundTint="#ddf"/>
+            app:backgroundTint="@color/paleBlue"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/a_main_fab_messages"

@@ -32,10 +32,8 @@
         <activity
             android:name=".welcome.RegisterActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".messages.ConversationActivity" />
-        <activity
-            android:name=".messages.MessageActivity" />
+        <activity android:name=".messages.InboxActivity" />
+        <activity android:name=".messages.ConversationActivity" />
     </application>
 
 </manifest>

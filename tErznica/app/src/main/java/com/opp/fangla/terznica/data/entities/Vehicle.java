@@ -74,7 +74,7 @@ public class Vehicle {
                 result.put("registarskaOznaka", vehicle.registration);
             }
             if(vehicle.category != null){
-                result.put("idKategorijaVozila", vehicle.category);
+                result.put("idKategorijeVozila", vehicle.category);
             }
             if(vehicle.model != null){
                 result.put("opisVozila", vehicle.model);

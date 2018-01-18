@@ -47,9 +47,7 @@
         <item name="android:windowFullscreen">false</item>
     </style>
 
-    <style name="LightDialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:width"></item>
-    </style>
+    <style name="LightDialog" parent="Theme.AppCompat.Light.Dialog"/>
 
 </resources>
 <!--

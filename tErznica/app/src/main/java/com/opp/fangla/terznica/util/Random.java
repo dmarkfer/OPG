@@ -248,4 +248,9 @@ public class Random {
         DateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.ENGLISH);
         return format.format(date);
     }
+
+    public static String dateToNormalString(Date date){
+        DateFormat format = new SimpleDateFormat("dd. MM. YYYY. HH:mm", Locale.ENGLISH);
+        return format.format(date);
+    }
 }

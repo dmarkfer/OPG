@@ -34,7 +34,7 @@ public class RegisterUser extends AsyncTask<JSONObject, Void, LogInCallback> {
         Socket socket = new Socket();
         try {
             JSONObject json = jsonObjects[0];
-            json.put("command", "RegisterUser args");
+            json.put("command", "RegisterUser");
 
 
             socket.connect(new InetSocketAddress(InetAddress.getByName(HOSTNAME), PORT));

@@ -33,11 +33,12 @@ public class GetShipmentAdverts extends AsyncTask<String,Void,List<AdvertShipmen
     protected List<AdvertShipment> doInBackground(String... strings) {
        // retrieveShipmentOffers(nazivMjesta) ->
        // (oglasi[idOglasaPrijevoza, idOglasa, idKupca, polaziste, odrediste, vrijeme])
-        String[] commands = new String[] {"retrieveShipmentOffers","retrieveShipmentOffers"};
-        String[] values = new String[1];
+        String[] commands = new String[] {"retrieveShipmentOffers","nazivPolazista","nazivOdredista"};
+        String[] values = new String[2];
         List<AdvertShipment> list = new ArrayList<>();
 
         values[0] = strings[0];
+        values[1] = strings[1];
 
         String sResponse = sendMessageToServer(commands,values,"retrieveShipOffArgs");
 
