@@ -44,9 +44,12 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.opp.fangla.terznica.data.entities.Advert;
 import com.opp.fangla.terznica.data.entities.AdvertShipment;
+import com.opp.fangla.terznica.data.entities.Conversation;
+import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.interfaces.BuyerInterface;
 import com.opp.fangla.terznica.interfaces.DriverInterface;
 import com.opp.fangla.terznica.interfaces.VendorInterface;
+import com.opp.fangla.terznica.messages.ConversationActivity;
 import com.opp.fangla.terznica.messages.InboxActivity;
 import com.opp.fangla.terznica.util.Random;
 import com.opp.fangla.terznica.welcome.LogInActivity;
@@ -440,7 +443,34 @@ public class MainActivity extends AppCompatActivity {
                 right.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO
+                        final Conversation conversation = new Conversation();
+                        conversation.setIdDriver(advert.getCreatorId());
+                        conversation.setIdBuyer(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("userId", -1));
+                        if(conversation.getIdBuyer() != -1){
+                            conversation.setIdAdvert(advert.getAdvertId());
+                            model.createConversation(conversation).observe(MainActivity.this, new Observer<String>() {
+                                @Override
+                                public void onChanged(@Nullable String s) {
+                                    if (s != null){
+                                        conversation.setIdConversation(Integer.valueOf(s));
+                                        model.getUser(advert.getCreatorId()).observe(MainActivity.this, new Observer<User>() {
+                                            @Override
+                                            public void onChanged(@Nullable User user) {
+                                                Intent intent = new Intent(getApplicationContext(), ConversationActivity.class);
+                                                Bundle bundle = new Bundle();
+                                                bundle.putLong("conversationId", conversation.getIdConversation());
+                                                bundle.putInt("otherId", conversation.getIdDriver());
+                                                bundle.putString("otherUsername", user.getMail());
+                                                bundle.putLong("advertId", conversation.getIdAdvert());
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+
+                        }
                     }
                 });
             }

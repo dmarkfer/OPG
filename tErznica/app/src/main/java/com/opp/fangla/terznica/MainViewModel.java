@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.database.MatrixCursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,8 @@ import com.google.android.gms.location.places.Place;
 import com.opp.fangla.terznica.data.DataRepository;
 import com.opp.fangla.terznica.data.entities.Advert;
 import com.opp.fangla.terznica.data.entities.AdvertShipment;
+import com.opp.fangla.terznica.data.entities.Conversation;
+import com.opp.fangla.terznica.data.entities.User;
 import com.opp.fangla.terznica.util.Random;
 import com.opp.fangla.terznica.util.SimpleTextWatcher;
 
@@ -145,7 +148,11 @@ public class MainViewModel extends AndroidViewModel {
         repository.editAdvert(advert);
     }
 
-    public int createConversation(){
-        return repository.createConversation();
+    public LiveData<String> createConversation(Conversation conversation){
+        return repository.createConversation(conversation);
+    }
+
+    public LiveData<User> getUser(int id){
+        return repository.getUser(Integer.toString(id));
     }
 }

@@ -25,12 +25,12 @@ import android.widget.TextView;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.opp.fangla.terznica.ProfileActivity;
 import com.opp.fangla.terznica.R;
 import com.opp.fangla.terznica.data.entities.Advert;
-import com.opp.fangla.terznica.data.entities.Conversation;
+import com.opp.fangla.terznica.data.entities.AdvertShipment;
 import com.opp.fangla.terznica.data.entities.Message;
 import com.opp.fangla.terznica.util.Random;
-import com.opp.fangla.terznica.welcome.LogInActivity;
 
 import java.util.Collections;
 import java.util.List;
@@ -116,7 +116,11 @@ public class ConversationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.conversation_menu_profile:
-                //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("profileId", model.getOtherId());
+                intent.putExtras(bundle);
+                startActivity(intent);
                 return true;
             case R.id.conversation_menu_request:
                 model.prepareShipmentInfo();
@@ -187,6 +191,29 @@ public class ConversationActivity extends AppCompatActivity {
                     } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                         e.printStackTrace();
                     }
+                }
+            });
+            back.setText(R.string.back);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    NewShipmentOffer.this.dismiss();
+                }
+            });
+            ok.setText("ok");
+            ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final AdvertShipment advertShipment = model.getAdvertShipment();
+                    model.getAdvertMutableLiveData().observe(ConversationActivity.this, new Observer<Advert>() {
+                        @Override
+                        public void onChanged(@Nullable Advert advert) {
+                            if(advert != null){
+                                advertShipment.setAdvertId(advert.getAdvertId());
+                                //TODO advertShipment.set
+                            }
+                        }
+                    });
                 }
             });
         }
