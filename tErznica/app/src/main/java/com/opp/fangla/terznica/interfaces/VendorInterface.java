@@ -72,7 +72,7 @@ public class VendorInterface extends Fragment {
             final Advert advert = getItem(position);
 
             if(convertView == null){
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_product_vendor, parent);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_product_vendor, parent, false);
                 ViewHolder holder = new ViewHolder();
                 holder.img = convertView.findViewById(R.id.row_product_vendor_img);
                 holder.name = convertView.findViewById(R.id.row_product_vendor_name);

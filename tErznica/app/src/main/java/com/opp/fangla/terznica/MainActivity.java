@@ -59,6 +59,7 @@ import com.opp.fangla.terznica.welcome.fragments.VendorSubFragment;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -353,8 +354,12 @@ public class MainActivity extends AppCompatActivity {
                 right.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        model.createProduct(advert);
-                        EditProductDialog.this.dismiss();
+                        advert.setDate(new Date());
+                        advert.setCreatorId(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("userId", -1));
+                        if(advert.getCreatorId() != -1) {
+                            model.createProduct(advert);
+                            EditProductDialog.this.dismiss();
+                        }
                     }
                 });
             } else {

@@ -4,6 +4,7 @@ package com.opp.fangla.terznica.util;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Base64;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
@@ -14,6 +15,7 @@ import com.opp.fangla.terznica.net.CommunicationToServer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -267,12 +269,19 @@ public class Random {
     }
 
     public static String dateToString(Date date){
-        DateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
         return format.format(date);
     }
 
     public static String dateToNormalString(Date date){
-        DateFormat format = new SimpleDateFormat("dd. MM. YYYY. HH:mm", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("dd. MM. yyyy. HH:mm", Locale.ENGLISH);
         return format.format(date);
+    }
+
+    public static String bitmapToString(Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] array = stream.toByteArray();
+        return Base64.encodeToString(array, Base64.DEFAULT);
     }
 }

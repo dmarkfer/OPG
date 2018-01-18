@@ -26,16 +26,16 @@ public class CreateAdvert extends AsyncTask<Advert,Void,Integer> {
         //createProduct(idKorisnika, idKategorijeOglasa, nazivOglasa,
 //        slikaOglasa, opisOglasa, cijena, vrijeme) -> (idOglasa)
 
-        String[] commands = new String[]{"command","idKorisnika","idKategorijeOglasa","nazivOglasa",
+        String[] commands = new String[]{"createProduct","idKorisnika","idKategorijeOglasa","nazivOglasa",
                 "slikaOglasa","opisOglasa","cijena","vrijeme"};
         String[] values = new String[7];
         values[0] = String.valueOf(advert.getCreatorId());
         values[1] =String.valueOf(advert.getCategoryId());
         values[2] =advert.getName();
-        values[3] =advert.getPicture().toString();
+        values[3] =Random.bitmapToString(advert.getPicture());
         values[4] =advert.getDescription();
         values[5] =String.valueOf(advert.getValue());
-        values[6] =advert.getDate().toString();
+        values[6] =Random.dateToString(advert.getDate());
 
         String sResponse = Random.sendMessageToServer(commands,values,"createProduct args");
 

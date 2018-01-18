@@ -136,10 +136,12 @@ public class MainViewModel extends AndroidViewModel {
         repository.createAdvert(advert).observeForever(new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer integer) {
-                advert.setId(integer);
-                List<Advert> list = vendorAdverts.getValue();
-                list.add(advert);
-                vendorAdverts.postValue(list);
+                if(integer != null) {
+                    advert.setId(integer);
+                    List<Advert> list = vendorAdverts.getValue();
+                    list.add(advert);
+                    vendorAdverts.postValue(list);
+                }
             }
         });
     }
